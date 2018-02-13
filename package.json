@@ -1,0 +1,8 @@
+{
+  "name": "malan.wedding",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/cilliemalan/malan.wedding",
+  "author": "Cillié Malan <cilliemalan@gmail.com>",
+  "license": "MIT"
+}
