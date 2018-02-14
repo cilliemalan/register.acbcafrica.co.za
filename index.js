@@ -1,10 +1,16 @@
+// dependencies
+const path = require('path');
+const { execSync } = require('child_process');
+const output = execSync('yarn');
+console.log(output.toString());
+
+
+// module requires
 const express = require('express');
 const winston = require('winston');
-const yarn = require('yarn');
 
+// local requires
 const webhooks = require('./webhooks');
-
-const app = express();
 
 // env
 const port = process.env.PORT || 3000;
@@ -20,6 +26,9 @@ winston.info(`loglevel: ${loglevel}`);
 winston.info('port: %s', port);
 winston.info('github hook secret: %s', !!ghsecret);
 
+
+// express app
+const app = express();
 
 
 // set up pipeline
