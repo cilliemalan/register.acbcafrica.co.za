@@ -2,12 +2,24 @@ const express = require('express');
 const crypto = require('crypto');
 const bodyParser = require('body-parser');
 const winston = require('winston');
+const { exec } = require('child_process');
 
 function processEvent(event, payload) {
     switch (event) {
         case 'ping':
             winston.info('received ping from hook ID %s', payload.hook_id);
             break;
+        case 'push':
+            winston.info('received push event, running git pull.');
+            exec('git pull', (error, stdout, stderr) => {
+                console.log(stdout);
+                console.error(stderr);
+                if(error) {
+                    winston.error('failed to pull: %s', error);
+                } else {
+                    winston.info('pull succeeded');
+                }
+            });
         default:
             winston.info('not processing unsupported event');
     }
