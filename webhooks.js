@@ -19,6 +19,8 @@ function processEvent(event, payload) {
                 } else {
                     winston.info('pull succeeded');
                 }
+                winston.info('restarting...');
+                process.exit(0);
             });
         default:
             winston.info('not processing unsupported event: %s', event);
