@@ -53,6 +53,9 @@ const webhooks = (secret) => {
             const parsed = JSON.parse(req.toString("utf-8"));
 
             processEvent(event, parsed);
+
+            res.status(200);
+            res.end();
         }
     })
 
