@@ -21,7 +21,7 @@ function processEvent(event, payload) {
                 }
             });
         default:
-            winston.info('not processing unsupported event');
+            winston.info('not processing unsupported event: %s', event);
     }
 }
 
