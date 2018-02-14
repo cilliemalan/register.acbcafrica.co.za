@@ -6,6 +6,7 @@
   "author": "Cillié Malan <cilliemalan@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.16.2"
   }
 }
