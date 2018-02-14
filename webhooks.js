@@ -14,7 +14,7 @@ function processEvent(event, payload) {
             exec('git pull', (error, stdout, stderr) => {
                 console.log(stdout);
                 console.error(stderr);
-                if(error) {
+                if (error) {
                     winston.error('failed to pull: %s', error);
                 } else {
                     winston.info('pull succeeded');
