@@ -13,6 +13,15 @@
             background: #888;
         }
 
+        @keyframes fadein {
+            0% {
+                opacity: 0.01;
+            }
+            to {
+                opacity: 1.0;
+            }
+        }
+
         #save_the_date {
             width: 100%;
             max-width: 800px;
@@ -21,6 +30,7 @@
             margin: 20px auto;
             display: block;
             background: white;
+            animation: fadein 2s;
         }
     </style>
 </head>
