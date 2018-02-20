@@ -8,10 +8,14 @@ console.log(output.toString());
 // module requires
 const express = require('express');
 const winston = require('winston');
+const webpack = require('webpack');
+const webpackMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
 
 // local requires
 const webhooks = require('./webhooks');
 const api = require('./api');
+const webpackconfig = require('./webpack.config');
 
 // env
 const port = process.env.PORT || 3000;
@@ -33,7 +37,32 @@ const app = express();
 
 
 // set up pipeline
+// API
 app.use('/api', api);
-app.use(express.static('public'));
+
+// webhooks
 app.use('/webhooks', webhooks(ghsecret));
+
+// static files
+app.use(express.static('public'));
+
+// webpack
+const webpackCompiler = webpack(webpackconfig);
+const wpmw = webpackMiddleware(webpackCompiler, {});
+const wphmw = webpackHotMiddleware(webpackCompiler);
+app.use(wpmw);
+app.use(wphmw);
+
+// SPA
+app.use((req, res) => {
+    const indexFile = `${webpackconfig.output.path}/index.html`;
+    const index = webpackCompiler.outputFileSystem.readFileSync(indexFile);
+    res.contentType('text/html');
+    res.end(index);
+});
+
+
+
+
+// Listen
 app.listen(port, () => winston.info(`Listening on port ${port}!`));
