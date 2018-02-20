@@ -1,2 +1,2 @@
 # malan.wedding
-The https://malan.wedding website
+The https://register.acbcafrica.co.za website

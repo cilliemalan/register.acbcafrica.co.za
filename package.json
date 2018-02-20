@@ -1,8 +1,8 @@
 {
-  "name": "malan.wedding",
+  "name": "register.acbcafrica.co.za",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/cilliemalan/malan.wedding",
+  "repository": "https://github.com/cilliemalan/register.acbcafrica.co.za",
   "author": "Cillié Malan <cilliemalan@gmail.com>",
   "license": "MIT",
   "dependencies": {
