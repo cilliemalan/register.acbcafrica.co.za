@@ -19,8 +19,11 @@ function processEvent(event, payload) {
                 } else {
                     winston.info('pull succeeded');
                 }
-                winston.info('restarting...');
-                process.exit(0);
+                winston.info('restarting in 5 seconds...');
+                setTimeout(() => {
+                    winston.info('restarting now.');
+                    process.exit(0);
+                }, 5000);
             });
         default:
             winston.info('not processing unsupported event: %s', event);
