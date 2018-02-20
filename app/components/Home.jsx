@@ -5,7 +5,7 @@ export class Home extends React.Component {
         return (
             <div>
                 <h1>Home</h1>
-                <p className="placeholder">This is the home page .</p>
+                <p className="placeholder">This is the home page.</p>
             </div>
         );
     }
