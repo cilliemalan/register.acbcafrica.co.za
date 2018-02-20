@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class List extends React.Component {
+export class Home extends React.Component {
     render() {
         return (
             <div>
