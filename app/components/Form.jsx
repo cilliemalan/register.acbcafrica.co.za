@@ -14,7 +14,9 @@ export class Form extends React.Component {
     }
 
     render() {
-
-        return <div>Forms</div>;
+        return <div className="form">
+            <img className="headerImage" src={this.form.image} alt={this.form.title} />
+            <h1>{this.form.title}</h1>
+        </div>;
     }
 }
