@@ -41,12 +41,21 @@ const app = express();
 
 // Authentication
 app.use(session({
-    secret: config.clientSecret, 
-    resave: false, 
+    secret: config.clientSecret,
+    resave: false,
     saveUninitialized: true,
     store: new RedisStore(),
 }));
 app.use(auth());
+app.use((req, res, next) => {
+    if (req.user) {
+        res.cookie('user', JSON.stringify({
+            name: req.user.displayName,
+            picture: req.user.picture
+        }));
+    }
+    next();
+});
 
 // API
 app.use('/api', api());
