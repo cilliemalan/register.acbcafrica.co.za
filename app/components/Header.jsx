@@ -10,7 +10,7 @@ export const Header = (props) => {
             <img src={logoUrl} alt="ACBC Africa Registration Home" title="ACBC Africa Registration Home" />
             <span>ACBC Africa Registration</span>
         </Link>
-        <div class="profile">
+        <div className="profile">
             {!loggedIn
                 ? <div>
                     Not Signed in.&nbsp;<a href="/auth/login">Sign in</a>&nbsp;or&nbsp;<a href="/auth/login">register</a>.
