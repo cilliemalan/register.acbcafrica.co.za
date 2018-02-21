@@ -50,17 +50,27 @@ module.exports = () => {
         scope: 'openid email profile'
     };
     const loginFallback = (req, res) => res.redirect('/');
+    const saveReturnUri = (req, res, next) => {
+        const returnTo = req.query.returnTo;
+        if (returnTo && /^\/[a-zA-Z0-9-\/]+$/.test(returnTo)) {
+            req.session.returnTo = returnTo;
+        }
+        next();
+    };
     router.get('/auth/login',
+        saveReturnUri,
         passport.authenticate('auth0', connectionOptions),
-        loginFallback 
+        loginFallback
     );
     router.get('/auth/login/facebook',
-        passport.authenticate('auth0', Object.assign({connection: 'facebook'}, connectionOptions)),
-        loginFallback 
+        saveReturnUri,
+        passport.authenticate('auth0', Object.assign({ connection: 'facebook' }, connectionOptions)),
+        loginFallback
     );
     router.get('/auth/login/google',
-    passport.authenticate('auth0', Object.assign({connection: 'google-oauth2'}, connectionOptions)),
-        loginFallback 
+        saveReturnUri,
+        passport.authenticate('auth0', Object.assign({ connection: 'google-oauth2' }, connectionOptions)),
+        loginFallback
     );
 
     // Perform session logout and redirect to homepage
@@ -76,7 +86,9 @@ module.exports = () => {
             failureRedirect: '/'
         }),
         function (req, res) {
-            res.redirect(req.session.returnTo || '/');
+            const returnTo = req.session.returnTo || '/';
+            delete req.session.returnTo;
+            res.redirect(returnTo);
         }
     );
 

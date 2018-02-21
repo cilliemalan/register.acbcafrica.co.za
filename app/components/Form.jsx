@@ -18,7 +18,8 @@ export class Form extends React.Component {
     }
 
     render() {
-        const dontRoute = e => window.location = e.target.href;
+        const returnUrlPart = `?returnTo=${encodeURIComponent(window.location.pathname)}`;
+        const loginUrl = (provider) => `/auth/login/${provider}${returnUrlPart}`;
 
         return <div className="form">
             <img className="headerImage" src={this.form.image} alt={this.form.title} />
@@ -36,19 +37,19 @@ export class Form extends React.Component {
                         <h2>Choose Sign in method:</h2>
                         <ul class="signInMethods">
                             <li>
-                                <a href="/auth/login/facebook" onClick={dontRoute}>
+                                <a href={loginUrl('facebook')}>
                                     <img src={facebook_logo} alt="Facebook login" />
                                     <div>Sign in using Facebook</div>
                                 </a>
                             </li>
                             <li>
-                                <a href="/auth/login/google" onClick={dontRoute}>
+                                <a href={loginUrl('google')}>
                                     <img src={google_logo} alt="Google login" />
                                     <div>Sign in using Google</div>
                                 </a>
                             </li>
                             <li>
-                                <a href="/auth/login" onClick={dontRoute}>
+                                <a href={loginUrl()}>
                                     <img src={padlock_image} alt="Google login" />
                                     <div>Email & Password</div>
                                 </a>
@@ -62,7 +63,7 @@ export class Form extends React.Component {
                         </p>
                         <ul class="signInMethods">
                             <li>
-                                <a href="/auth/login" onClick={dontRoute}>
+                                <a href={loginUrl()}>
                                     <img src={padlock_image} alt="Google login" />
                                     <div>Register Email & Password</div>
                                 </a>
