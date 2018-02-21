@@ -53,9 +53,11 @@ app.use((req, res, next) => {
             name: req.user.displayName,
             picture: req.user.picture
         }));
+    } else {
+        res.cookie('user', JSON.stringify(null));
     }
     next();
-});
+    });
 
 // API
 app.use('/api', api());
