@@ -7,81 +7,119 @@ body {
     font-size: 1.1rem;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
+}
 
-    #react-app {
-        nav {
-            background: #282a2b;
+a {
+    color: black;
+    text-decoration: underline;
+
+    &:visited,&:active {
+        color: black;
+        text-decoration: underline;
+    }
+
+    &:hover {
+        color: #666;
+    }
+}
+
+#react-app {
+    nav {
+        background: #282a2b;
+        height: 90px;
+        padding:10px;
+
+        .navlogo {
             height: 90px;
-            padding:10px;
+            display: flex;
+            color: white;
+            text-decoration: none;
+            font-size: 30px;
 
-            .navlogo {
-                height: 90px;
-                display: flex;
+            &:hover,&:visited {
                 color: white;
                 text-decoration: none;
-                font-size: 30px;
-
-                &:hover,&:visited {
-                    color: white;
-                    text-decoration: none;
-                }
-
-                img {
-                    width: 90px;
-                    height: 90px;
-                }
-
-                span {
-                    padding-left: 10px;
-                    height: 90px;
-                    line-height: 90px;
-                }
             }
 
+            img {
+                width: 90px;
+                height: 90px;
+            }
+
+            span {
+                padding-left: 10px;
+                height: 90px;
+                line-height: 90px;
+            }
         }
 
-        .aboveFooter {
-            height: 60px;
-            background: #0d2847;
-            border-top: 12px solid #e9eaee;
-        }
+    }
 
-        .footer {
-            height: 100px;
-            background: #282a2b;
-            border-top: 1px solid #4b4c4d;
+    .aboveFooter {
+        height: 60px;
+        background: #0d2847;
+        border-top: 12px solid #e9eaee;
+    }
 
-            div {
-                line-height: 100px;
+    .footer {
+        height: 100px;
+        background: #282a2b;
+        border-top: 1px solid #4b4c4d;
+
+        div {
+            line-height: 100px;
+            color: #ccc;
+            font-size:12px;
+            padding: 0 10px;
+            overflow: hidden;
+
+            a {
                 color: #ccc;
-                font-size:12px;
-                padding: 0 10px;
-                overflow: hidden;
+                text-decoration: none;
+                margin: 0 10px;
+            }
 
-                a {
-                    color: #ccc;
-                    text-decoration: none;
-                    margin: 0 10px;
-                }
+            .copyright {
+                float: left;
+            }
 
-                .copyright {
-                    float: left;
-                }
-
-                .terms {
-                    float: right;
-                }
+            .terms {
+                float: right;
             }
         }
+    }
 
-        #mainContent {
-            background: white;
-            min-width: 320px;
-            max-width: 1100px;
-            min-height: 900px;
-            padding: 20px;
-            margin: 0 auto;
-            box-shadow: 0 0 100px rgba(0,0,0,0.1);
-        }
+    #mainContent {
+        background: white;
+        min-width: 320px;
+        max-width: 1100px;
+        min-height: 900px;
+        padding: 20px;
+        margin: 0 auto;
+        box-shadow: 0 0 100px rgba(0,0,0,0.1);
+    }
+}
+
+
+
+
+#notfound {
+    text-align: center;
+    
+    h1 {
+        color: #aaa;
+        font-size: 6em;
+    }
+
+    p {
+        font-style: italic;
+        font-size: 16px;
+        margin-bottom: 60px;
+    }
+
+    a {
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 20px;
     }
 }
