@@ -11,6 +11,7 @@ const winston = require('winston');
 const webpack = require('webpack');
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
+const session = require('express-session');
 
 // local requires
 const webhooks = require('./webhooks');
@@ -38,6 +39,7 @@ const app = express();
 // set up pipeline
 
 // Authentication
+app.use(session({ secret: config.clientSecret, resave: true, saveUninitialized: true }));
 app.use(auth());
 
 // API
