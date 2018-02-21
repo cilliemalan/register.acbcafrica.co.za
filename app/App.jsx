@@ -6,6 +6,10 @@ import { Footer } from './components/Footer';
 import { TermsAndConditions } from './components/TermsAndConditions';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { NotFound } from './components/NotFound';
+import { Form } from './components/Form';
+import forms from './forms';
+
+const formRoutes = Object.keys(forms);
 
 export function App(props) {
     return <BrowserRouter>
@@ -14,8 +18,9 @@ export function App(props) {
             <div id="mainContent">
                 <Switch>
                     <Route exact path="/" render={Home} />
-                    <Route exact path="/terms-and-conditions/" render={TermsAndConditions} />
-                    <Route exact path="/privacy-policy/" render={PrivacyPolicy} />
+                    <Route exact path="/terms-and-conditions" render={TermsAndConditions} />
+                    <Route exact path="/privacy-policy" render={PrivacyPolicy} />
+                    <Route path="/register/:id" component={Form} />
                     <Route component={NotFound} />
                 </Switch>
             </div>

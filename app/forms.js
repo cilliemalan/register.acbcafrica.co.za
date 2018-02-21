@@ -1,7 +1,7 @@
-import yfgw_pretoria from '../content/yfgw-pretoria-button.jpg'
-import yfgw_capetown from '../content/yfgw-capetown-button.jpg';
-import mgw_button from '../content/mgw-button.jpg';
-import fgw_button from '../content/fgw-button.jpg';
+import yfgw_pretoria from './content/yfgw-pretoria-button.jpg'
+import yfgw_capetown from './content/yfgw-capetown-button.jpg';
+import mgw_button from './content/mgw-button.jpg';
+import fgw_button from './content/fgw-button.jpg';
 
 module.exports = {
     'yfgw-pretoria': {

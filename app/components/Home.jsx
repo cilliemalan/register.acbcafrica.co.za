@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import forms from './forms';
+import forms from '../forms';
 
 export const Home = (props) => {
 
@@ -15,7 +15,7 @@ export const Home = (props) => {
             {
                 sortedForms.map(k =>
                     <li key={k}>
-                        <Link to={`/${k}`}>
+                        <Link to={`/register/${k}`}>
                             <img src={forms[k].image} alt={forms[k].title} />
                         </Link>
                     </li>)
