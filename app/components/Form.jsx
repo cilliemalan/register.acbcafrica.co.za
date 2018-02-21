@@ -34,7 +34,7 @@ export class Form extends React.Component {
                     </div>
                     : <div>
                         <p>Before we can continue with your registration, please verify your identity by signing in.</p>
-                        <p>Once you are signed in you will be able to register yourself or others, and manage past registrations.</p>
+                        <p>Once you are signed in you will be able to register yourself <strong>or others</strong>, and manage past registrations.</p>
                         <h2>Choose Sign in method:</h2>
                         <ul class="signInMethods">
                             <li>
