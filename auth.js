@@ -21,6 +21,7 @@ const strategy = new Auth0Strategy(
 );
 
 
+
 module.exports = () => {
 
     passport.use(strategy);
@@ -40,18 +41,26 @@ module.exports = () => {
     router.use(passport.session());
 
     // Perform the login
+    const connectionOptions = {
+        clientID: config.clientId,
+        domain: config.oAuthDomain,
+        redirectUri: `${config.root}auth/callback`,
+        audience: `${config.issuer}userinfo`,
+        responseType: 'code',
+        scope: 'openid email profile'
+    };
+    const loginFallback = (req, res) => res.redirect('/');
     router.get('/auth/login',
-        passport.authenticate('auth0', {
-            clientID: config.clientId,
-            domain: config.oAuthDomain,
-            redirectUri: `${config.root}auth/callback`,
-            audience: `${config.issuer}userinfo`,
-            responseType: 'code',
-            scope: 'openid profile'
-        }),
-        function (req, res) {
-            res.redirect('/');
-        }
+        passport.authenticate('auth0', connectionOptions),
+        loginFallback 
+    );
+    router.get('/auth/login/facebook',
+        passport.authenticate('auth0', Object.assign({connection: 'facebook'}, connectionOptions)),
+        loginFallback 
+    );
+    router.get('/auth/login/google',
+    passport.authenticate('auth0', Object.assign({connection: 'google-oauth2'}, connectionOptions)),
+        loginFallback 
     );
 
     // Perform session logout and redirect to homepage
