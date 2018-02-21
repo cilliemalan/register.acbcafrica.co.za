@@ -2,9 +2,9 @@ import React from 'react';
 
 export const PrivacyPolicy = () =>
     <div>
-        <div>Privacy Policy</div>
+        <h1>Privacy Policy</h1>
         <div>
-            <div style="clear:both;height:10px;"></div>
+            <div></div>
             <div>
                 This privacy policy has been compiled to better serve those who are concerned with how their 'Personally Identifiable
                 Information' (PII) is being used online. PII, as described in US privacy law and information security, is
