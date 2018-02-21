@@ -23,6 +23,7 @@ export class Form extends React.Component {
 
         return <div className="form">
             <img className="headerImage" src={this.form.image} alt={this.form.title} />
+            <Link to="/">&lt;&lt;&nbsp;Go&nbsp;Back</Link>
             <h1>{this.form.title}</h1>
             {
                 user
