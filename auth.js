@@ -47,7 +47,7 @@ module.exports = () => {
             redirectUri: `${config.root}auth/callback`,
             audience: `${config.issuer}userinfo`,
             responseType: 'code',
-            scope: 'openid'
+            scope: 'openid profile'
         }),
         function (req, res) {
             res.redirect('/');
