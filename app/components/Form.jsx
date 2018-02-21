@@ -18,12 +18,9 @@ export class Form extends React.Component {
             <img className="headerImage" src={this.form.image} alt={this.form.title} />
             <h1>{this.form.title}</h1>
 
-            <Switch>
-                <Route exact path="/" render={ () => <div>home</div> } />
-                <Route exact path="/step1" render={ () => <div>step1</div> } />
-                <Route exact path="/step2" render={ () => <div>step2</div> } />
-                <Route render={ () => <div>notfound</div> } />
-            </Switch>
+            <Route exact path="/register/:id/" render={ () => <div>home</div> } />
+            <Route exact path="/register/:id/step1" render={ () => <div>step1</div> } />
+            <Route exact path="/register/:id/step2" render={ () => <div>step2</div> } />
         </div>;
     }
 }
