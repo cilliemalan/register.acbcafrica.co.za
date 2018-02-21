@@ -16,20 +16,19 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const webhooks = require('./webhooks');
 const api = require('./api');
 const webpackconfig = require('./webpack.config');
+const config = require('./config');
+const auth = require('./auth');
 
 // env
-const port = process.env.PORT || 3000;
-const ghsecret = process.env.GITHUB_HOOK_SECRET;
-const loglevel = process.env.LOGLEVEL || 'verbose';
 
 // set up logging
 winston.configure({
-    transports: [new (winston.transports.Console)({ level: loglevel, colorize: true })]
+    transports: [new (winston.transports.Console)({ level: config.loglevel, colorize: true })]
 });
 winston.info('starting...');
-winston.info(`loglevel: ${loglevel}`);
-winston.info('port: %s', port);
-winston.info('github hook secret: %s', !!ghsecret);
+winston.info(`loglevel: ${config.loglevel}`);
+winston.info('port: %s', config.port);
+winston.info('github hook secret: %s', !!config.ghsecret);
 
 
 // express app
@@ -37,11 +36,15 @@ const app = express();
 
 
 // set up pipeline
+
+// Authentication
+app.use(auth());
+
 // API
-app.use('/api', api);
+app.use('/api', api());
 
 // webhooks
-app.use('/webhooks', webhooks(ghsecret));
+app.use('/webhooks', webhooks(config.ghsecret));
 
 // static files
 app.use(express.static('public'));
@@ -65,4 +68,4 @@ app.use((req, res) => {
 
 
 // Listen
-app.listen(port, () => winston.info(`Listening on port ${port}!`));
+app.listen(config.port, () => winston.info(`Listening on port ${config.port}!`));
