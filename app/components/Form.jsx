@@ -11,10 +11,6 @@ export class Form extends React.Component {
         const props = this.props;
         const thisFormName = props.match.params.id;
         this.form = forms[thisFormName];
-
-        console.log('ffff');
-        console.log(thisFormName);
-        console.log(this.form);
     }
 
     render() {
