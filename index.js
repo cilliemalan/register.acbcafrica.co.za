@@ -65,15 +65,15 @@ app.use('/api', api());
 // webhooks
 app.use('/webhooks', webhooks(config.ghsecret));
 
-// static files
-app.use(express.static('public'));
-
 // webpack
 const webpackCompiler = webpack(webpackconfig);
 const wpmw = webpackMiddleware(webpackCompiler, {});
 const wphmw = webpackHotMiddleware(webpackCompiler);
 app.use(wpmw);
 app.use(wphmw);
+
+// static files
+app.use(express.static('public'));
 
 // SPA
 app.use((req, res) => {
