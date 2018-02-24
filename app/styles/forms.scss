@@ -1,3 +1,80 @@
+form {
+    .form-group {
+        display: block;
+        height: 75px;
+        margin: 3px 0;
+        padding: 0 3px;
+
+        &.required label:after {
+            content: '*';
+            color: red;
+        }
+
+        label {
+            display: block;
+            margin-bottom:2px;
+            font-size: 24px;
+            
+            @media (max-width: 480px) {
+                font-size: 20px;
+            }
+        }
+
+        input[type=text],
+        input[type=password],
+        input[type=email] {
+            font-size: 16px;
+            padding: 4px;
+            min-width: 440px;
+            box-sizing: border-box;
+
+            @media (max-width: 480px) {
+                min-width: 0;
+                width: 100%;
+            }
+        }
+    }
+}
+
+
+input[type=checkbox].css-checkbox {
+    position:absolute;
+    z-index:-1000;
+    left:-1000px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height:1px;
+    width:1px;
+    margin:-1px;
+    padding:0;
+    border:0;
+
+    & + label.css-label {
+        padding-left:35px;
+        height:30px; 
+        display:inline-block;
+        line-height:30px;
+        background-repeat:no-repeat;
+        background-position: 0 0;
+        font-size:30px;
+        vertical-align:middle;
+        cursor:pointer;
+    }
+
+    &:checked + label.css-label {
+        background-position: 0 -30px;
+    }
+}
+
+label.css-label {
+	background-image: url('../content/checkbox.png');
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
 
 .formSelection {
     list-style: none;
@@ -68,5 +145,74 @@
                 max-height: 140px;
             }
         }
+    }
+}
+
+.conference-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 2px solid #333;
+    border-bottom: 2px solid #333;
+
+    li {
+        border-top:1px solid #666;
+        padding: 3px 1px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+
+        @media (max-width: 400px) {
+            font-size:16px;
+        }
+
+        &:hover {
+            background-color: rgba(255,255,255,0.5);
+        }
+
+        &:first-child {
+            border-top: none;
+        }
+        
+        .title {
+            font-weight: bold;
+        }
+
+        .date {
+            font-style: italic;
+        }
+
+        .cost {
+            font-weight: bold;
+            label {
+                font-weight: normal;
+            }
+        }
+
+        .selected {
+            width: 120px;
+
+            @media (max-width: 480px) {
+                width: 35px;
+                label.css-label {
+                    width: 0;
+                    color:rgba(0,0,0,0);
+                    overflow:hidden;
+                }
+            }
+        }
+    }
+}
+
+.total {
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    label {
+        font-weight: normal;
     }
 }

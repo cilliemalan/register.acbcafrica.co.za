@@ -48,6 +48,13 @@ export class ConferenceItemDetails extends React.Component {
         }
     }
 
+    clickedItem(e) {
+        if (e.target.type != 'checkbox' &&
+            !/\bcss-label\b/.test(e.target.className)) {
+            e.currentTarget.querySelector('[type=checkbox]').click();
+        }
+    }
+
     render() {
         const formatSingleDate = (date) => {
             const dateOnly = date.getHours() == 0 &&
@@ -79,43 +86,36 @@ export class ConferenceItemDetails extends React.Component {
         return <div>
             <h2>Conference Options</h2>
             <p>Please select all that apply.</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Date</th>
-                        <th>Cost</th>
-                        <th>Select</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {Object.keys(this.state.options).map(key => {
-                        const option = this.state.options[key];
-                        const formattedDate = formatDate(option.from, option.to);
-                        const formattedCost = formatCost(option.cost);
-                        return <tr key={key}>
-                            <td>{option.title}</td>
-                            <td>{formattedDate}</td>
-                            <td>{formattedCost}</td>
-                            <td>
-                                <input type="checkbox"
-                                    name={`chk-${key}`}
-                                    id={`chk-${key}`}
-                                    checked={option.selected}
-                                    onChange={this.itemSelectedChanged} />
-                            </td>
-                        </tr>;
-                    })}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td>Total</td>
-                        <td></td>
-                        <td>{formatCost(this.state.total)}</td>
-                        <td></td>
-                    </tr>
-                </tfoot>
-            </table>
+            <ul className='conference-items'>
+                {Object.keys(this.state.options).map(key => {
+                    const option = this.state.options[key];
+                    const formattedDate = formatDate(option.from, option.to);
+                    const formattedCost = formatCost(option.cost);
+                    return <li key={key} onClick={this.clickedItem}>
+                        <div className="details">
+                            <div className="title">{option.title}</div>
+                            <div className="date">{formattedDate}</div>
+                            <div className="cost"><label>Cost:&nbsp;</label>{formattedCost}</div>
+                        </div>
+                        <div className="selected">
+                            <input type="checkbox"
+                                className='css-checkbox'
+                                name={`chk-${key}`}
+                                id={`chk-${key}`}
+                                checked={option.selected}
+                                onChange={this.itemSelectedChanged} />
+                            <label htmlFor={`chk-${key}`}
+                                className='css-label'>
+                                Select
+                            </label>
+                        </div>
+                    </li>;
+                })}
+            </ul>
+            <div className="total">
+                <label>Total Cost:&nbsp;</label>
+                {formatCost(this.state.total)}
+            </div>
         </div>;
     }
 }
