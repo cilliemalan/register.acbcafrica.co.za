@@ -1,0 +1,84 @@
+{
+    "yfgw-pretoria": {
+        "image": "yfgw-pretoria-button.jpg",
+        "title": "Your Family God's Way Pretoria",
+        "from": "2018-9-17",
+        "to": "2018-9-20",
+        "options": {
+            "pastors": {
+                "title": "Pastor's Pre-conference",
+                "from": "2018-9-16 09:00",
+                "to": "2018-9-16 12:00",
+                "cost": 0
+            },
+            "womens": {
+                "title": "Women's Pre-conference",
+                "from": "2018-9-17 09:00",
+                "to": "2018-9-17 12:00",
+                "cost": 0
+            },
+            "yfgw": {
+                "title": "ACBC Africa Conference 2018",
+                "subtitle": "Your Family God’s Way",
+                "from": "2018-9-17 19:00",
+                "to": "2018-9-20 17:00",
+                "cost": 350
+            },
+            "food1": {
+                "title": "Thursday Meal Option",
+                "subtitle": "Italian roasted chicken, roasted vegetables and rice",
+                "from": "2018-9-18",
+                "cost": 50
+            },
+            "food2": {
+                "title": "Friday Meal Option",
+                "subtitle": "Roti with beef curry and chutney",
+                "from": "2018-9-19",
+                "cost": 60
+            }
+        }
+    },
+    "yfgw-capetown": {
+        "image": "yfgw-capetown-button.jpg",
+        "title": "Your Family God's Way Cape Town",
+        "from": "2018-9-24",
+        "to": "2018-9-27",
+        "options": {
+            "yfgw": {
+                "title": "ACBC Africa Conference 2018",
+                "subtitle": "Your Family God’s Way",
+                "from": "2018-9-24 19:00",
+                "to": "2018-9-27 17:00",
+                "cost": 350
+            }
+        }
+    },
+    "mgw": {
+        "image": "mgw-button.jpg",
+        "title": "Mothering God's Way",
+        "from": "2018-7-9",
+        "to": "2018-7-9",
+        "options": {
+            "mothering": {
+                "title": "Mothering God's Way",
+                "from": "2018-7-9 7:30",
+                "to": "2018-7-9 16:00",
+                "cost": 0
+            }
+        }
+    },
+    "fgw": {
+        "image": "fgw-button.jpg",
+        "title": "Fathering God's Way",
+        "from": "2018-7-10",
+        "to": "2018-7-10",
+        "options": {
+            "fathering": {
+                "title": "Fathering God's Way",
+                "from": "2018-7-10 7:30",
+                "to": "2018-7-10 16:00",
+                "cost": 0
+            }
+        }
+    }
+}
