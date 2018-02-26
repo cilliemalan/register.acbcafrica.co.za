@@ -18,12 +18,16 @@ const reduxify = (Root) =>
     <Provider store={store}>
         <Root />
     </Provider>;
+
 const makeHot = (rootElement) => React.createElement(
     require('react-hot-loader').AppContainer,
     null,
     rootElement);
+
 const render = (rootElement) => 
     ReactDOM.render(rootElement, approot);
+
+
 
 if (module.hot) {
 
