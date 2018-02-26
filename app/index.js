@@ -1,26 +1,37 @@
 import './styles/main.scss';
 import ReactDOM from 'react-dom';
 import React from 'react';
-import { AppContainer } from 'react-hot-loader';
 import { App } from './App';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducer from './reducers';
+import thunk from 'redux-thunk';
 
+// where the app will go
 const approot = document.getElementById('react-app');
-ReactDOM.render(
-    <AppContainer>
-        <App />
-    </AppContainer>,
-    approot);
+
+// the redux store
+const store = createStore(reducer);
+
+// some helper functions
+const reduxify = (Root) =>
+    <Provider store={store}>
+        <Root />
+    </Provider>;
+const makeHot = (rootElement) => React.createElement(
+    require('react-hot-loader').AppContainer,
+    null,
+    rootElement);
+const render = (rootElement) => 
+    ReactDOM.render(rootElement, approot);
 
 if (module.hot) {
-    console.log('hot reloading active');
-    module.hot.accept('./App', () => {
-        console.log('doing hot reload');
-        const NextApp = require('./App').App;
-        ReactDOM.render(
-            <AppContainer>
-                <NextApp />
-            </AppContainer>,
-            approot
-        );
-    });
+
+    module.hot.accept('./App', () =>
+        render(makeHot(reduxify(require('./App').App))));
+
+    render(makeHot(reduxify(App)));
+} else {
+
+    render(reduxify(App));
 }
