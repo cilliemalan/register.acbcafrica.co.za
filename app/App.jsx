@@ -7,9 +7,6 @@ import { TermsAndConditions } from './components/TermsAndConditions';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { NotFound } from './components/NotFound';
 import { Form } from './components/Form';
-import forms from './forms';
-
-const formRoutes = Object.keys(forms);
 
 export function App(props) {
     return <BrowserRouter>
