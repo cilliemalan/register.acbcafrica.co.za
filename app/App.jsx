@@ -8,8 +8,8 @@ import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { NotFound } from './components/NotFound';
 import { Form } from './components/Form';
 
-export function App(props) {
-    return <BrowserRouter>
+export const App = () =>
+    <BrowserRouter>
         <div>
             <Header />
             <div id="mainContent">
@@ -24,4 +24,3 @@ export function App(props) {
             <Footer />
         </div>
     </BrowserRouter>;
-}
