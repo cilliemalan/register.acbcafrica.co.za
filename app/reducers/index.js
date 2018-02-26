@@ -1,4 +1,4 @@
-import { combineReducers } from 'react';
+import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form'
 
 function forms(state = { items: {} }, action) {
@@ -28,4 +28,4 @@ function forms(state = { items: {} }, action) {
     }
 }
 
-export default combineReducers({ forms, form: reducer });
+export default combineReducers({ forms, form: formReducer });
