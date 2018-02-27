@@ -8,7 +8,7 @@ function forms(state = { items: {} }, action) {
         case 'FETCHED_FORMS':
             return {
                 ...state,
-                items: action.items,
+                items: action.forms,
                 loading: false
             };
         case 'ADD_ENTRY':

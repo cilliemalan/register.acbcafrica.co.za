@@ -1,4 +1,4 @@
-import formsUrl from '../content/forms.json';
+const formsUrl = '/data/forms.json';
 
 const action = (type, data = {}) => ({ type, ...data });
 
@@ -10,5 +10,5 @@ export const fetchForms = () => (dispatch) => {
     dispatch(fetchingForms());
     return fetch(formsUrl)
         .then(response => response.json())
-        .then(forms => dispatch(receiveForms(forms)));
+        .then(forms => dispatch(fetchedForms(forms)));
 }
