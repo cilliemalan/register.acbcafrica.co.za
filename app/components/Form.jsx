@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Link, BrowserRouter, Switch } from 'react-router-dom';
-import forms from '../forms';
 import { user } from '../auth';
 import { Login } from './Login';
 import { PersonalDetails } from './PersonalDetails';
