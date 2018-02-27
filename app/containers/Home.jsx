@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchForms } from '../actions';
+import { Spinner } from '../components/Spinner';
 const Fragment = React.Fragment;
 
 const mapStateToProps = (state) => ({
@@ -22,7 +23,7 @@ class Home extends React.Component {
         const any = !!sortedForms.length;
         sortedForms.sort((a, b) => forms[a].from > forms[b].from);
 
-        const loadingMessage = () => "Loading...";
+        const loadingMessage = () => <Spinner />;
         const nothingMessage = () => "Nothing is available at this time. Please check again later!";
         const formListItems = () => <Fragment>
             <p>What would you like to register for?</p>
