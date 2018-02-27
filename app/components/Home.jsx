@@ -18,7 +18,7 @@ let Home = ({ forms, loading }) => {
 
     const loadingMessage = () => "Loading...";
     const nothingMessage = () => "Nothing is available at this time. Please check again later!";
-    const formList = () => (any ? (<Fragment>
+    const formListItems = () => <Fragment>
         <p>What would you like to register for?</p>
         <ul className="formSelection">
             {
@@ -30,7 +30,8 @@ let Home = ({ forms, loading }) => {
                     </li>)
             }
         </ul>
-    </ Fragment>) : nothingMessage());
+    </ Fragment>;
+    const formList = () => (any ? formListItems() : nothingMessage());
 
     return <div>
         <h1>ACBC Africa Registration</h1>
