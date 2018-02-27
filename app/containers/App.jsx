@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, Link, BrowserRouter, Switch } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { Home } from './components/Home';
-import { Header } from './components/Header';
-import { Footer } from './components/Footer';
-import { TermsAndConditions } from './components/TermsAndConditions';
-import { PrivacyPolicy } from './components/PrivacyPolicy';
-import { NotFound } from './components/NotFound';
-import { Form } from './components/Form';
+import { Home } from '../containers/Home';
+import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
+import { TermsAndConditions } from '../components/TermsAndConditions';
+import { PrivacyPolicy } from '../components/PrivacyPolicy';
+import { NotFound } from '../components/NotFound';
+import { Form } from '../components/Form';
 
 const mapStateToProps = state => ({ forms: state.forms.items });
 

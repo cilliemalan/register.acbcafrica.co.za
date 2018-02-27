@@ -1,7 +1,7 @@
 import './styles/main.scss';
 import ReactDOM from 'react-dom';
 import React from 'react';
-import { App } from './App';
+import { App } from './containers/App';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducer from './reducers';
@@ -31,8 +31,8 @@ const render = (rootElement) =>
 
 if (module.hot) {
 
-    module.hot.accept('./App', () =>
-        render(makeHot(reduxify(require('./App').App))));
+    module.hot.accept('./containers/App', () =>
+        render(makeHot(reduxify(require('./containers/App').App))));
 
     render(makeHot(reduxify(App)));
 } else {
