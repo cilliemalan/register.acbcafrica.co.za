@@ -1,6 +1,6 @@
 {
     "yfgw-pretoria": {
-        "image": "yfgw-pretoria-button.jpg",
+        "image": "/content/yfgw-pretoria-button.jpg",
         "title": "Your Family God's Way Pretoria",
         "from": "2018-9-17",
         "to": "2018-9-20",
@@ -39,7 +39,7 @@
         }
     },
     "yfgw-capetown": {
-        "image": "yfgw-capetown-button.jpg",
+        "image": "/content/yfgw-capetown-button.jpg",
         "title": "Your Family God's Way Cape Town",
         "from": "2018-9-24",
         "to": "2018-9-27",
@@ -54,7 +54,7 @@
         }
     },
     "mgw": {
-        "image": "mgw-button.jpg",
+        "image": "/content/mgw-button.jpg",
         "title": "Mothering God's Way",
         "from": "2018-7-9",
         "to": "2018-7-9",
@@ -68,7 +68,7 @@
         }
     },
     "fgw": {
-        "image": "fgw-button.jpg",
+        "image": "/content/fgw-button.jpg",
         "title": "Fathering God's Way",
         "from": "2018-7-10",
         "to": "2018-7-10",
