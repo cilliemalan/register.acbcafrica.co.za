@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import { App } from './containers/App';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import reducer from './reducers';
 import thunk from 'redux-thunk';
 
@@ -11,7 +11,7 @@ import thunk from 'redux-thunk';
 const approot = document.getElementById('react-app');
 
 // the redux store
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware(thunk));
 
 // some helper functions
 const reduxify = (Root) =>
@@ -24,7 +24,7 @@ const makeHot = (rootElement) => React.createElement(
     null,
     rootElement);
 
-const render = (rootElement) => 
+const render = (rootElement) =>
     ReactDOM.render(rootElement, approot);
 
 
