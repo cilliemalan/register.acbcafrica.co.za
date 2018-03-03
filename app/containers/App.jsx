@@ -7,7 +7,7 @@ import { Footer } from '../components/Footer';
 import { TermsAndConditions } from '../components/TermsAndConditions';
 import { PrivacyPolicy } from '../components/PrivacyPolicy';
 import { NotFound } from '../components/NotFound';
-import { Form } from '../components/Form';
+import { RegistrationForm } from '../components/RegistrationForm';
 import { fetchFormsIfNeeded } from '../actions';
 import { Spinner } from '../components/Spinner';
 
@@ -31,7 +31,7 @@ class App extends React.Component {
                 return <Spinner />
             } else {
                 return forms[formId]
-                    ? <Form form={forms[formId]} />
+                    ? <RegistrationForm form={forms[formId]} />
                     : <NotFound />;
             }
         }
