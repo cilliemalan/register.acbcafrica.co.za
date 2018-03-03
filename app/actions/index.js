@@ -1,4 +1,4 @@
-const formsUrl = '/data/forms.json';
+import { fetchForms as apiFetchForms } from './api';
 
 const action = (type, data = {}) => ({ type, ...data });
 
@@ -8,7 +8,6 @@ export const fetchedForms = (forms) => action('FETCHED_FORMS', { forms });
 
 export const fetchForms = () => (dispatch) => {
     dispatch(fetchingForms());
-    return fetch(formsUrl)
-        .then(response => response.json())
+    return apiFetchForms()
         .then(forms => dispatch(fetchedForms(forms)));
 }
