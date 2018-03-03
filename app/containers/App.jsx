@@ -8,25 +8,52 @@ import { TermsAndConditions } from '../components/TermsAndConditions';
 import { PrivacyPolicy } from '../components/PrivacyPolicy';
 import { NotFound } from '../components/NotFound';
 import { Form } from '../components/Form';
+import { fetchFormsIfNeeded } from '../actions';
+import { Spinner } from '../components/Spinner';
 
-const mapStateToProps = state => ({ forms: state.forms.items });
+const mapStateToProps = state => {
+    return ({ forms: state.forms.items, loading: state.forms.loading });
+}
 
-let App = ({ forms }) =>
-    <BrowserRouter>
-        <div>
-            <Header />
-            <div id="mainContent">
-                <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route exact path="/terms-and-conditions" component={TermsAndConditions} />
-                    <Route exact path="/privacy-policy" component={PrivacyPolicy} />
-                    <Route path="/register/:id" render={({id}) => <Form form={forms[id]} />} />
-                    <Route component={NotFound} />
-                </Switch>
+
+class App extends React.Component {
+
+    componentDidMount() {
+        const { dispatch } = this.props;
+        dispatch(fetchFormsIfNeeded());
+    }
+
+    render() {
+        const { forms, loading } = this.props;
+
+        const formFor = (formId) => {
+            if (loading) {
+                return <Spinner />
+            } else {
+                return forms[formId]
+                    ? <Form form={forms[formId]} />
+                    : <NotFound />;
+            }
+        }
+
+
+        return <BrowserRouter>
+            <div>
+                <Header />
+                <div id="mainContent">
+                    <Switch>
+                        <Route exact path="/" component={Home} />
+                        <Route exact path="/terms-and-conditions" component={TermsAndConditions} />
+                        <Route exact path="/privacy-policy" component={PrivacyPolicy} />
+                        <Route path="/register/:id" render={({ match }) => formFor(match.params.id)} />
+                        <Route component={NotFound} />
+                    </Switch>
+                </div>
+                <Footer />
             </div>
-            <Footer />
-        </div>
-    </BrowserRouter>;
+        </BrowserRouter>;
+    }
+}
 
 App = connect(mapStateToProps)(App);
 
