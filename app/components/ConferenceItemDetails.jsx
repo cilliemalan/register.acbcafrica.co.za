@@ -4,47 +4,65 @@ import moment from 'moment';
 export class ConferenceItemDetails extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { ...props, total: 0 };
-        const options = this.state.options || (this.state.options = {});
-        const items = Object.keys(options);
-        if (items.length == 1) {
-            options[items[0]].selected = true;
-        } else if (items.length > 1) {
-            items.forEach(opt => {
-                options[opt].selected = false;
-            });
+        this.state = { total: 0, options: { } };
+        if(this.props.options) {
+            Object.keys(this.props.options)
+                .forEach(key => this.state.options[key] = false);
         }
 
-        this.recalculateTotal = this.recalculateTotal.bind(this);
+        this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
         this.itemSelectedChanged = this.itemSelectedChanged.bind(this);
     }
 
-    recalculateTotal() {
-        let total = 0;
-        Object.values(this.state.options)
-            .filter(x => x.selected)
-            .forEach(x => total += x.cost);
-        this.setState({ total });
+    componentWillReceiveProps(props) {
+        const newoptions = props.options;
+        const soptions = this.state.options;
+        const soptionsKeys = Object.keys(soptions);
+
+        if (newoptions) {
+            const newOpts = {};
+            Object.keys(newoptions)
+                .filter(key => !soptionsKeys.includes(key))
+                .forEach(key => { newOpts[key] = false; });
+            this.setState(state => ({
+                ...state,
+                options: {
+                    ...state.options,
+                    ...newOpts
+                }
+            }));
+        }
     }
 
     itemSelectedChanged(e) {
-        const options = this.state.options;
-        const optionKey = e.target.name.match(/^chk-(.+)$/)[1];
-        const option = options[optionKey];
-        this.setState({
-            options: {
-                ...options,
-                [optionKey]: {
-                    ...option,
-                    selected: !option.selected
-                }
+        const option = e.target.name.match(/^chk-(.+)$/)[1];
+        const checked = e.target.checked;
+
+        const recalculateTotal = (options) =>
+            Object.keys(options)
+                .reduce((acc, option) =>
+                    acc + (options[option]
+                        ? this.props.options[option].cost
+                        : 0),
+                    0);
+
+        if (option) {
+
+            this.setState((state) => {
+                const options = {
+                    ...state.options,
+                    [option]: checked
+                };
+                return {
+                    ...state,
+                    options,
+                    total: recalculateTotal(options)
+                };
+            });
+
+            if (this.props.onChange) {
+                this.props.onChange(this.state);
             }
-        }, this.recalculateTotal);
-
-        this.recalculateTotal();
-
-        if (this.props.onChange) {
-            this.props.onChange(this.state);
         }
     }
 
@@ -56,6 +74,11 @@ export class ConferenceItemDetails extends React.Component {
     }
 
     render() {
+
+        const poptions = this.props.options;
+        const soptions = this.state.options;
+        const optionkeys = Object.keys(poptions);
+
         const formatSingleDate = (date) => {
             const dateOnly = date.getHours() == 0 &&
                 date.getMinutes() == 0 &&
@@ -83,12 +106,14 @@ export class ConferenceItemDetails extends React.Component {
                 return '';
             }
         }
+
         return <div>
             <h2>Conference Options</h2>
             <p>Please select all that apply.</p>
             <ul className='conference-items'>
-                {Object.keys(this.state.options).map(key => {
-                    const option = this.state.options[key];
+                {optionkeys.map(key => {
+                    const option = poptions[key];
+                    const selected = soptions[key];
                     const formattedDate = formatDate(option.from, option.to);
                     const formattedCost = formatCost(option.cost);
                     return <li key={key} onClick={this.clickedItem}>
@@ -102,7 +127,7 @@ export class ConferenceItemDetails extends React.Component {
                                 className='css-checkbox'
                                 name={`chk-${key}`}
                                 id={`chk-${key}`}
-                                checked={option.selected}
+                                checked={selected}
                                 onChange={this.itemSelectedChanged} />
                             <label htmlFor={`chk-${key}`}
                                 className='css-label'>
