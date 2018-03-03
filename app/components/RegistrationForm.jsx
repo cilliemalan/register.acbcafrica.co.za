@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { RegistrationFormDetails } from './RegistrationFormDetails';
 
-export const RegistrationForm = ({ form }) =>
+export const RegistrationForm = ({ fillingForm }) =>
     <div className="form">
-        <img className="headerImage" src={form.image} alt={form.title} />
+        <img className="headerImage" src={fillingForm.image} alt={fillingForm.title} />
         <Link to="/">&lt;&lt;&nbsp;Go&nbsp;Back</Link>
-        <h1>{form.title}</h1>
-        <p>You are registering for <strong>{form.title}</strong>. Please fill in the details below.</p>
-        <RegistrationFormDetails form={form} />
+        <h1>{fillingForm.title}</h1>
+        <p>You are registering for <strong>{fillingForm.title}</strong>. Please fill in the details below.</p>
+        <RegistrationFormDetails fillingForm={fillingForm} />
     </div>;

@@ -31,7 +31,7 @@ class App extends React.Component {
                 return <Spinner />
             } else {
                 return forms[formId]
-                    ? <RegistrationForm form={forms[formId]} />
+                    ? <RegistrationForm fillingForm={forms[formId]} />
                     : <NotFound />;
             }
         }
