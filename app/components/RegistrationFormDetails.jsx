@@ -1,12 +1,12 @@
 import React from 'react';
 import { PersonalDetails } from './PersonalDetails';
 import { ConferenceItemDetails } from './ConferenceItemDetails';
-import { reduxForm } from 'redux-form'
+import { reduxForm, Field } from 'redux-form'
 
 let RegistrationFormDetails = ({ fillingForm }) =>
     <form>
         <PersonalDetails />
-        <ConferenceItemDetails options={fillingForm.options} />
+        <Field component={ConferenceItemDetails} name="options" options={fillingForm.options} />
     </form>;
 
 RegistrationFormDetails = reduxForm({
