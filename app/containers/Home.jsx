@@ -12,11 +12,6 @@ const mapStateToProps = (state) => ({
 
 class Home extends React.Component {
 
-    componentDidMount() {
-        const { dispatch } = this.props;
-        dispatch(fetchForms());
-    }
-
     render() {
         const { forms, loading } = this.props;
         const sortedForms = Object.keys(forms);
