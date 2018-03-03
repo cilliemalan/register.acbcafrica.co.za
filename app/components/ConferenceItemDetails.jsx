@@ -4,10 +4,10 @@ import moment from 'moment';
 export class ConferenceItemDetails extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { total: 0, options: { } };
-        if(this.props.options) {
+        this.state = { total: 0, value: {} };
+        if (this.props.options) {
             Object.keys(this.props.options)
-                .forEach(key => this.state.options[key] = false);
+                .forEach(key => this.state.value[key] = false);
         }
 
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
@@ -16,7 +16,7 @@ export class ConferenceItemDetails extends React.Component {
 
     componentWillReceiveProps(props) {
         const newoptions = props.options;
-        const soptions = this.state.options;
+        const soptions = this.state.value;
         const soptionsKeys = Object.keys(soptions);
 
         if (newoptions) {
@@ -26,8 +26,8 @@ export class ConferenceItemDetails extends React.Component {
                 .forEach(key => { newOpts[key] = false; });
             this.setState(state => ({
                 ...state,
-                options: {
-                    ...state.options,
+                value: {
+                    ...state.value,
                     ...newOpts
                 }
             }));
@@ -49,20 +49,17 @@ export class ConferenceItemDetails extends React.Component {
         if (option) {
 
             this.setState((state) => {
-                const options = {
-                    ...state.options,
+                const value = {
+                    ...state.value,
                     [option]: checked
                 };
                 return {
                     ...state,
-                    options,
-                    total: recalculateTotal(options)
+                    value,
+                    total: recalculateTotal(value)
                 };
-            });
+            }, () => this.props.input.onChange({ ...this.state.value, total: this.state.total }));
 
-            if (this.props.onChange) {
-                this.props.onChange(this.state);
-            }
         }
     }
 
@@ -76,7 +73,7 @@ export class ConferenceItemDetails extends React.Component {
     render() {
 
         const poptions = this.props.options;
-        const soptions = this.state.options;
+        const soptions = this.state.value;
         const optionkeys = Object.keys(poptions);
 
         const formatSingleDate = (date) => {
