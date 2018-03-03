@@ -11,3 +11,11 @@ export const fetchForms = () => (dispatch) => {
     return apiFetchForms()
         .then(forms => dispatch(fetchedForms(forms)));
 }
+
+export const fetchFormsIfNeeded = () => (dispatch, getState) => {
+    const { forms } = getState();
+
+    if(!Object.keys(forms.items).length) {
+        dispatch(fetchForms());
+    }
+}
