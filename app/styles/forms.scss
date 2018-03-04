@@ -2,8 +2,8 @@ form {
     .form-group {
         display: block;
         height: 75px;
-        margin: 3px 0;
-        padding: 0 3px;
+        margin: 3px 0 20px 0;
+        padding: 0 5px;
 
         &.required label:after {
             content: '*';
@@ -27,11 +27,53 @@ form {
             padding: 4px;
             min-width: 440px;
             box-sizing: border-box;
+            border: 1px solid #aaa;
 
             @media (max-width: 480px) {
                 min-width: 0;
                 width: 100%;
             }
+        }
+
+        div.error {
+            color:red;
+        }
+
+        &.error input,
+        &.error select,
+        &.error textarea {
+            border: 1px solid red;
+        }
+    }
+
+    button {
+        cursor: pointer;
+        margin: 10px 0 0 0;
+        font-size: 16px;
+        background: #d2ff52;
+        background: #236dc1;
+        border: 2px solid #236dc1;
+        padding: 5px 15px;
+        border-radius: 2px;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        color:white;
+
+        &:active {
+            box-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+
+        &:focus {
+            outline: none;
+            border: 2px solid #0d2847;
+        }
+    }
+
+    .submit {
+        text-align: right;
+
+        button {
+            font-size: 24px;
+            margin: 20px 0;
         }
     }
 }
