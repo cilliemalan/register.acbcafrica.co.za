@@ -1,6 +1,6 @@
 import React from 'react';
 import { PersonalDetails } from './PersonalDetails';
-import { ConferenceItemDetails } from './ConferenceItemDetails';
+import { OptionsEditor } from './OptionsEditor';
 import { reduxForm, Field } from 'redux-form'
 
 const validateConferenceOptions = (value = {}, _, { fillingForm: { options } }) => {
@@ -25,7 +25,7 @@ let RegistrationFormDetails = ({ fillingForm, handleSubmit }) => {
 
     return <form onSubmit={handleSubmit}>
         <PersonalDetails />
-        <Field component={ConferenceItemDetails} name="options" validate={validateConferenceOptions} options={fillingForm.options} />
+        <Field component={OptionsEditor} name="options" validate={validateConferenceOptions} options={fillingForm.options} />
         <div className="form-group submit">
             <button>Submit</button>
         </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-export class ConferenceItemDetails extends React.Component {
+export class OptionsEditor extends React.Component {
     constructor(props) {
         super(props);
         this.state = { total: 0, value: {} };
