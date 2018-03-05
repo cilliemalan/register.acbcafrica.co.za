@@ -34,16 +34,17 @@ form {
                 width: 100%;
             }
         }
+    }
 
-        div.error {
-            color:red;
-        }
+    div.error {
+        color:red;
+        min-height: 25px;
+    }
 
-        &.error input,
-        &.error select,
-        &.error textarea {
-            border: 1px solid red;
-        }
+    &.error input,
+    &.error select,
+    &.error textarea {
+        border: 1px solid red;
     }
 
     button {
