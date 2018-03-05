@@ -25,8 +25,8 @@ const renderField = ({ input, label, type, required, meta: { touched, error, war
 
 const PersonalDetails = (props) =>
     <div>
-        <h2>Personal Information</h2>
-        <p>Please the personal information for the registrant.</p>
+        <h2>Registrant Information</h2>
+        <p>Please the personal information for the <strong>conference atendee</strong>.</p>
 
         <Field component={renderField} label="Title" type="text" id="title" required autoComplete="honorific-prefix" validate={required} name="title" />
         <Field component={renderField} label="First Name" type="text" id="firstname" required autoComplete="given-name" validate={required} name="firstname" />
