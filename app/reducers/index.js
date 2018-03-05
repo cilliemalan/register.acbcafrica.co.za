@@ -58,6 +58,8 @@ function submission(state = {}, action) {
                 loading: false,
                 error: action.message,
             }
+        default:
+            return state;
     }
 }
 
