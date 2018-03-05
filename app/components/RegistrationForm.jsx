@@ -21,7 +21,7 @@ const validateConferenceOptions = (value = {}, _, { fillingForm: { options } }) 
     }
 }
 
-let RegistrationFormDetails = ({ fillingForm, handleSubmit }) => {
+let RegistrationForm = ({ fillingForm, handleSubmit }) => {
 
     return <form onSubmit={handleSubmit}>
         <PersonalDetails />
@@ -32,8 +32,8 @@ let RegistrationFormDetails = ({ fillingForm, handleSubmit }) => {
     </form>;
 }
 
-RegistrationFormDetails = reduxForm({
+RegistrationForm = reduxForm({
     form: 'personalDetails'
-})(RegistrationFormDetails);
+})(RegistrationForm);
 
-export { RegistrationFormDetails };
+export { RegistrationForm };
