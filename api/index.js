@@ -16,7 +16,7 @@ module.exports = () => {
             jwksRequestsPerMinute: 5,
             jwksUri: `${config.issuer}.well-known/jwks.json`
         }),
-        credentialsRequired: true,
+        credentialsRequired: false,
         audience: config.audience,
         issuer: config.issuer,
         algorithms: ['RS256']
