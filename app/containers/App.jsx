@@ -8,30 +8,48 @@ import { TermsAndConditions } from '../components/TermsAndConditions';
 import { PrivacyPolicy } from '../components/PrivacyPolicy';
 import { NotFound } from '../components/NotFound';
 import { Register } from '../components/Register';
-import { fetchFormsIfNeeded } from '../actions';
+import { RegistrationConfirmation } from '../components/RegistrationConfirmation';
+import { fetchFormsIfNeeded, stageRegistration } from '../actions';
 import { Spinner } from '../components/Spinner';
 
 const mapStateToProps = state => {
-    return ({ forms: state.forms.items, loading: state.forms.loading });
+    return ({
+        forms: state.forms.items,
+        loading: state.forms.loading,
+        submission: state.submission
+    });
 }
 
 
 class App extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.onFormSubmit = this.onFormSubmit.bind(this);
+    }
 
     componentDidMount() {
         const { dispatch } = this.props;
         dispatch(fetchFormsIfNeeded());
     }
 
-    render() {
-        const { forms, loading } = this.props;
+    onFormSubmit(form, values) {
+        const { dispatch, history } = this.props;
+        dispatch(stageRegistration(form, values));
+        history.push('/register/confirm');
+    }
 
-        const formFor = (formId) => {
+    render() {
+        const { forms, loading, submission } = this.props;
+        const hasSubmission = !!submission.details;
+
+        const formFor = (formId, history) => {
             if (loading) {
                 return <Spinner />
             } else {
                 return forms[formId]
-                    ? <Register fillingForm={forms[formId]} />
+                    ? <Register fillingForm={forms[formId]} onSubmit={(v) => this.onFormSubmit(formId, v)} />
                     : <NotFound />;
             }
         }
@@ -44,7 +62,8 @@ class App extends React.Component {
                         <Route exact path="/" component={Home} />
                         <Route exact path="/terms-and-conditions" component={TermsAndConditions} />
                         <Route exact path="/privacy-policy" component={PrivacyPolicy} />
-                        <Route path="/register/:id" render={({ match }) => formFor(match.params.id)} />
+                        { hasSubmission && <Route exact path="/register/confirm" render={() => <RegistrationConfirmation submission={submission} />} /> }
+                        <Route path="/register/:id" render={({ match, history }) => formFor(match.params.id, history)} />
                         <Route component={NotFound} />
                     </Switch>
                 </div>
