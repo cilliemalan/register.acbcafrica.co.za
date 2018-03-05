@@ -1,4 +1,7 @@
-import { fetchForms as apiFetchForms } from './api';
+import { 
+    fetchForms as apiFetchForms,
+    submitRegistration as apiSubmitRegistration
+ } from './api';
 
 const action = (type, data = {}) => ({ type, ...data });
 
