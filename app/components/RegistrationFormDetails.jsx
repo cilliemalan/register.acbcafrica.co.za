@@ -3,23 +3,25 @@ import { PersonalDetails } from './PersonalDetails';
 import { ConferenceItemDetails } from './ConferenceItemDetails';
 import { reduxForm, Field } from 'redux-form'
 
+const validateConferenceOptions = (value = {}, _, { fillingForm: { options } }) => {
+    const requiredOptions = Object.keys(options)
+        .filter(key => options[key].required);
+    if (requiredOptions.length) {
+        const selectedRequiredOptions = requiredOptions.filter(key => value[key]);
+        if (!selectedRequiredOptions.length) {
+            const requiredOptionsTitles = requiredOptions.map(key => options[key].title)
+                .join(", ");
 
-
-let RegistrationFormDetails = ({ fillingForm, handleSubmit }) => {
-
-    const validateConferenceOptions = (value = {}) => {
-        const requiredOptions = Object.keys(fillingForm.options)
-            .filter(key => fillingForm.options[key].required);
-        if (requiredOptions.length) {
-            const selectedRequiredOptions = requiredOptions.filter(key => value[key]);
-            if (!selectedRequiredOptions.length) {
-                const requiredOptionsTitles = requiredOptions.map(key => fillingForm.options[key].title)
-                    .join(", ");
-        
-                return `Please select at least one of: ${requiredOptionsTitles}`;
+            if (requiredOptions.length == 1) {
+                return `${requiredOptionsTitles} is required to be selected.`;
+            } else {
+                return `Please select at least one of: ${requiredOptionsTitles}.`;
             }
         }
     }
+}
+
+let RegistrationFormDetails = ({ fillingForm, handleSubmit }) => {
 
     return <form onSubmit={handleSubmit}>
         <PersonalDetails />
