@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { RegistrationFormDetails } from './RegistrationFormDetails';
 
-export const RegistrationForm = ({ fillingForm }) => {
+export const Register = ({ fillingForm }) => {
     const submit = (values) => {
         console.log(values);
     }
