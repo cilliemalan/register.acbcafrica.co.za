@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { RegistrationFormDetails } from './RegistrationFormDetails';
 
 export const RegistrationForm = ({ fillingForm }) => {
-    const submit = (calues) => {
-        console.log(calues);
+    const submit = (values) => {
+        console.log(values);
     }
 
     return <div className="form">
