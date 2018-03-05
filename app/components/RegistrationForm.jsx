@@ -33,7 +33,9 @@ let RegistrationForm = ({ fillingForm, handleSubmit }) => {
 }
 
 RegistrationForm = reduxForm({
-    form: 'personalDetails'
+    form: 'personalDetails',
+    destroyOnUnmount: false,
+    forceUnregisterOnUnmount: true,
 })(RegistrationForm);
 
 export { RegistrationForm };
