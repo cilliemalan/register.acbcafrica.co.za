@@ -129,7 +129,7 @@ export class OptionsEditor extends React.Component {
                                 id={`chk-${key}`}
                                 checked={selected}
                                 onFocus={onFocus}
-                                onBlur={onBlur}
+                                onBlur={() => onBlur()}
                                 onChange={this.itemSelectedChanged} />
                             <label htmlFor={`chk-${key}`}
                                 className='css-label'>
