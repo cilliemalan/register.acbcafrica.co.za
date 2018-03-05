@@ -64,9 +64,10 @@ export class ConferenceItemDetails extends React.Component {
     }
 
     clickedItem(e) {
-        if (e.target.type != 'checkbox' &&
-            !/\bcss-label\b/.test(e.target.className)) {
-            e.currentTarget.querySelector('[type=checkbox]').click();
+        if (e.target.type != 'checkbox' && !/\bcss-label\b/.test(e.target.className)) {
+            const checkbox = e.currentTarget.querySelector('[type=checkbox]');
+            checkbox.focus();
+            checkbox.click();
         }
     }
 
@@ -75,6 +76,8 @@ export class ConferenceItemDetails extends React.Component {
         const poptions = this.props.options;
         const soptions = this.state.value;
         const optionkeys = Object.keys(poptions);
+        const { error, touched } = this.props.meta;
+        const { onFocus, onBlur } = this.props.input;
 
         const formatSingleDate = (date) => {
             const dateOnly = date.getHours() == 0 &&
@@ -125,6 +128,8 @@ export class ConferenceItemDetails extends React.Component {
                                 name={`chk-${key}`}
                                 id={`chk-${key}`}
                                 checked={selected}
+                                onFocus={onFocus}
+                                onBlur={onBlur}
                                 onChange={this.itemSelectedChanged} />
                             <label htmlFor={`chk-${key}`}
                                 className='css-label'>
@@ -137,6 +142,9 @@ export class ConferenceItemDetails extends React.Component {
             <div className="total">
                 <label>Total Cost:&nbsp;</label>
                 {formatCost(this.state.total)}
+            </div>
+            <div className="error">
+                {touched && error}
             </div>
         </div>;
     }
