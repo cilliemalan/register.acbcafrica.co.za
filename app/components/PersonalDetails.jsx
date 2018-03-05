@@ -14,8 +14,8 @@ const telephone = value =>
         ? undefined
         : 'Please enter a valid telephone number'
 
-const renderField = ({ input, label, type, meta: { touched, error, warning } }) =>
-    <div className={"form-group required " + ((touched && error) ? "error" : "")}>
+const renderField = ({ input, label, type, required, meta: { touched, error, warning } }) =>
+    <div className={"form-group " + (required && "required ") + (touched && error && "error ")}>
         <label htmlFor="firstname">{label}</label>
         <input {...input} type={type} />
         <div className="error">
@@ -28,12 +28,12 @@ const PersonalDetails = (props) =>
         <h2>Personal Information</h2>
         <p>Please the personal information for the registrant.</p>
 
-        <Field component={renderField} label="Title" type="text" id="title" autoComplete="honorific-prefix" validate={required} name="title" />
-        <Field component={renderField} label="First Name" type="text" id="firstname" autoComplete="given-name" validate={required} name="firstname" />
-        <Field component={renderField} label="Surname" type="text" id="lastname" autoComplete="family-name" validate={required} name="lastname" />
-        <Field component={renderField} label="Contact Number" type="text" id="contactNumber" autoComplete="tel" validate={telephone} name="contactNumber" />
-        <Field component={renderField} label="Email" type="email" id="email" autoComplete="email" validate={email} name="email" />
-        <Field component={renderField} label="Which country are you from?" type="text" id="country" autoComplete="country-name" validate={required} name="country" />
+        <Field component={renderField} label="Title" type="text" id="title" required autoComplete="honorific-prefix" validate={required} name="title" />
+        <Field component={renderField} label="First Name" type="text" id="firstname" required autoComplete="given-name" validate={required} name="firstname" />
+        <Field component={renderField} label="Surname" type="text" id="lastname" required autoComplete="family-name" validate={required} name="lastname" />
+        <Field component={renderField} label="Contact Number" type="text" id="contactNumber" required autoComplete="tel" validate={telephone} name="contactNumber" />
+        <Field component={renderField} label="Email" type="email" id="email" required autoComplete="email" validate={email} name="email" />
+        <Field component={renderField} label="Which country are you from?" type="text" id="country" required autoComplete="country-name" validate={required} name="country" />
         <Field component={renderField} label="Which church are you from?" type="text" id="church" name="church" />
     </div>;
 
