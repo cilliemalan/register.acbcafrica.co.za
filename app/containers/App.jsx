@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Link, BrowserRouter, Switch } from 'react-router-dom'
+import { Route, Link, BrowserRouter, Switch, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { Home } from '../containers/Home';
 import { Header } from '../components/Header';
@@ -37,8 +37,7 @@ class App extends React.Component {
         }
 
 
-        return <BrowserRouter>
-            <div>
+        return <div>
                 <Header />
                 <div id="mainContent">
                     <Switch>
@@ -50,11 +49,10 @@ class App extends React.Component {
                     </Switch>
                 </div>
                 <Footer />
-            </div>
-        </BrowserRouter>;
+            </div>;
     }
 }
 
-App = connect(mapStateToProps)(App);
+App = withRouter(connect(mapStateToProps)(App));
 
 export { App };

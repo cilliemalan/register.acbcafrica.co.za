@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducer from './reducers';
 import thunk from 'redux-thunk';
+import { BrowserRouter } from 'react-router-dom';
 
 // where the app will go
 const approot = document.getElementById('react-app');
@@ -18,7 +19,9 @@ const store = createStore(reducer, enhancer);
 // some helper functions
 const reduxify = (Root) =>
     <Provider store={store}>
-        <Root />
+        <BrowserRouter>
+            <Root />
+        </BrowserRouter>
     </Provider>;
 
 const makeHot = (rootElement) => React.createElement(
