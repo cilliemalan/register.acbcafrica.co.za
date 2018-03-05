@@ -62,7 +62,7 @@ class App extends React.Component {
                         <Route exact path="/" component={Home} />
                         <Route exact path="/terms-and-conditions" component={TermsAndConditions} />
                         <Route exact path="/privacy-policy" component={PrivacyPolicy} />
-                        { hasSubmission && <Route exact path="/register/confirm" render={() => <RegistrationConfirmation submission={submission} />} /> }
+                        { hasSubmission && <Route exact path="/register/confirm" render={() => <RegistrationConfirmation submission={submission} forms={forms} />} /> }
                         <Route path="/register/:id" render={({ match, history }) => formFor(match.params.id, history)} />
                         <Route component={NotFound} />
                     </Switch>
