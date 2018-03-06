@@ -23,5 +23,7 @@ module.exports = {
     audience,
     clientId,
     clientSecret,
-    oAuthDomain
+    oAuthDomain,
+    recaptchaKey,
+    recaptchaSecret
 }
