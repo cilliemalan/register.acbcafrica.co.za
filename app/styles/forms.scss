@@ -119,36 +119,6 @@ label.css-label {
 	user-select: none;
 }
 
-.formSelection {
-    list-style: none;
-    margin:0;
-    padding:0;
-
-    li {
-        margin: 25px 45px;
-        display: block;
-        width: 500px;
-        height: 125px;
-        box-shadow: 0 0 5px rgba(0,0,0,0.3);
-
-        a {
-            text-decoration: none;
-            display:block;
-            width: 500px;
-            height: 125px;
-            
-            &:hover {
-                box-shadow: 0 0 5px rgba(0,0,0,0.5);
-            }
-
-            img {
-                max-width: 500px;
-                max-height: 125px;
-            }
-        }
-    }
-}
-
 .form {
 
     img.headerImage {
@@ -188,74 +158,5 @@ label.css-label {
                 max-height: 140px;
             }
         }
-    }
-}
-
-.conference-items {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border-top: 2px solid #333;
-    border-bottom: 2px solid #333;
-
-    li {
-        border-top:1px solid #666;
-        padding: 3px 1px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        cursor: pointer;
-
-        @media (max-width: 400px) {
-            font-size:14px;
-        }
-
-        &:hover {
-            background-color: rgba(255,255,255,0.5);
-        }
-
-        &:first-child {
-            border-top: none;
-        }
-        
-        .title {
-            font-weight: bold;
-        }
-
-        .date {
-            font-style: italic;
-        }
-
-        .cost {
-            font-weight: bold;
-            label {
-                font-weight: normal;
-            }
-        }
-
-        .selected {
-            width: 120px;
-
-            @media (max-width: 480px) {
-                width: 35px;
-                label.css-label {
-                    width: 0;
-                    color:rgba(0,0,0,0);
-                    overflow:hidden;
-                }
-            }
-        }
-    }
-}
-
-.total {
-    font-size: 24px;
-    font-weight: bold;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    label {
-        font-weight: normal;
     }
 }

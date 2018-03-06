@@ -1,0 +1,30 @@
+
+.formSelection {
+    list-style: none;
+    margin:0;
+    padding:0;
+
+    li {
+        margin: 25px 45px;
+        display: block;
+        width: 500px;
+        height: 125px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.3);
+
+        a {
+            text-decoration: none;
+            display:block;
+            width: 500px;
+            height: 125px;
+            
+            &:hover {
+                box-shadow: 0 0 5px rgba(0,0,0,0.5);
+            }
+
+            img {
+                max-width: 500px;
+                max-height: 125px;
+            }
+        }
+    }
+}
