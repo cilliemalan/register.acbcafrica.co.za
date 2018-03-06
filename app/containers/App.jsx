@@ -11,6 +11,7 @@ import { Register } from '../components/Register';
 import { RegistrationConfirmation } from '../components/RegistrationConfirmation';
 import { fetchFormsIfNeeded, stageRegistration } from '../actions';
 import { Spinner } from '../components/Spinner';
+import { RegistrationDone } from '../components/RegistrationDone';
 
 const mapStateToProps = state => {
     return ({
@@ -56,19 +57,20 @@ class App extends React.Component {
 
 
         return <div>
-                <Header />
-                <div id="mainContent">
-                    <Switch>
-                        <Route exact path="/" component={Home} />
-                        <Route exact path="/terms-and-conditions" component={TermsAndConditions} />
-                        <Route exact path="/privacy-policy" component={PrivacyPolicy} />
-                        { hasSubmission && <Route exact path="/register/confirm" render={() => <RegistrationConfirmation submission={submission} forms={forms} />} /> }
-                        <Route path="/register/:id" render={({ match, history }) => formFor(match.params.id, history)} />
-                        <Route component={NotFound} />
-                    </Switch>
-                </div>
-                <Footer />
-            </div>;
+            <Header />
+            <div id="mainContent">
+                <Switch>
+                    <Route exact path="/" component={Home} />
+                    <Route exact path="/terms-and-conditions" component={TermsAndConditions} />
+                    <Route exact path="/privacy-policy" component={PrivacyPolicy} />
+                    { hasSubmission && <Route exact path="/register/confirm" render={() => <RegistrationConfirmation submission={submission} forms={forms} />} /> }
+                    <Route exact path="/register/done" component={RegistrationDone} />
+                    <Route path="/register/:id" render={({ match, history }) => formFor(match.params.id, history)} />
+                    <Route component={NotFound} />
+                </Switch>
+            </div>
+            <Footer />
+        </div>;
     }
 }
 
