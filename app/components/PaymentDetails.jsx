@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { formatCost } from '../helpers/formatting';
 
-export const PaymentDetails = ({ submission: { form, details: { total, lastname, firstname } } }) => {
+export const PaymentDetails = ({ submission: { form, details: { options: { total }, lastname, firstname } } }) => {
     return <div>
         <h2>Payment</h2>
-        <p>Total Cost: <strong>{total}</strong></p>
+        <p>Total Cost: <strong>{formatCost(total)}</strong></p>
         <h3>Bank Account</h3>
         <p>
             Please direct payments to the SMTI Bank Account:<br />
