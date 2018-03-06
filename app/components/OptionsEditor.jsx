@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+import { formatCost, formatDate, formatSingleDate } from '../helpers/formatting';
 
 export class OptionsEditor extends React.Component {
     constructor(props) {
@@ -78,34 +78,6 @@ export class OptionsEditor extends React.Component {
         const optionkeys = Object.keys(poptions);
         const { error, touched } = this.props.meta;
         const { onFocus, onBlur } = this.props.input;
-
-        const formatSingleDate = (date) => {
-            const dateOnly = date.getHours() == 0 &&
-                date.getMinutes() == 0 &&
-                date.getSeconds() == 0 &&
-                date.getMilliseconds() == 0;
-
-            return dateOnly ? moment(date).format('dddd D MMMM')
-                : moment(date).format('ddd D MMM HH:mm');
-        };
-        const formatDate = (from, to) => {
-            return to ? `${formatSingleDate(from)} — ${formatSingleDate(to)}`
-                : `${formatSingleDate(from)}`;
-        };
-        const formatCost = (a) => {
-            if (typeof a == 'number') {
-                if (a == 0) {
-                    return 'Free';
-                } else {
-                    return a.toLocaleString('en-ZA', {
-                        style: 'currency',
-                        currency: 'ZAR',
-                    });
-                }
-            } else {
-                return '';
-            }
-        }
 
         return <div>
             <h2>Conference Options</h2>
