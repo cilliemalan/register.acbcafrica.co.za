@@ -13,6 +13,7 @@ const clientSecret = process.env.OAUTH_CLIENT_SECRET;
 const recaptchaKey = process.env.RECAPTCHA_KEY;
 const recaptchaSecret = process.env.RECAPTCH_SECRET;
 
+const gaTrackingId = process.env.GA_TRACKING_ID || 'UA-114404288-1';
 
 module.exports = {
     port,
@@ -25,5 +26,6 @@ module.exports = {
     clientSecret,
     oAuthDomain,
     recaptchaKey,
-    recaptchaSecret
+    recaptchaSecret,
+    gaTrackingId
 }
