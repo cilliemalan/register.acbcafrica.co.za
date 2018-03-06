@@ -10,6 +10,9 @@ const oAuthDomain = issuer.match(/^https:\/\/(.+)\//)[1];
 const clientId = process.env.OAUTH_CLIENT_ID;
 const clientSecret = process.env.OAUTH_CLIENT_SECRET;
 
+const recaptchaKey = process.env.RECAPTCHA_KEY;
+const recaptchaSecret = process.env.RECAPTCH_SECRET;
+
 
 module.exports = {
     port,
