@@ -1,22 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { SubmissionDetails } from './SubmissionDetails';
 import { PaymentDetails } from './PaymentDetails';
 import { OptionsDisplay } from './OptionsDisplay';
 import { Spinner } from './Spinner';
 
-export const RegistrationConfirmation = ({ submission, forms, history, onSubmit }) => {
+export const RegistrationConfirmation = ({ submission, forms, onCancel, onSubmit }) => {
     const form = forms[submission.form];
     const formName = form.title;
     const total = submission.details.options.total;
     const options = form.options;
     const selection = submission.details.options;
 
-    const goBack = () => {
-        history.goBack();
-    }
-
-    if (submission.loading) {
+    if (submission.complete) {
+        <Redirect to="/register/done" />
+    } else if (submission.loading) {
         return <Spinner />;
     } else {
         return <div>
@@ -25,7 +23,7 @@ export const RegistrationConfirmation = ({ submission, forms, history, onSubmit 
             <SubmissionDetails submission={submission} />
             <OptionsDisplay options={options} selection={selection} />
             <div className="confirmation-buttons">
-                <button type="button" onClick={goBack}>Back</button>
+                <button type="button" onClick={onCancel}>Back</button>
                 <button type="button" onClick={onSubmit}>Submit</button>
             </div>
             <div className="error">

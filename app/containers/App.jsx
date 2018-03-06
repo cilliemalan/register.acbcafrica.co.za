@@ -41,8 +41,13 @@ class App extends React.Component {
         history.push('/register/confirm');
     }
 
+    onConfirmationSubmit(form, values) {
+        const { dispatch } = this.props;
+        dispatch(submitRegistration(form, values));
+    }
+
     render() {
-        const { forms, loading, submission } = this.props;
+        const { forms, loading, submission, history } = this.props;
         const hasSubmission = !!submission.details;
 
         const formFor = (formId, history) => {
@@ -55,6 +60,13 @@ class App extends React.Component {
             }
         }
 
+        const confirmation = () =>
+            <RegistrationConfirmation
+                submission={submission}
+                forms={forms}
+                onCancel={() => history.goBack()}
+                onSubmit={(v) => this.onConfirmationSubmit(formId, v)} />;
+
 
         return <div>
             <Header />
@@ -63,7 +75,7 @@ class App extends React.Component {
                     <Route exact path="/" component={Home} />
                     <Route exact path="/terms-and-conditions" component={TermsAndConditions} />
                     <Route exact path="/privacy-policy" component={PrivacyPolicy} />
-                    { hasSubmission && <Route exact path="/register/confirm" render={() => <RegistrationConfirmation submission={submission} forms={forms} />} /> }
+                    {hasSubmission && <Route exact path="/register/confirm" render={confirmation} />}
                     <Route exact path="/register/done" component={RegistrationDone} />
                     <Route path="/register/:id" render={({ match, history }) => formFor(match.params.id, history)} />
                     <Route component={NotFound} />
