@@ -42,11 +42,6 @@ form {
         }
     }
 
-    div.error {
-        color:red;
-        min-height: 25px;
-    }
-
     .submit {
         text-align: right;
 
@@ -55,6 +50,13 @@ form {
             margin: 20px 0;
         }
     }
+}
+
+div.error {
+    color:red;
+    height: 25px;
+    overflow: visible;
+    margin-bottom: 10px;
 }
 
 button {
@@ -169,5 +171,4 @@ label.css-label {
 .confirmation-buttons {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 50px;
 }
