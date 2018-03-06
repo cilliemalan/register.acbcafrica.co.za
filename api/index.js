@@ -2,9 +2,15 @@ const winston = require('winston');
 const express = require('express');
 const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
+const reCAPTCHA = require('recaptcha2');
 const forms = require('../public/data/forms.json');
 
 const config = require('../config');
+
+const recaptcha = new reCAPTCHA({
+    siteKey: config.recaptchaKey,
+    secretKey: config.recaptchaSecret
+});
 
 module.exports = () => {
 
@@ -42,8 +48,8 @@ module.exports = () => {
         if (typeof body != "object") {
             res.status(400).end('An invalid request was received');
         } else {
-            const { form, details } = body;
-            if (!form || !details || (typeof form != "string") || (typeof details != "object")) {
+            const { form, details, token } = body;
+            if (!form || !details || !token || (typeof form != "string") || (typeof details != "object")) {
                 res.status(400).end('An invalid request was received');
             } else if (!(form in forms)) {
                 res.status(400).end('The form is not supported');
@@ -55,9 +61,16 @@ module.exports = () => {
                 if (!title || !firstname || !lastname || !contactNumber || !email || !options) {
                     res.status(400).end('An invalid request was received');
                 } else {
-                    console.log({ title, firstname, lastname, contactNumber, email, country, church, options });
 
-                    res.end();
+                    recaptcha.validate(token).then(() => {
+
+                        console.log({ title, firstname, lastname, contactNumber, email, country, church, options });
+                        res.end();
+                    }, () => {
+                        res.status(400).end('failed to validate recaptcha token');
+                    });
+
+
                 }
             }
         }
