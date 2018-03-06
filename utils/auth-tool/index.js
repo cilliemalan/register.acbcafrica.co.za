@@ -11,7 +11,7 @@ const writeFile = util.promisify(fs.writeFile);
 const mkdir = util.promisify(fs.mkdir);
 
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
-const TOKEN_PATH = 'tokens.json';
+const TOKEN_PATH = path.resolve(__dirname, '../..', 'tokens.json');
 
 
 
@@ -98,6 +98,7 @@ function getNewToken(oauth2Client) {
 
 function storeToken(token) {
     fs.writeFileSync(TOKEN_PATH, JSON.stringify(token));
+    fs.chmodSync(TOKEN_PATH, 0o600); //rw only by owner
     console.log('Token stored to ' + path.resolve(TOKEN_PATH));
 }
 
