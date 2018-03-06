@@ -13,7 +13,7 @@ export const RegistrationConfirmation = ({ submission, forms, onCancel, onSubmit
     const selection = submission.details.options;
 
     if (submission.complete) {
-        <Redirect to="/register/done" />
+        return <Redirect to="/register/done" />
     } else if (submission.loading) {
         return <Spinner />;
     } else {
