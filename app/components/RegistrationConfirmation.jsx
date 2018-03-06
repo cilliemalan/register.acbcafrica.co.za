@@ -25,7 +25,7 @@ export const RegistrationConfirmation = ({ submission, forms, history, onSubmit 
             <SubmissionDetails submission={submission} />
             <OptionsDisplay options={options} selection={selection} />
             <div className="confirmation-buttons">
-                <button type="button" onClick={goBack} >Back</button>
+                <button type="button" onClick={goBack}>Back</button>
                 <button type="button" onClick={onSubmit}>Submit</button>
             </div>
             <div className="error">
