@@ -16,5 +16,10 @@ export const RegistrationConfirmation = ({ submission, forms }) => {
         <p>You are registering for <strong>{formName}</strong>.</p>
         <SubmissionDetails submission={submission} />
         <OptionsDisplay options={options} selection={selection} />
+        <div className="confirmation-buttons">
+            <button type="button">Back</button>
+            <button type="button">Submit</button>
+        </div>
+        {total > 0 && <PaymentDetails submission={submission} />}
     </div>;
 }
