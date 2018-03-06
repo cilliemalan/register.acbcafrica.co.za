@@ -3,23 +3,36 @@ import { Link } from 'react-router-dom';
 import { SubmissionDetails } from './SubmissionDetails';
 import { PaymentDetails } from './PaymentDetails';
 import { OptionsDisplay } from './OptionsDisplay';
+import { Spinner } from './Spinner';
 
-export const RegistrationConfirmation = ({ submission, forms }) => {
+export const RegistrationConfirmation = ({ submission, forms, history, onSubmit }) => {
     const form = forms[submission.form];
     const formName = form.title;
     const total = submission.details.options.total;
     const options = form.options;
     const selection = submission.details.options;
 
-    return <div>
-        <h1>Confirm Registration</h1>
-        <p>You are registering for <strong>{formName}</strong>.</p>
-        <SubmissionDetails submission={submission} />
-        <OptionsDisplay options={options} selection={selection} />
-        <div className="confirmation-buttons">
-            <button type="button">Back</button>
-            <button type="button">Submit</button>
-        </div>
-        {total > 0 && <PaymentDetails submission={submission} />}
-    </div>;
+    const goBack = () => {
+        history.goBack();
+    }
+
+    if (submission.loading) {
+        return <Spinner />;
+    } else {
+        return <div>
+            <h1>Confirm Registration</h1>
+            <p>You are registering for <strong>{formName}</strong>.</p>
+            <SubmissionDetails submission={submission} />
+            <OptionsDisplay options={options} selection={selection} />
+            <div className="confirmation-buttons">
+                <button type="button" onClick={goBack} >Back</button>
+                <button type="button" onClick={onSubmit}>Submit</button>
+            </div>
+            <div className="error">
+                {submission.error}
+            </div>
+            {total > 0 && <PaymentDetails submission={submission} />}
+        </div>;
+    }
+
 }
