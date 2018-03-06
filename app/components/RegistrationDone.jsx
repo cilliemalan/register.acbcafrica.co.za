@@ -1,5 +1,6 @@
 import React from 'react';
 import check from '../content/check.png';
+import { Link } from 'react-router-dom'
 
 export const RegistrationDone = () =>
     <div className="registration-success">
