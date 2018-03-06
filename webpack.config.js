@@ -2,7 +2,21 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
+const config = require('./config');
+
 const dist = path.resolve(__dirname, 'public');
+const now = new Date().toISOString().replace(/[:.ZT-]/g,'');
+
+const plugins = [
+    new HtmlWebpackPlugin({ template: 'app/index.ejs', gaTrackingId: config.gaTrackingId }),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+        environment: JSON.stringify(config.environment),
+        recaptchaKey: JSON.stringify(config.recaptchaKey),
+        clientId: JSON.stringify(config.clientId)
+    })
+];
 
 module.exports = {
     entry: {
@@ -14,13 +28,7 @@ module.exports = {
     },
     resolve: { extensions: ['.js', '.jsx'] },
     devtool: 'inline-source-map',
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: 'app/index.ejs'
-        }),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin()
-    ],
+    plugins: plugins,
     module: {
         rules: [
             {
