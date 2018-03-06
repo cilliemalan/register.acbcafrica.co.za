@@ -9,6 +9,7 @@ const opn = require('opn');
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 const mkdir = util.promisify(fs.mkdir);
+const chmod = util.promisify(fs.chmod);
 
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 const TOKEN_PATH = path.resolve(__dirname, '../..', 'tokens.json');
@@ -68,7 +69,7 @@ async function refreshToken(oauth2Client, token) {
     oauth2Client.credentials = token;
     const { credentials } = await oauth2Client.refreshAccessToken();
     if (!credentials) throw "Coundlt get new credentials";
-    storeToken(credentials);
+    await storeToken(credentials);
     return credentials;
 }
 
@@ -80,6 +81,7 @@ function getNewToken(oauth2Client) {
             scope: SCOPES
         });
         console.log('Authorizing...');
+        console.log(`Navigate to ${authUrl} and authorize`);
         opn(authUrl);
         var rl = readline.createInterface({
             input: process.stdin,
@@ -87,8 +89,8 @@ function getNewToken(oauth2Client) {
         });
         rl.question('Enter the code from the page here: ', function (code) {
             rl.close();
-            oauth2Client.getToken(code).then(({ tokens }) => {
-                storeToken(tokens);
+            oauth2Client.getToken(code).then(async ({ tokens }) => {
+                await storeToken(tokens);
                 resolve(tokens);
             });
         });
@@ -96,9 +98,9 @@ function getNewToken(oauth2Client) {
 
 }
 
-function storeToken(token) {
-    fs.writeFileSync(TOKEN_PATH, JSON.stringify(token));
-    fs.chmodSync(TOKEN_PATH, 0o600); //rw only by owner
+async function storeToken(token) {
+    await writeFile(TOKEN_PATH, JSON.stringify(token));
+    await chmod(TOKEN_PATH, 0o600); //rw only by owner
     console.log('Token stored to ' + path.resolve(TOKEN_PATH));
 }
 
