@@ -60,3 +60,4 @@ typings/
 /public/*.*
 run.sh
 client_secret.json
+/utils/auth-tool/tokens.json
