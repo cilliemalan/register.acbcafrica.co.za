@@ -37,3 +37,5 @@ export const submitRegistration = (form, details) => (dispatch, getState) => {
         .then(() => dispatch(submittedRegistration()))
         .catch(message => dispatch(errorRegistration(message)))
 }
+
+export const clearRegistration = () => action('CLEAR_REGISTRATION');

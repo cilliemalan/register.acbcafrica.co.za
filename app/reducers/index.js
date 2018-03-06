@@ -48,7 +48,12 @@ function submission(state = {}, action) {
             return {
                 ...state,
                 error: undefined,
-                loading: false,
+                loading: false
+            };
+        case 'CLEAR_REGISTRATION':
+            return {
+                ...state,
+                error: undefined,
                 form: undefined,
                 details: undefined
             };
