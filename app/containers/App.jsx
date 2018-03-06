@@ -9,7 +9,7 @@ import { PrivacyPolicy } from '../components/PrivacyPolicy';
 import { NotFound } from '../components/NotFound';
 import { Register } from '../components/Register';
 import { RegistrationConfirmation } from '../components/RegistrationConfirmation';
-import { fetchFormsIfNeeded, stageRegistration } from '../actions';
+import { fetchFormsIfNeeded, stageRegistration, submitRegistration } from '../actions';
 import { Spinner } from '../components/Spinner';
 import { RegistrationDone } from '../components/RegistrationDone';
 
@@ -41,9 +41,10 @@ class App extends React.Component {
         history.push('/register/confirm');
     }
 
-    onConfirmationSubmit(form, values) {
+    onConfirmationSubmit(submission) {
+        const { form, details } = submission;
         const { dispatch } = this.props;
-        dispatch(submitRegistration(form, values));
+        dispatch(submitRegistration(form, details));
     }
 
     render() {
@@ -65,7 +66,7 @@ class App extends React.Component {
                 submission={submission}
                 forms={forms}
                 onCancel={() => history.goBack()}
-                onSubmit={(v) => this.onConfirmationSubmit(formId, v)} />;
+                onSubmit={() => this.onConfirmationSubmit(submission)} />;
 
 
         return <div>
