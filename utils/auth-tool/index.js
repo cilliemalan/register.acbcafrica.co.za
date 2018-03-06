@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const util = require('util');
 const readline = require('readline');
 const { google } = require('googleapis');
@@ -10,8 +11,7 @@ const writeFile = util.promisify(fs.writeFile);
 const mkdir = util.promisify(fs.mkdir);
 
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
-const TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH || process.env.USERPROFILE) + '/.credentials/';
-const TOKEN_PATH = TOKEN_DIR + 'sheets.googleapis.com-nodejs-quickstart.json';
+const TOKEN_PATH = 'tokens.json';
 
 
 
@@ -53,7 +53,7 @@ async function authorize(credentials) {
         const { expiry_date } = token;
         const expires = new Date(expiry_date);
         const now = new Date();
-        if (true || expires <= now) {
+        if (expires <= now) {
             token = await refreshToken(oauth2Client, token);
         }
     } else {
@@ -72,11 +72,6 @@ async function refreshToken(oauth2Client, token) {
     return credentials;
 }
 
-/**
- * Get and store new token after prompting for user authorization, and then
- * execute the given callback with the authorized OAuth2 client.
- *     client.
- */
 function getNewToken(oauth2Client) {
 
     return new Promise((resolve, reject) => {
@@ -101,27 +96,11 @@ function getNewToken(oauth2Client) {
 
 }
 
-/**
- * Store token to disk be used in later program executions.
- *
- * @param {Object} token The token to store to disk.
- */
 function storeToken(token) {
-    try {
-        fs.mkdirSync(TOKEN_DIR);
-    } catch (err) {
-        if (err.code != 'EEXIST') {
-            throw err;
-        }
-    }
     fs.writeFileSync(TOKEN_PATH, JSON.stringify(token));
-    console.log('Token stored to ' + TOKEN_PATH);
+    console.log('Token stored to ' + path.resolve(TOKEN_PATH));
 }
 
-/**
- * Print the names and majors of students in a sample spreadsheet:
- * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
- */
 async function listMajors(auth) {
     sheets.spreadsheets.values.get({
         auth: auth,
@@ -136,14 +115,9 @@ async function listMajors(auth) {
         const rows = response && response.data && response.data.values;
 
         if (!rows || rows == 0) {
-            console.log('No data found.');
+            console.log('Token doesn\'t seem to work.');
         } else {
-            console.log('Name, Major:');
-            for (var i = 0; i < rows.length; i++) {
-                var row = rows[i];
-                // Print columns A and E, which correspond to indices 0 and 4.
-                console.log('%s, %s', row[0], row[4]);
-            }
+            console.log('Token works');
         }
     });
 }
