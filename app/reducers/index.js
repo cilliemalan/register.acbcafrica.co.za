@@ -36,26 +36,30 @@ function submission(state = {}, action) {
                 ...state,
                 error: undefined,
                 form,
-                details
+                details,
+                complete: false
             };
         case 'SUBMITTING_REGISTRATION':
             return {
                 ...state,
                 error: undefined,
-                loading: true
+                loading: true,
+                complete: false
             };
         case 'SUBMITTED_REGISTRATION':
             return {
                 ...state,
                 error: undefined,
-                loading: false
+                loading: false,
+                complete: true
             };
         case 'CLEAR_REGISTRATION':
             return {
                 ...state,
                 error: undefined,
                 form: undefined,
-                details: undefined
+                details: undefined,
+                complete: undefined
             };
         case 'ERROR_REGISTRATION':
             return {
