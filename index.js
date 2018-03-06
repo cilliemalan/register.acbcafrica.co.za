@@ -76,11 +76,17 @@ app.use(wphmw);
 app.use(express.static('public'));
 
 // SPA
-app.use((req, res) => {
-    const indexFile = `${webpackconfig.output.path}/index.html`;
-    const index = webpackCompiler.outputFileSystem.readFileSync(indexFile);
-    res.contentType('text/html');
-    res.end(index);
+app.use((req, res, next) => {
+    if(req.method == 'GET') {
+        const indexFile = `${webpackconfig.output.path}/index.html`;
+        const index = webpackCompiler.outputFileSystem.readFileSync(indexFile);
+        res.contentType('text/html');
+        res.end(index);
+    } else {
+        res.status(405);
+        res.statusMessage('Method not allowed');
+        res.end();
+    }
 });
 
 
