@@ -33,6 +33,7 @@ module.exports = () => {
     });
 
     api.use(jwtCheck);
+    api.use(express.json());
 
     api.get('/', (req, res) => res.json({ status: 'ok' }));
 
@@ -42,7 +43,7 @@ module.exports = () => {
             res.status(400).end('An invalid request was received');
         } else {
             const { form, details } = body;
-            if (!form || details || (typeof form != "string") || (typeof details != "object")) {
+            if (!form || !details || (typeof form != "string") || (typeof details != "object")) {
                 res.status(400).end('An invalid request was received');
             } else if (!(form in forms)) {
                 res.status(400).end('The form is not supported');
