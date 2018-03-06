@@ -1,82 +1,104 @@
-var fs = require('fs');
-var readline = require('readline');
-var google = require('googleapis');
-var googleAuth = require('google-auth-library');
-var opn = require('opn');
+const fs = require('fs');
+const util = require('util');
+const readline = require('readline');
+const { google } = require('googleapis');
+const sheets = google.sheets('v4');
+const { GoogleAuth, OAuth2Client } = require('google-auth-library');
+const opn = require('opn');
+const readFile = util.promisify(fs.readFile);
+const writeFile = util.promisify(fs.writeFile);
+const mkdir = util.promisify(fs.mkdir);
 
-var SCOPES = ['https://www.googleapis.com/auth/spreadsheets	'];
-var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
-    process.env.USERPROFILE) + '/.credentials/';
-var TOKEN_PATH = TOKEN_DIR + 'sheets.googleapis.com-nodejs-quickstart.json';
+const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
+const TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH || process.env.USERPROFILE) + '/.credentials/';
+const TOKEN_PATH = TOKEN_DIR + 'sheets.googleapis.com-nodejs-quickstart.json';
 
 
-// Load client secrets from a local file.
-fs.readFile('client_secret.json', function processClientSecrets(err, content) {
-    if (err) {
-        console.log('Error loading client secret file: ' + err);
-        return;
-    }
+
+
+async function main() {
+
+    // Load client secrets from a local file.
+    const content = await readFile('client_secret.json');
+
     // Authorize a client with the loaded credentials, then call the
     // Google Sheets API.
-    authorize(JSON.parse(content), listMajors);
-});
+    const thing = await authorize(JSON.parse(content));
+
+    await listMajors(thing);
+}
+
+main().catch(console.error);
+
+
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
  * given callback function.
- *
- * @param {Object} credentials The authorization client credentials.
- * @param {function} callback The callback to call with the authorized client.
  */
-function authorize(credentials, callback) {
+async function authorize(credentials) {
     var clientSecret = credentials.installed.client_secret;
     var clientId = credentials.installed.client_id;
     var redirectUrl = credentials.installed.redirect_uris[0];
-    var auth = new googleAuth();
-    var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
+    var auth = new GoogleAuth();
+    var oauth2Client = new OAuth2Client(clientId, clientSecret, redirectUrl);
 
     // Check if we have previously stored a token.
-    fs.readFile(TOKEN_PATH, function (err, token) {
-        if (err) {
-            getNewToken(oauth2Client, callback);
-        } else {
-            oauth2Client.credentials = JSON.parse(token);
-            callback(oauth2Client);
+    let token;
+    try {
+        token = JSON.parse(await readFile(TOKEN_PATH));
+    } catch (e) { }
+
+    if (token) {
+        const { expiry_date } = token;
+        const expires = new Date(expiry_date);
+        const now = new Date();
+        if (true || expires <= now) {
+            token = await refreshToken(oauth2Client, token);
         }
-    });
+    } else {
+        token = await getNewToken(oauth2Client);
+    }
+
+    oauth2Client.credentials = token;
+    return oauth2Client;
+}
+
+async function refreshToken(oauth2Client, token) {
+    oauth2Client.credentials = token;
+    const { credentials } = await oauth2Client.refreshAccessToken();
+    if (!credentials) throw "Coundlt get new credentials";
+    storeToken(credentials);
+    return credentials;
 }
 
 /**
  * Get and store new token after prompting for user authorization, and then
  * execute the given callback with the authorized OAuth2 client.
- *
- * @param {google.auth.OAuth2} oauth2Client The OAuth2 client to get token for.
- * @param {getEventsCallback} callback The callback to call with the authorized
  *     client.
  */
-function getNewToken(oauth2Client, callback) {
-    var authUrl = oauth2Client.generateAuthUrl({
-        access_type: 'offline',
-        scope: SCOPES
-    });
-    console.log('Authorizing...');
-    opn(authUrl);
-    var rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
-    rl.question('Enter the code from that page here: ', function (code) {
-        rl.close();
-        oauth2Client.getToken(code, function (err, token) {
-            if (err) {
-                console.log('Error while trying to retrieve access token', err);
-                return;
-            }
-            oauth2Client.credentials = token;
-            storeToken(token);
-            callback(oauth2Client);
+function getNewToken(oauth2Client) {
+
+    return new Promise((resolve, reject) => {
+        var authUrl = oauth2Client.generateAuthUrl({
+            access_type: 'offline',
+            scope: SCOPES
+        });
+        console.log('Authorizing...');
+        opn(authUrl);
+        var rl = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout
+        });
+        rl.question('Enter the code from the page here: ', function (code) {
+            rl.close();
+            oauth2Client.getToken(code).then(({ tokens }) => {
+                storeToken(tokens);
+                resolve(tokens);
+            });
         });
     });
+
 }
 
 /**
@@ -92,7 +114,7 @@ function storeToken(token) {
             throw err;
         }
     }
-    fs.writeFile(TOKEN_PATH, JSON.stringify(token));
+    fs.writeFileSync(TOKEN_PATH, JSON.stringify(token));
     console.log('Token stored to ' + TOKEN_PATH);
 }
 
@@ -100,8 +122,7 @@ function storeToken(token) {
  * Print the names and majors of students in a sample spreadsheet:
  * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
  */
-function listMajors(auth) {
-    var sheets = google.sheets('v4');
+async function listMajors(auth) {
     sheets.spreadsheets.values.get({
         auth: auth,
         spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
@@ -111,8 +132,10 @@ function listMajors(auth) {
             console.log('The API returned an error: ' + err);
             return;
         }
-        var rows = response.values;
-        if (rows.length == 0) {
+
+        const rows = response && response.data && response.data.values;
+
+        if (!rows || rows == 0) {
             console.log('No data found.');
         } else {
             console.log('Name, Major:');
