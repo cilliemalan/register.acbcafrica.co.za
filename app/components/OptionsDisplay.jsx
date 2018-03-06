@@ -10,7 +10,7 @@ export const OptionsDisplay = ({ options, selection }) => {
 
     return <div>
         <h2>Registering for:</h2>
-        <ul class="conference-items-display">
+        <ul className="conference-items-display">
             {optionkeys.map(key => {
                 const option = options[key];
                 const selected = selection[key];
