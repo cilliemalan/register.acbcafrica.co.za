@@ -15,8 +15,7 @@ export const fetchForms = () => fetch('/data/forms.json')
         return forms;
     });
 
-export const submitRegistration = (registration) => fetch({
-    url: 'api/submit',
+export const submitRegistration = (registration) => fetch('/api/submit', {
     method: 'POST',
     body: JSON.stringify(registration),
     headers: {
