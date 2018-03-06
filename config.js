@@ -30,19 +30,21 @@ const recaptchaSecret = process.env.RECAPTCH_SECRET;
 const gaTrackingId = process.env.GA_TRACKING_ID || 'UA-114404288-1';
 
 const googleAccessToken = readJsonOrNull(`${__dirname}/tokens.json`);
+const googleSheet = process.env.GOOGLE_SHEET;
 
-    module.exports = {
-        port,
-        root,
-        ghsecret,
-        loglevel,
-        issuer,
-        audience,
-        clientId,
-        clientSecret,
-        oAuthDomain,
-        recaptchaKey,
-        recaptchaSecret,
-        gaTrackingId,
-        googleAccessToken
-    }
+module.exports = {
+    port,
+    root,
+    ghsecret,
+    loglevel,
+    issuer,
+    audience,
+    clientId,
+    clientSecret,
+    oAuthDomain,
+    recaptchaKey,
+    recaptchaSecret,
+    gaTrackingId,
+    googleAccessToken,
+    googleSheet
+}
