@@ -2,6 +2,7 @@ const winston = require('winston');
 const express = require('express');
 const reCAPTCHA = require('recaptcha2');
 const forms = require('../public/data/forms.json');
+const { addEntryToSheet } = require('./sheets');
 
 const config = require('../config');
 
@@ -31,26 +32,32 @@ module.exports = () => {
             res.status(400).end('An invalid request was received');
         } else {
             const { form, details, token } = body;
+            const formData = forms[form];
             if (!form || !details || !token || (typeof form != "string") || (typeof details != "object")) {
                 res.status(400).end('An invalid request was received');
-            } else if (!(form in forms)) {
+            } else if (!formData) {
                 res.status(400).end('The form is not supported');
             } else {
                 const { title, firstname, lastname,
                     contactNumber, email, country,
                     church, options } = details;
+                const { sheet } = formData;
 
                 if (!title || !firstname || !lastname || !contactNumber || !email || !options) {
                     res.status(400).end('An invalid request was received');
                 } else {
 
-                    recaptcha.validate(token).then(() => {
-
-                        console.log({ title, firstname, lastname, contactNumber, email, country, church, options });
-                        res.end();
-                    }, () => {
-                        res.status(400).end('failed to validate recaptcha token');
-                    });
+                    recaptcha.validate(token)
+                        .catch(() => res.status(400).end('failed to validate recaptcha token'))
+                        .then(async () => {
+                            const formData = {
+                                title, firstname, lastname, contactNumber, email, country, church,
+                                ...options
+                            }
+                            await addEntryToSheet(sheet, { date: new Date(), ...formData });
+                        })
+                        .then(() => res.end())
+                        .catch(e => { winston.error(e); res.status(500).end('Internal server error'); });
 
 
                 }
