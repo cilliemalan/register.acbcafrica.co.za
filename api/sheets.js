@@ -10,16 +10,20 @@ const chmod = util.promisify(fs.chmod);
 const moment = require('moment');
 const { google } = require('googleapis');
 const sheets = google.sheets('v4');
-const { GoogleAuth, OAuth2Client } = require('google-auth-library');
+const { OAuth2Client } = require('google-auth-library');
 
 const { googleSheet: spreadsheetId } = require('../config');
 
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 const TOKEN_PATH = path.resolve(__dirname, '..', 'tokens.json');
+const CREDS_PATH = path.resolve(__dirname, '..', 'client_secret.json');
 
 async function authorize() {
-    const auth = new GoogleAuth();
-    const oauth2Client = new OAuth2Client();
+
+    const { installed: { client_id, client_secret, redirect_uris } } =
+        JSON.parse(await readFile(CREDS_PATH));
+
+    const oauth2Client = new OAuth2Client(client_id, client_secret, redirect_uris[0]);
 
     let token = JSON.parse(await readFile(TOKEN_PATH));
     oauth2Client.credentials = token;
