@@ -7,11 +7,12 @@ const writeFile = util.promisify(fs.writeFile);
 const mkdir = util.promisify(fs.mkdir);
 const chmod = util.promisify(fs.chmod);
 
+const moment = require('moment');
 const { google } = require('googleapis');
 const sheets = google.sheets('v4');
 const { GoogleAuth, OAuth2Client } = require('google-auth-library');
 
-const { googleSheet } = require('../config');
+const { googleSheet: spreadsheetId } = require('../config');
 
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 const TOKEN_PATH = path.resolve(__dirname, '..', 'tokens.json');
@@ -48,6 +49,89 @@ async function storeToken(token) {
     console.log('Token stored to ' + path.resolve(TOKEN_PATH));
 }
 
-export const addEntryToSheet = async (entry) => {
-    const auth = await authorize();
+const _A = "A".charCodeAt(0);
+const columnNumberToLetter = (columnNumber) => {
+    const big = parseInt(columnNumber / 26);
+    const sml = columnNumber % 26;
+
+    if (big == 0) {
+        return String.fromCharCode(_A + sml);
+    } else {
+        return `${columnNumberToLetter(big - 1)}${columnNumberToLetter(sml)}`
+    }
 }
+
+const get = (auth, request) => {
+    return new Promise((resolve, reject) => {
+        sheets.spreadsheets.values.get({
+            auth, spreadsheetId,
+            ...request
+        }, (err, response) => {
+            if (err || !response || !response.data) {
+                reject(err || 'could not retrieve data');
+            } else {
+                resolve(response.data);
+            }
+        });
+    });
+}
+
+const update = (auth, request) => {
+    return new Promise((resolve, reject) => {
+        sheets.spreadsheets.values.update({
+            auth, spreadsheetId,
+            valueInputOption: 'USER_ENTERED',
+            ...request
+        }, (err, response) => {
+            if (err || !response || !response.data) {
+                reject(err || 'could not update data');
+            } else {
+                resolve(response.data);
+            }
+        });
+    });
+}
+
+const mapValues = (arr) => arr.map(v => {
+    if (typeof v == "number") {
+        return v;
+    } else if (typeof v == "string") {
+        return `'${v}`;
+    } else if (typeof v == "boolean") {
+        return v;
+    } else if (util.isDate(v)) {
+        return moment(v).format('YYYY-MM-DD hh:mm:ss');
+    } else if (!v) {
+        return "";
+    } else {
+        return "invalid";
+    }
+});
+
+const addEntryToSheet = async (entry) => {
+    const auth = await authorize();
+
+    const header = Object.keys(entry);
+    const values = mapValues(Object.values(entry));
+
+    // check if there is a header
+    const lastColumn = columnNumberToLetter(header.length - 1);
+    const headerRange = `Sheet1!A1:${lastColumn}1`;
+    const { values: currentHeaderValues } = await get(auth, { range: headerRange });
+    if (!currentHeaderValues ||
+        !currentHeaderValues.length ||
+        currentHeaderValues[0].length < header.length) {
+        //something is missing from the header
+        await update(auth, { range: headerRange, resource: { values: [header] } });
+    }
+
+    // find first empty row. assumes the first column is always populated
+    const { values: entryValues } = await get(auth, { range: `Sheet1!A2:A`, majorDimension: "COLUMNS" });
+    const firstEmptyRow = entryValues ? entryValues[0].length + 2 : 2;
+
+    // set the data
+    const updateRange = `Sheet1!A${firstEmptyRow}:${lastColumn}${firstEmptyRow}`;
+    await update(auth, { range: updateRange, resource: { values: [values] } });
+}
+
+module.exports = { addEntryToSheet };
