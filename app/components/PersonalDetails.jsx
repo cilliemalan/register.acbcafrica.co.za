@@ -2,7 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 const required = value =>
-    value && /[a-zA-Z]{3,}/.test(value)
+    value && /[a-zA-Z]{2,}/.test(value)
         ? undefined
         : 'Required';
 const email = value =>
