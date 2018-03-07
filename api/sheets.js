@@ -108,7 +108,7 @@ const mapValues = (arr) => arr.map(v => {
     }
 });
 
-const addEntryToSheet = async (entry) => {
+const addEntryToSheet = async (sheet, entry) => {
     const auth = await authorize();
 
     const header = Object.keys(entry);
@@ -116,7 +116,7 @@ const addEntryToSheet = async (entry) => {
 
     // check if there is a header
     const lastColumn = columnNumberToLetter(header.length - 1);
-    const headerRange = `Sheet1!A1:${lastColumn}1`;
+    const headerRange = `'${sheet}'!A1:${lastColumn}1`;
     const { values: currentHeaderValues } = await get(auth, { range: headerRange });
     if (!currentHeaderValues ||
         !currentHeaderValues.length ||
@@ -126,11 +126,11 @@ const addEntryToSheet = async (entry) => {
     }
 
     // find first empty row. assumes the first column is always populated
-    const { values: entryValues } = await get(auth, { range: `Sheet1!A2:A`, majorDimension: "COLUMNS" });
+    const { values: entryValues } = await get(auth, { range: `'${sheet}'!A2:A`, majorDimension: "COLUMNS" });
     const firstEmptyRow = entryValues ? entryValues[0].length + 2 : 2;
 
     // set the data
-    const updateRange = `Sheet1!A${firstEmptyRow}:${lastColumn}${firstEmptyRow}`;
+    const updateRange = `'${sheet}'!A${firstEmptyRow}:${lastColumn}${firstEmptyRow}`;
     await update(auth, { range: updateRange, resource: { values: [values] } });
 }
 
