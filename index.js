@@ -1,6 +1,7 @@
 // dependencies
 const path = require('path');
-const { execSync } = require('child_process');
+const fs = require('fs');
+const { execSync, exec } = require('child_process');
 const output = execSync('yarn');
 console.log(output.toString());
 
@@ -57,7 +58,7 @@ app.use((req, res, next) => {
         res.cookie('user', JSON.stringify(null));
     }
     next();
-    });
+});
 
 // API
 app.use('/api', api());
@@ -66,28 +67,63 @@ app.use('/api', api());
 app.use('/webhooks', webhooks(config.ghsecret));
 
 // webpack
-const webpackCompiler = webpack(webpackconfig);
-const wpmw = webpackMiddleware(webpackCompiler, {});
-const wphmw = webpackHotMiddleware(webpackCompiler);
-app.use(wpmw);
-app.use(wphmw);
+if (!config.production) {
+    const webpackCompiler = webpack(webpackconfig);
+    const wpmw = webpackMiddleware(webpackCompiler, {});
+    const wphmw = webpackHotMiddleware(webpackCompiler);
+    app.use(wpmw);
+    app.use(wphmw);
 
-// static files
-app.use(express.static('public'));
+    // static files
+    app.use(express.static('public'));
 
-// SPA
-app.use((req, res, next) => {
-    if(req.method == 'GET') {
-        const indexFile = `${webpackconfig.output.path}/index.html`;
-        const index = webpackCompiler.outputFileSystem.readFileSync(indexFile);
-        res.contentType('text/html');
-        res.end(index);
-    } else {
-        res.status(405);
-        res.statusMessage('Method not allowed');
-        res.end();
-    }
-});
+    // SPA
+    app.use((req, res, next) => {
+        if (req.method == 'GET') {
+            const indexFile = `${webpackconfig.output.path}/index.html`;
+            const index = webpackCompiler.outputFileSystem.readFileSync(indexFile);
+            res.contentType('text/html');
+            res.end(index);
+        } else {
+            res.status(405);
+            res.statusMessage('Method not allowed');
+            res.end();
+        }
+    });
+} else {
+    // kick off manual webpack compile
+    winston.info('Running webpack...');
+    exec(path.join(__dirname, 'node_modules/.bin/webpack'), (e, stdout, stderr) => {
+        if (e) {
+            winston.error('Webpack error');
+            if (stdout) winston.error(stdout);
+            if (stderr) winston.error(stderr);
+        } else {
+            winston.info('Webpack done');
+            if (stdout) winston.info(stdout);
+            if (stderr) winston.error(stderr);
+        }
+    });
+
+    // static files
+    app.use(express.static('public'));
+
+    // SPA
+    app.use((req, res) => {
+        const indexFile = path.resolve(__dirname, 'public/index.html');
+
+        fs.readFile(indexFile, (e, data) => {
+            if (e) {
+                winston.error('error reading %s: %s', indexFile, e);
+                res.status(500).end();
+            } else {
+                res.contentType('text/html');
+                res.end(data);
+            }
+        });
+    });
+}
+
 
 
 
