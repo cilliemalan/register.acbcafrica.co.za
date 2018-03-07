@@ -3,6 +3,8 @@ const express = require('express');
 const reCAPTCHA = require('recaptcha2');
 const forms = require('../public/data/forms.json');
 const { addEntryToSheet } = require('./sheets');
+const crypto = require('crypto');
+const cookieParser = require('cookie-parser');
 
 const config = require('../config');
 
@@ -10,6 +12,35 @@ const recaptcha = new reCAPTCHA({
     siteKey: config.recaptchaKey,
     secretKey: config.recaptchaSecret
 });
+
+
+const generateSignature = () => {
+    const salt = crypto.randomBytes(32).toString('hex');
+    const expires = new Date().getTime() + 86400000;
+    const signature = crypto.createHmac('sha256', config.recaptchaSecret)
+        .update(`${salt}.${expires}`)
+        .digest('hex');
+    return `${salt}.${expires}.${signature}`
+};
+
+const verifySignature = (sig) => {
+    if (!sig || !/^[a-z0-9]+\.[0-9]+\.[a-z0-9]+$/.test(sig)) {
+        return false;
+    }
+    try {
+        const [salt, expires, signature] = sig.split('.');
+        const iexpires = parseInt(expires);
+        if (isFinite(iexpires) && iexpires > new Date().getTime()) {
+            const compsignature = crypto.createHmac('sha256', config.recaptchaSecret)
+                .update(`${salt}.${expires}`)
+                .digest('hex');
+            return compsignature == signature;
+        }
+    } catch (e) { }
+
+    return false;
+};
+
 
 module.exports = () => {
 
@@ -22,44 +53,61 @@ module.exports = () => {
         next();
     });
 
+    api.use(cookieParser());
     api.use(express.json());
 
     api.get('/', (req, res) => res.json({ status: 'ok' }));
 
+    api.post('/validate', (req, res) => {
+        const { body: { token } } = req;
+
+        recaptcha.validate(token)
+            .catch(() => res.status(400).end('👎'))
+            .then(() => {
+                const signature = generateSignature();
+                res.cookie('_rctk', signature);
+                res.end('👍');
+            });
+    });
+
     api.post('/submit', (req, res) => {
-        const { body } = req;
-        if (typeof body != "object") {
-            res.status(400).end('An invalid request was received');
+
+        if (!verifySignature(req.cookies._rctk)) {
+            res.status(400).end('No verification cookie was present');
         } else {
-            const { form, details, token } = body;
-            const formData = forms[form];
-            if (!form || !details || !token || (typeof form != "string") || (typeof details != "object")) {
+
+            const { body } = req;
+            if (typeof body != "object") {
                 res.status(400).end('An invalid request was received');
-            } else if (!formData) {
-                res.status(400).end('The form is not supported');
             } else {
-                const { title, firstname, lastname,
-                    contactNumber, email, country,
-                    church, options } = details;
-                const { sheet } = formData;
-
-                if (!title || !firstname || !lastname || !contactNumber || !email || !options) {
+                const { form, details } = body;
+                const formData = forms[form];
+                if (!form || !details || (typeof form != "string") || (typeof details != "object")) {
                     res.status(400).end('An invalid request was received');
+                } else if (!formData) {
+                    res.status(400).end('The form is not supported');
                 } else {
+                    const { title, firstname, lastname,
+                        contactNumber, email, country,
+                        church, options } = details;
+                    const { sheet } = formData;
 
-                    recaptcha.validate(token)
-                        .catch(() => res.status(400).end('failed to validate recaptcha token'))
-                        .then(async () => {
-                            const formData = {
-                                title, firstname, lastname, contactNumber, email, country, church,
-                                ...options
-                            }
-                            await addEntryToSheet(sheet, { date: new Date(), ...formData });
-                        })
-                        .then(() => res.end())
-                        .catch(e => { winston.error(e); res.status(500).end('Internal server error'); });
+                    if (!title || !firstname || !lastname || !contactNumber || !email || !options) {
+                        res.status(400).end('An invalid request was received');
+                    } else {
 
-
+                        const formData = {
+                            title, firstname, lastname,
+                            contactNumber, email, country,
+                            church, ...options
+                        };
+                        addEntryToSheet(sheet, { date: new Date(), ...formData })
+                            .then(() => res.end())
+                            .catch(e => {
+                                winston.error(e);
+                                res.status(500).end('Internal server error');
+                            });
+                    }
                 }
             }
         }

@@ -3,6 +3,24 @@
 const recaptchaResolves = [];
 
 window.logRecaptchaReady(() => {
+
+    let _invisibleDiv;
+
+
+    const renderReCaptcha = () => {
+        if (_invisibleDiv) _invisibleDiv.remove();
+        _invisibleDiv = document.createElement("div");
+        document.body.appendChild(_invisibleDiv);
+
+        grecaptcha.render(_invisibleDiv, {
+            sitekey: recaptchaKey,
+            callback: '__onRecaptchaSubmit',
+            size: 'invisible'
+        });
+    }
+
+    renderReCaptcha();
+
     window.__onRecaptchaSubmit = (token) => {
         const numResolves = recaptchaResolves.length;
         if (numResolves) {
@@ -16,15 +34,10 @@ window.logRecaptchaReady(() => {
 
             recaptchaResolves.splice(0, numResolves);
         }
-    };
-    const _invisibleDiv = document.createElement("div");
-    document.body.appendChild(_invisibleDiv);
 
-    grecaptcha.render(_invisibleDiv, {
-        sitekey: recaptchaKey,
-        callback: '__onRecaptchaSubmit',
-        size: 'invisible'
-    }, true);
+        renderReCaptcha();
+    };
+
 });
 
 function getReCaptchaToken() {
@@ -48,6 +61,23 @@ function handleError(e) {
     throw e.message || "an error has occurred.";
 }
 
+
+let tokenValidated = null;
+const validateToken = () => tokenValidated
+    ? tokenValidated
+    : tokenValidated = getReCaptchaToken()
+        .then(token => fetch('/api/validate', {
+            method: 'POST',
+            body: JSON.stringify({ token }),
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })).catch(handleError)
+        .then(r => r.text())
+        .then(r => r == '👍');
+
+
 export const fetchForms = () => fetch('/data/forms.json')
     .then(response => response.json())
     .then(forms => {
@@ -65,9 +95,10 @@ export const fetchForms = () => fetch('/data/forms.json')
     }).catch(handleError);
 
 export const submitRegistration = (registration) =>
-    getReCaptchaToken().then(token => fetch('/api/submit', {
+    validateToken().then(() => fetch('/api/submit', {
         method: 'POST',
-        body: JSON.stringify({ ...registration, token }),
+        body: JSON.stringify(registration),
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         }
