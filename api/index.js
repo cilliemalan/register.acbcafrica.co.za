@@ -1,7 +1,5 @@
 const winston = require('winston');
 const express = require('express');
-const jwt = require('express-jwt');
-const jwks = require('jwks-rsa');
 const reCAPTCHA = require('recaptcha2');
 const forms = require('../public/data/forms.json');
 
@@ -16,21 +14,6 @@ module.exports = () => {
 
     const api = express.Router();
 
-    var jwtCheck = jwt({
-        secret: jwks.expressJwtSecret({
-            cache: true,
-            rateLimit: true,
-            jwksRequestsPerMinute: 5,
-            jwksUri: `${config.issuer}.well-known/jwks.json`
-        }),
-        credentialsRequired: false,
-        audience: config.audience,
-        issuer: config.issuer,
-        algorithms: ['RS256']
-    });
-
-
-
     api.use((req, res, next) => {
         res.on('finish', () => {
             winston.verbose('API %s request for %s by %j -> %s', req.method, req.url, (req.user && req.user.sub) || 'anonymous', res.statusCode);
@@ -38,7 +21,6 @@ module.exports = () => {
         next();
     });
 
-    api.use(jwtCheck);
     api.use(express.json());
 
     api.get('/', (req, res) => res.json({ status: 'ok' }));

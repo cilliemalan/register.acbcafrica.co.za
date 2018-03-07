@@ -12,15 +12,12 @@ const winston = require('winston');
 const webpack = require('webpack');
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-const session = require('express-session');
-const RedisStore = require('connect-redis')(session);
 
 // local requires
 const webhooks = require('./webhooks');
 const api = require('./api');
 const webpackconfig = require('./webpack.config');
 const config = require('./config');
-const auth = require('./auth');
 
 // env
 
@@ -39,26 +36,6 @@ const app = express();
 
 
 // set up pipeline
-
-// Authentication
-app.use(session({
-    secret: config.clientSecret,
-    resave: false,
-    saveUninitialized: true,
-    store: new RedisStore(),
-}));
-app.use(auth());
-app.use((req, res, next) => {
-    if (req.user) {
-        res.cookie('user', JSON.stringify({
-            name: req.user.displayName,
-            picture: req.user.picture
-        }));
-    } else {
-        res.cookie('user', JSON.stringify(null));
-    }
-    next();
-});
 
 // API
 app.use('/api', api());
