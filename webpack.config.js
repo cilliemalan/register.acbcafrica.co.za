@@ -1,33 +1,48 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MinifyPlugin = require("babel-minify-webpack-plugin");
 const webpack = require('webpack');
 
 const config = require('./config');
 
 const dist = path.resolve(__dirname, 'public');
-const now = new Date().toISOString().replace(/[:.ZT-]/g,'');
+const now = new Date().toISOString().replace(/[:.ZT-]/g, '');
 
 const plugins = [
     new HtmlWebpackPlugin({ template: 'app/index.ejs', gaTrackingId: config.gaTrackingId }),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
         environment: JSON.stringify(config.environment),
         recaptchaKey: JSON.stringify(config.recaptchaKey),
         clientId: JSON.stringify(config.clientId)
+    }),
+    new webpack.EnvironmentPlugin({
+        NODE_ENV: 'development'
     })
 ];
 
+const app = [
+    './app/index.js'
+];
+
+const babelPlugins = ['transform-object-rest-spread'];
+
+if (config.production) {
+    console.log('running production webpack build');
+    plugins.push(new MinifyPlugin());
+} else {
+    console.log('running development webpack build');
+    plugins.push(new webpack.HotModuleReplacementPlugin());
+
+    app.splice(0, 0, 'react-hot-loader/patch');
+    app.push('webpack-hot-middleware/client');
+    babelPlugins.push('react-hot-loader/babel');
+}
+
 module.exports = {
-    entry: {
-        app: [
-            'react-hot-loader/patch',
-            './app/index.js',
-            'webpack-hot-middleware/client'
-        ]
-    },
+    entry: { app },
     resolve: { extensions: ['.js', '.jsx'] },
-    devtool: 'inline-source-map',
+    devtool: config.production ? undefined : 'inline-source-map',
     plugins: plugins,
     module: {
         rules: [
@@ -46,7 +61,7 @@ module.exports = {
                     loader: 'babel-loader',
                     options: {
                         presets: ['env', 'react'],
-                        plugins: ['react-hot-loader/babel', 'transform-object-rest-spread']
+                        plugins: babelPlugins
                     }
                 }
             }
@@ -54,7 +69,7 @@ module.exports = {
     },
     output: {
         publicPath: '/',
-        filename: 'bundle.js',
+        filename: config.production ? `bundle-${now}.js` : 'bundle-dev.js',
         path: path.resolve(__dirname, dist)
     }
 };
