@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { RegistrationForm } from './RegistrationForm';
+import { ConferenceDetails } from './ConferenceDetails';
 
 export const Register = ({ fillingForm, onSubmit }) => {
 
@@ -8,7 +9,7 @@ export const Register = ({ fillingForm, onSubmit }) => {
         <img className="headerImage" src={fillingForm.image} alt={fillingForm.title} />
         <Link to="/">&lt;&lt;&nbsp;Go&nbsp;Back</Link>
         <h1>{fillingForm.title}</h1>
-        <p>You are registering for <strong>{fillingForm.title}</strong>. Please fill in the details below.</p>
+        <ConferenceDetails form={fillingForm} message="Please fill in the details below." />
         <RegistrationForm fillingForm={fillingForm} onSubmit={onSubmit} />
     </div>;
 }

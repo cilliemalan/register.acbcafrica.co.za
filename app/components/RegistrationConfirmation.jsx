@@ -4,6 +4,7 @@ import { SubmissionDetails } from './SubmissionDetails';
 import { PaymentDetails } from './PaymentDetails';
 import { OptionsDisplay } from './OptionsDisplay';
 import { Spinner } from './Spinner';
+import { ConferenceDetails } from './ConferenceDetails';
 
 export const RegistrationConfirmation = ({ submission, forms, onCancel, onSubmit }) => {
     const form = forms[submission.form];
@@ -19,7 +20,7 @@ export const RegistrationConfirmation = ({ submission, forms, onCancel, onSubmit
     } else {
         return <div>
             <h1>Confirm Registration</h1>
-            <p>You are registering for <strong>{formName}</strong>.</p>
+            <ConferenceDetails form={form} message="Please confirm your registration." />
             <SubmissionDetails submission={submission} />
             <OptionsDisplay options={options} selection={selection} />
             <div className="confirmation-buttons">
