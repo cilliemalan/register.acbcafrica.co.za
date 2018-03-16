@@ -9,10 +9,19 @@ export const formatSingleDate = (date) => {
     return dateOnly ? moment(date).format('dddd D MMMM')
         : moment(date).format('ddd D MMM HH:mm');
 };
+
+export const datesEqual = (a, b) => a.getTime() == b.getTime();
+
 export const formatDate = (from, to) => {
-    return to ? `${formatSingleDate(from)} — ${formatSingleDate(to)}`
+    return to && !datesEqual(from, to) ? `${formatSingleDate(from)} — ${formatSingleDate(to)}`
         : `${formatSingleDate(from)}`;
 };
+
+export const formatDateSentence = (from, to) => {
+    return to && !datesEqual(from, to) ? `from ${formatSingleDate(from)} to ${formatSingleDate(to)}`
+        : `on ${formatSingleDate(from)}`;
+};
+
 export const formatCost = (a) => {
     if (typeof a == 'number') {
         if (a == 0) {
