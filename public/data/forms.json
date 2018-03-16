@@ -5,6 +5,8 @@
         "sheet": "YFGW Pretoria",
         "from": "2018-9-17",
         "to": "2018-9-20",
+        "location": "Lynnwood Baptist Church",
+        "address": "52 Jacobson Dr, Lynnwood Ridge, Pretoria, South Africa",
         "options": {
             "pastors": {
                 "title": "Pastor's Pre-conference",
@@ -48,6 +50,8 @@
         "sheet": "YFGW Cape Town",
         "from": "2018-9-24",
         "to": "2018-9-27",
+        "location": "Goodwood Baptist Church",
+        "address": "37 Milton Rd, Goodwood Estate, Cape Town, South Africa",
         "options": {
             "yfgw": {
                 "title": "ACBC Africa Conference 2018",
@@ -65,6 +69,8 @@
         "sheet": "MGW",
         "from": "2018-7-9",
         "to": "2018-7-9",
+        "location": "Lynnwood Baptist Church",
+        "address": "52 Jacobson Dr, Lynnwood Ridge, Pretoria, South Africa",
         "options": {
             "mothering": {
                 "title": "Mothering God's Way",
@@ -81,6 +87,8 @@
         "sheet": "FGW",
         "from": "2018-7-10",
         "to": "2018-7-10",
+        "location": "Lynnwood Baptist Church",
+        "address": "52 Jacobson Dr, Lynnwood Ridge, Pretoria, South Africa",
         "options": {
             "fathering": {
                 "title": "Fathering God's Way",
