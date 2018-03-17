@@ -10,36 +10,36 @@
         "options": {
             "pastors": {
                 "title": "Pastor's Pre-conference",
-                "from": "2018-9-16 09:00",
-                "to": "2018-9-16 12:00",
+                "from": "2018-10-16 09:00",
+                "to": "2018-10-16 12:00",
                 "cost": 0,
                 "required": true
             },
             "womens": {
                 "title": "Women's Pre-conference",
-                "from": "2018-9-17 09:00",
-                "to": "2018-9-17 12:00",
+                "from": "2018-10-17 09:00",
+                "to": "2018-10-17 12:00",
                 "cost": 0,
                 "required": true
             },
             "yfgw": {
                 "title": "ACBC Africa Conference 2018",
                 "subtitle": "Your Family God’s Way",
-                "from": "2018-9-17 19:00",
-                "to": "2018-9-20 17:00",
+                "from": "2018-10-17 19:00",
+                "to": "2018-10-20 17:00",
                 "cost": 300,
                 "required": true
             },
             "food1": {
                 "title": "Thursday Meal Option",
                 "subtitle": "Italian roasted chicken, roasted vegetables and rice",
-                "from": "2018-9-18",
+                "from": "2018-10-18",
                 "cost": 50
             },
             "food2": {
                 "title": "Friday Meal Option",
                 "subtitle": "Roti with beef curry and chutney",
-                "from": "2018-9-19",
+                "from": "2018-10-19",
                 "cost": 60
             }
         }
@@ -56,8 +56,8 @@
             "yfgw": {
                 "title": "ACBC Africa Conference 2018",
                 "subtitle": "Your Family God’s Way",
-                "from": "2018-9-24 19:00",
-                "to": "2018-9-27 17:00",
+                "from": "2018-10-24 19:00",
+                "to": "2018-10-27 17:00",
                 "cost": 300,
                 "required": true
             }
