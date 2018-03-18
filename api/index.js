@@ -5,6 +5,8 @@ const forms = require('../public/data/forms.json');
 const { addEntryToSheet } = require('./sheets');
 const crypto = require('crypto');
 const cookieParser = require('cookie-parser');
+const fs = require('fs');
+const path = require('path');
 
 const config = require('../config');
 
@@ -101,6 +103,9 @@ module.exports = () => {
                             contactNumber, email, country,
                             church, ...options
                         };
+
+                        fs.appendFile(path.resolve(__dirname, '..', 'submissions_backup.json'), `${JSON.stringify(formData)}\n`);
+
                         addEntryToSheet(sheet, { date: new Date(), ...formData })
                             .then(() => res.end())
                             .catch(e => {
