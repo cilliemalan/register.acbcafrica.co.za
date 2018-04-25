@@ -27,7 +27,7 @@
                 "subtitle": "Your Family God’s Way",
                 "from": "2018-10-17 19:00",
                 "to": "2018-10-20 17:00",
-                "cost": 300,
+                "cost": 350,
                 "required": true
             },
             "food1": {
@@ -58,7 +58,7 @@
                 "subtitle": "Your Family God’s Way",
                 "from": "2018-10-24 19:00",
                 "to": "2018-10-27 17:00",
-                "cost": 300,
+                "cost": 350,
                 "required": true
             }
         }
