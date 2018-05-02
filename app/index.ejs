@@ -30,6 +30,23 @@
 </head>
 
 <body>
+        <!--polyfills-->
+        <script>
+            function load(url) {
+                var s = document.createElement('script');
+                s.src = url;
+                document.body.appendChild(s);
+            }
+            if (typeof Promise !== 'function') {
+                load('https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js');
+            }
+            if(typeof fetch !== 'function') {
+                load('https://cdn.jsdelivr.net/gh/github/fetch@1.1/fetch.js');
+            }
+            if(typeof Array.prototype.includes !== 'function') {
+                load('/polyfills.js');
+            }
+        </script>
 
     <div id="react-app"></div>
 
