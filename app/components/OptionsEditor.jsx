@@ -42,7 +42,7 @@ export class OptionsEditor extends React.Component {
             Object.keys(options)
                 .reduce((acc, option) =>
                     acc + (options[option]
-                        ? this.props.options[option].cost
+                        ? (isFinite(this.props.options[option].cost) ? this.props.options[option].cost : 0)
                         : 0),
                     0);
 
