@@ -2,6 +2,21 @@ const moment = require('moment');
 
 const recaptchaResolves = [];
 
+// make sure that fetch is available before calling it.
+let _fetch = (...args) => {
+    if (window.fetch) {
+        return window.fetch(...args);
+    } else {
+        return new Promise((resolve, reject) => {
+            window.setInterval(() => {
+                if (window.fetch) {
+                    window.fetch(...args).then(resolve, reject);
+                }
+            }, 1000);
+        });
+    }
+}
+
 window.logRecaptchaReady(() => {
 
     let _invisibleDiv;
@@ -66,7 +81,7 @@ let tokenValidated = null;
 const validateToken = () => tokenValidated
     ? tokenValidated
     : tokenValidated = getReCaptchaToken()
-        .then(token => fetch('/api/validate', {
+        .then(token => _fetch('/api/validate', {
             method: 'POST',
             body: JSON.stringify({ token }),
             credentials: 'include',
@@ -78,7 +93,7 @@ const validateToken = () => tokenValidated
         .then(r => r == '👍');
 
 
-export const fetchForms = () => fetch('/data/forms.json')
+export const fetchForms = () => _fetch('/data/forms.json')
     .then(response => response.json())
     .then(forms => {
         Object.values(forms).forEach(form => {
@@ -86,7 +101,7 @@ export const fetchForms = () => fetch('/data/forms.json')
             form.to = form.to && moment(form.to).toDate();
 
             Object.values(form.options).forEach(option => {
-                option.from = option.from &&  moment(option.from).toDate();
+                option.from = option.from && moment(option.from).toDate();
                 option.to = option.to && moment(option.to).toDate();
             });
         });
@@ -95,7 +110,7 @@ export const fetchForms = () => fetch('/data/forms.json')
     }).catch(handleError);
 
 export const submitRegistration = (registration) =>
-    validateToken().then(() => fetch('/api/submit', {
+    validateToken().then(() => _fetch('/api/submit', {
         method: 'POST',
         body: JSON.stringify(registration),
         credentials: 'include',
