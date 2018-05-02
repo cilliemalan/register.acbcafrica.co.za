@@ -1,4 +1,4 @@
-
+const moment = require('moment');
 
 const recaptchaResolves = [];
 
@@ -82,12 +82,12 @@ export const fetchForms = () => fetch('/data/forms.json')
     .then(response => response.json())
     .then(forms => {
         Object.values(forms).forEach(form => {
-            form.from = form.from && new Date(form.from);
-            form.to = form.to && new Date(form.to);
+            form.from = form.from && moment(form.from).toDate();
+            form.to = form.to && moment(form.to).toDate();
 
             Object.values(form.options).forEach(option => {
-                option.from = option.from && new Date(option.from);
-                option.to = option.to && new Date(option.to);
+                option.from = option.from &&  moment(option.from).toDate();
+                option.to = option.to && moment(option.to).toDate();
             });
         });
 
