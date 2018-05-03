@@ -4,7 +4,7 @@ import { formatCost, formatDate, formatSingleDate } from '../helpers/formatting'
 export class OptionsEditor extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { total: 0, value: {} };
+        this.state = { total: undefined, value: {} };
         if (this.props.options) {
             Object.keys(this.props.options)
                 .forEach(key => this.state.value[key] = false);
@@ -40,11 +40,12 @@ export class OptionsEditor extends React.Component {
 
         const recalculateTotal = (options) =>
             Object.keys(options)
+                .filter(option => options[option])
                 .reduce((acc, option) =>
-                    acc + (options[option]
+                    (acc || 0) + (options[option]
                         ? (isFinite(this.props.options[option].cost) ? this.props.options[option].cost : 0)
                         : 0),
-                    0);
+                    undefined);
 
         if (option) {
 
