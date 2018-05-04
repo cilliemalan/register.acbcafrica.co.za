@@ -27,8 +27,17 @@
                 "subtitle": "Your Family God’s Way",
                 "from": "2018-10-17 19:00",
                 "to": "2018-10-20 17:00",
-                "cost": 350,
-                "required": true
+                "required": true,
+                "options": {
+                    "fullconference": {
+                        "title": "Full conference",
+                        "cost": 350
+                    },
+                    "singleday": {
+                        "title": "Single day",
+                        "cost": 100
+                    }
+                }
             },
             "food1": {
                 "title": "Thursday Meal Option",
