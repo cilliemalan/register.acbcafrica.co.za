@@ -169,7 +169,7 @@ export class OptionsEditor extends React.Component {
                             <div className="title">{option.title}</div>
                             <div className="date">{formattedDate}</div>
                             {selectedvalue && suboptionkeys ? render_suboptions() : undefined}
-                            <div className="cost"><label>Cost:&nbsp;</label>{formattedCost}</div>
+                            {formattedCost && <div className="cost"><label>Cost:&nbsp;</label>{formattedCost}</div>}
                         </div>
                         <div className="selected">
                             <input type="checkbox"
