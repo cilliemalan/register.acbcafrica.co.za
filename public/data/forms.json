@@ -97,6 +97,11 @@
                 "to": "2018-08-09 16:00",
                 "cost": 60,
                 "required": true
+            },
+            "motheringmeal": {
+                "title": "Meal Option",
+                "from": "2018-08-09",
+                "cost": 40
             }
         }
     },
@@ -115,6 +120,11 @@
                 "to": "2018-08-10 16:00",
                 "cost": 60,
                 "required": true
+            },
+            "fatheringmeal": {
+                "title": "Meal Option",
+                "from": "2018-08-10",
+                "cost": 40
             }
         }
     }
