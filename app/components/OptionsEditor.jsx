@@ -38,12 +38,29 @@ export class OptionsEditor extends React.Component {
     }
 
     recalculateTotal(options) {
+
+        const calculateCostForOption = (option) => {
+            const optionProps = this.props.options[option];
+            const optionValue = options[option];
+
+            const optionDefaultCost =
+                isFinite(optionProps.cost)
+                    ? optionProps.cost
+                    : 0;
+
+            const optionSelectedCost =
+                typeof optionValue == "string"
+                    ? optionProps.options[optionValue].cost
+                    : 0;
+
+            return optionValue
+                ? optionDefaultCost + optionSelectedCost
+                : 0;
+        }
+
         return Object.keys(options)
             .filter(option => options[option])
-            .reduce((acc, option) =>
-                (acc || 0) + (options[option]
-                    ? (isFinite(this.props.options[option].cost) ? this.props.options[option].cost : 0)
-                    : 0),
+            .reduce((acc, option) => (acc || 0) + calculateCostForOption(option),
                 undefined);
     }
 
@@ -54,7 +71,6 @@ export class OptionsEditor extends React.Component {
     itemSelectedChanged(e) {
         const checkbox = e.target;
         const option = checkbox.name.match(/^chk-(.+)$/)[1];
-
 
         if (option) {
             const suboptions = this.props.options[option].options;
