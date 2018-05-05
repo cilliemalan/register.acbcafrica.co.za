@@ -159,7 +159,7 @@ export class OptionsEditor extends React.Component {
                                     checked={suboptionkey == selectedvalue}
                                     onChange={this.suboptionSelectedChanged}
                                     id={i_id} />
-                                <label htmlFor={i_id} className="subopt-title">{suboption.title} ({formattedCost})</label>
+                                <label htmlFor={i_id} className="subopt-title">{suboption.title} (<strong>{formattedCost}</strong>)</label>
                             </li>;
                         })}
                     </ul>;
