@@ -64,11 +64,17 @@ module.exports = () => {
         const { body: { token } } = req;
 
         recaptcha.validate(token)
-            .catch(() => res.status(400).end('👎'))
+            .catch(e => {
+                winston.error(`Token validation error: ${e}`);
+                res.set('Content-Type', 'text/plain; charset=utf-8')
+                    .status(400)
+                    .end('👎');
+            })
             .then(() => {
                 const signature = generateSignature();
                 res.cookie('_rctk', signature);
-                res.end('👍');
+                res.set('Content-Type', 'text/plain; charset=utf-8')
+                    .end('👍');
             });
     });
 
