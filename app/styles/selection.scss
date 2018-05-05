@@ -24,6 +24,24 @@
             img {
                 max-width: 500px;
                 max-height: 125px;
+                display: block;
+            }
+        }
+
+        @media(max-width: 640px) {
+            margin: calc(2.34375vw + 10px) 7.03125vw;
+            width: initial;
+            height: initial;
+
+            a {
+                width: initial;
+                height: initial;
+
+                img {
+                    max-width: initial;
+                    max-height: initial;
+                    width: 100%;
+                }
             }
         }
     }
