@@ -68,7 +68,17 @@
                 "from": "2018-10-24 19:00",
                 "to": "2018-10-27 17:00",
                 "cost": 350,
-                "required": true
+                "required": true,
+                "options": {
+                    "fullconference": {
+                        "title": "Full conference",
+                        "cost": 350
+                    },
+                    "saturdayonly": {
+                        "title": "Saturday only",
+                        "cost": 100
+                    }
+                }
             }
         }
     },
