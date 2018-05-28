@@ -15,13 +15,15 @@ const recaptcha = config.recaptchaKey ? new reCAPTCHA({
     secretKey: config.recaptchaSecret
 }) : undefined;
 
+const encryptionKey = config.recaptchaSecret || 'n/a';
+
 if (recaptcha) winston.info('recaptcha active');
 else winston.info('recaptcha disabled due to no key');
 
 const generateSignature = () => {
     const salt = crypto.randomBytes(32).toString('hex');
     const expires = new Date().getTime() + 86400000;
-    const signature = crypto.createHmac('sha256', config.recaptchaSecret)
+    const signature = crypto.createHmac('sha256', encryptionKey)
         .update(`${salt}.${expires}`)
         .digest('hex');
     return `${salt}.${expires}.${signature}`
@@ -35,7 +37,7 @@ const verifySignature = (sig) => {
         const [salt, expires, signature] = sig.split('.');
         const iexpires = parseInt(expires);
         if (isFinite(iexpires) && iexpires > new Date().getTime()) {
-            const compsignature = crypto.createHmac('sha256', config.recaptchaSecret)
+            const compsignature = crypto.createHmac('sha256', encryptionKey)
                 .update(`${salt}.${expires}`)
                 .digest('hex');
             return compsignature == signature;
