@@ -27,6 +27,12 @@ winston.configure({
 });
 winston.info('starting...');
 winston.info(`loglevel: ${config.loglevel}`);
+winston.silly('silly: 👍');
+winston.debug('debug: 👍');
+winston.verbose('verbose: 👍');
+winston.info('info: 👍');
+winston.warn('warn: 👍');
+winston.error('error: 👍');
 winston.info('port: %s', config.port);
 winston.info('github hook secret: %s', !!config.ghsecret);
 
