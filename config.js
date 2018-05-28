@@ -20,6 +20,7 @@ const gaTrackingId = process.env.GA_TRACKING_ID || 'UA-114404288-1';
 const googleSheet = process.env.GOOGLE_SHEET;
 
 const sendGridKey = process.env.SENDGRID_KEY;
+const defaultFromEmail = process.env.DEFAULT_FROM_EMAIL || 'info@acbcafrica.co.za';
 
 const environment = process.env.NODE_ENV || 'development';
 const production = environment == 'production';
@@ -39,6 +40,7 @@ module.exports = {
     gaTrackingId,
     googleSheet,
     sendGridKey,
+    defaultFromEmail,
     environment,
     production
 }
