@@ -18,52 +18,56 @@ let _fetch = (...args) => {
     }
 }
 
-window.logRecaptchaReady(() => {
+if (recaptchaKey) {
+    window.logRecaptchaReady(() => {
 
-    let _invisibleDiv;
+        let _invisibleDiv;
 
 
-    const renderReCaptcha = () => {
-        if (_invisibleDiv) _invisibleDiv.remove();
-        _invisibleDiv = document.createElement("div");
-        document.body.appendChild(_invisibleDiv);
+        const renderReCaptcha = () => {
+            if (_invisibleDiv) _invisibleDiv.remove();
+            _invisibleDiv = document.createElement("div");
+            document.body.appendChild(_invisibleDiv);
 
-        grecaptcha.render(_invisibleDiv, {
-            sitekey: recaptchaKey,
-            callback: '__onRecaptchaSubmit',
-            size: 'invisible'
-        });
-    }
-
-    renderReCaptcha();
-
-    window.__onRecaptchaSubmit = (token) => {
-        const numResolves = recaptchaResolves.length;
-        if (numResolves) {
-            recaptchaResolves.forEach((rsv) => {
-                try {
-                    rsv.apply(this, [token]);
-                } catch (e) {
-                    console.error(e);
-                }
+            grecaptcha.render(_invisibleDiv, {
+                sitekey: recaptchaKey,
+                callback: '__onRecaptchaSubmit',
+                size: 'invisible'
             });
-
-            recaptchaResolves.splice(0, numResolves);
         }
 
         renderReCaptcha();
-    };
 
-});
+        window.__onRecaptchaSubmit = (token) => {
+            const numResolves = recaptchaResolves.length;
+            if (numResolves) {
+                recaptchaResolves.forEach((rsv) => {
+                    try {
+                        rsv.apply(this, [token]);
+                    } catch (e) {
+                        console.error(e);
+                    }
+                });
+
+                recaptchaResolves.splice(0, numResolves);
+            }
+
+            renderReCaptcha();
+        };
+
+    });
+}
 
 function getReCaptchaToken() {
+    if (recaptchaKey) {
+        return new Promise((resolve, reject) => {
 
-    return new Promise((resolve, reject) => {
-
-        recaptchaResolves.push(resolve);
-        grecaptcha.execute();
-    });
-
+            recaptchaResolves.push(resolve);
+            grecaptcha.execute();
+        });
+    } else {
+        return Promise.resolve();
+    }
 }
 
 
@@ -92,7 +96,6 @@ const validateToken = () => tokenValidated
         })).catch(handleError)
         .then(r => r.text())
         .then(r => r == '👍');
-
 
 export const fetchForms = () => _fetch('/data/forms.json')
     .then(response => response.json())
