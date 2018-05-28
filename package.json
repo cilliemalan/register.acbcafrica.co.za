@@ -6,6 +6,7 @@
   "author": "Cillié Malan <cilliemalan@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@sendgrid/mail": "^6.2.1",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-minify-webpack-plugin": "^0.3.0",
