@@ -61,3 +61,6 @@ typings/
 run.sh
 client_secret.json
 /tokens.json
+
+/.vscode/
+/submissions_backup.json
