@@ -6,9 +6,11 @@ const { addEntryToSheet } = require('./sheets');
 const crypto = require('crypto');
 const cookieParser = require('cookie-parser');
 const fs = require('fs');
+const fsp = require('fs').promises;
 const path = require('path');
 
 const config = require('../config');
+const { sendTransactionalMail } = require('./sendgrid');
 
 const recaptcha = config.recaptchaKey ? new reCAPTCHA({
     siteKey: config.recaptchaKey,
@@ -89,7 +91,7 @@ module.exports = () => {
         }
     });
 
-    api.post('/submit', (req, res) => {
+    api.post('/submit', async (req, res) => {
 
         if (!verifySignature(req.cookies._rctk)) {
             res.status(400).end('No verification cookie was present');
@@ -109,26 +111,42 @@ module.exports = () => {
                     const { title, firstname, lastname,
                         contactNumber, email, country,
                         church, options } = details;
-                    const { sheet } = formData;
+                    const { sheet, mailTempateId } = formData;
 
                     if (!title || !firstname || !lastname || !contactNumber || !email || !options) {
                         res.status(400).end('An invalid request was received');
                     } else {
 
-                        const formData = {
-                            title, firstname, lastname,
-                            contactNumber, email, country,
-                            church, ...options
-                        };
+                        try {
 
-                        fs.appendFile(path.resolve(__dirname, '..', 'submissions_backup.json'), `${JSON.stringify(formData)}\n`);
+                            const formData = {
+                                title, firstname, lastname,
+                                contactNumber, email, country,
+                                church, ...options
+                            };
 
-                        addEntryToSheet(sheet, { date: new Date(), ...formData })
-                            .then(() => res.end())
-                            .catch(e => {
-                                winston.error(e);
-                                res.status(500).end('Internal server error');
-                            });
+                            await fsp.appendFile(path.resolve(__dirname, '..', 'submissions_backup.json'), `${JSON.stringify(formData)}\n`);
+
+                            await addEntryToSheet(sheet, { date: new Date(), ...formData });
+                            
+                            if (mailTempateId) {
+                                try {
+                                    await sendTransactionalMail(
+                                        email,
+                                        mailTempateId,
+                                        undefined,
+                                        undefined,
+                                        { ...details, conference: forms[form].title });
+                                } catch (e) {
+                                    winston.error(`error sending confirmation email: ${e}`);
+                                }
+                            }
+
+                            res.end();
+                        } catch (e) {
+                            winston.error(e);
+                            res.status(500).end('Internal server error');
+                        }
                     }
                 }
             }
