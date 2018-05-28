@@ -10,7 +10,7 @@ const path = require('path');
 
 const config = require('../config');
 
-const recaptcha = () => config.recaptchaKey ? new reCAPTCHA({
+const recaptcha = config.recaptchaKey ? new reCAPTCHA({
     siteKey: config.recaptchaKey,
     secretKey: config.recaptchaSecret
 }) : undefined;
