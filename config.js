@@ -19,6 +19,8 @@ const gaTrackingId = process.env.GA_TRACKING_ID || 'UA-114404288-1';
 
 const googleSheet = process.env.GOOGLE_SHEET;
 
+const sendGridKey = process.env.SENDGRID_KEY;
+
 const environment = process.env.NODE_ENV || 'development';
 const production = environment == 'production';
 
@@ -36,6 +38,7 @@ module.exports = {
     recaptchaSecret,
     gaTrackingId,
     googleSheet,
+    sendGridKey,
     environment,
     production
 }
