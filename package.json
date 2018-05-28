@@ -5,6 +5,10 @@
   "repository": "https://github.com/cilliemalan/register.acbcafrica.co.za",
   "author": "Cillié Malan <cilliemalan@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "echo Nothing to see here",
+    "build": "webpack"
+  },
   "dependencies": {
     "@sendgrid/mail": "^6.2.1",
     "babel-core": "^6.26.0",
