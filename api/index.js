@@ -10,11 +10,13 @@ const path = require('path');
 
 const config = require('../config');
 
-const recaptcha = new reCAPTCHA({
+const recaptcha = () => config.recaptchaKey ? new reCAPTCHA({
     siteKey: config.recaptchaKey,
     secretKey: config.recaptchaSecret
-});
+}) : undefined;
 
+if (recaptcha) winston.info('recaptcha active');
+else winston.info('recaptcha disabled due to no key');
 
 const generateSignature = () => {
     const salt = crypto.randomBytes(32).toString('hex');
@@ -63,19 +65,26 @@ module.exports = () => {
     api.post('/validate', (req, res) => {
         const { body: { token } } = req;
 
-        recaptcha.validate(token)
-            .catch(e => {
-                winston.error(`Token validation error: ${e}`);
-                res.set('Content-Type', 'text/plain; charset=utf-8')
-                    .status(400)
-                    .end('👎');
-            })
-            .then(() => {
-                const signature = generateSignature();
-                res.cookie('_rctk', signature);
-                res.set('Content-Type', 'text/plain; charset=utf-8')
-                    .end('👍');
-            });
+        if (recaptcha) {
+            recaptcha.validate(token)
+                .catch(e => {
+                    winston.error(`Token validation error: ${e}`);
+                    res.set('Content-Type', 'text/plain; charset=utf-8')
+                        .status(400)
+                        .end('👎');
+                })
+                .then(() => {
+                    const signature = generateSignature();
+                    res.cookie('_rctk', signature);
+                    res.set('Content-Type', 'text/plain; charset=utf-8')
+                        .end('👍');
+                });
+        } else {
+            const signature = generateSignature();
+            res.cookie('_rctk', signature);
+            res.set('Content-Type', 'text/plain; charset=utf-8')
+                .end('👐');
+        }
     });
 
     api.post('/submit', (req, res) => {
