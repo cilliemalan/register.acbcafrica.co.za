@@ -64,19 +64,16 @@ if (!config.production) {
     // static files
     app.use(express.static('public'));
 
+    //cache index file
+    const indexFile = path.resolve(__dirname, 'public/index.html');
+    const indexData = fs.readFileSync(indexFile);
+
     // SPA
     app.use((req, res) => {
         const indexFile = path.resolve(__dirname, 'public/index.html');
 
-        fs.readFile(indexFile, (e, data) => {
-            if (e) {
-                winston.error('error reading %s: %s', indexFile, e);
-                res.status(500).end();
-            } else {
-                res.contentType('text/html');
-                res.end(data);
-            }
-        });
+        res.contentType('text/html');
+        res.end(indexData);
     });
 }
 
