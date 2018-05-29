@@ -1,14 +1,12 @@
 language: node_js
 node_js:
   - "10"
-env:
-  - TIMESTAMP=$(date +%Y%m%d%H%M%S)
 script:
   - yarn test
   - NODE_ENV=production yarn build
   - NODE_ENV=production yarn install
-  - mkdir -p artifacts && tar --exclude=artifacts --exclude=.git -zvcf artifacts/output-$TIMESTAMP.tar.gz .
+  - mkdir -p artifacts && tar --exclude=artifacts --exclude=.git -zcf artifacts/output.tar.gz .
 addons:
   artifacts:
     paths:
-    - artifacts/output-$TIMESTAMP.tar.gz
+    - artifacts/output.tar.gz
