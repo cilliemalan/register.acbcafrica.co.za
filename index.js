@@ -2,24 +2,15 @@
 const path = require('path');
 const fs = require('fs');
 const { execSync, exec } = require('child_process');
-const output = execSync('yarn');
-console.log(output.toString());
-
 
 // module requires
 const express = require('express');
 const winston = require('winston');
-const webpack = require('webpack');
-const webpackMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
 
 // local requires
 const webhooks = require('./webhooks');
 const api = require('./api');
-const webpackconfig = require('./webpack.config');
 const config = require('./config');
-
-// env
 
 // set up logging
 winston.configure({
@@ -27,6 +18,7 @@ winston.configure({
 });
 winston.info('starting...');
 winston.info(`loglevel: ${config.loglevel}`);
+Object.keys(winston.levels)
 winston.silly('silly: 👍');
 winston.debug('debug: 👍');
 winston.verbose('verbose: 👍');
@@ -51,6 +43,11 @@ app.use('/webhooks', webhooks(config.ghsecret));
 
 // webpack
 if (!config.production) {
+    const webpack = require('webpack');
+    const webpackMiddleware = require('webpack-dev-middleware');
+    const webpackHotMiddleware = require('webpack-hot-middleware');
+    const webpackconfig = require('./webpack.config');
+
     const webpackCompiler = webpack(webpackconfig);
     const wpmw = webpackMiddleware(webpackCompiler, {});
     const wphmw = webpackHotMiddleware(webpackCompiler);
@@ -74,19 +71,6 @@ if (!config.production) {
         }
     });
 } else {
-    // kick off manual webpack compile
-    winston.info('Running webpack...');
-    exec(path.join(__dirname, 'node_modules/.bin/webpack'), (e, stdout, stderr) => {
-        if (e) {
-            winston.error('Webpack error');
-            if (stdout) winston.error(stdout);
-            if (stderr) winston.error(stderr);
-        } else {
-            winston.info('Webpack done');
-            if (stdout) winston.info(stdout);
-            if (stderr) winston.error(stderr);
-        }
-    });
 
     // static files
     app.use(express.static('public'));
@@ -106,9 +90,6 @@ if (!config.production) {
         });
     });
 }
-
-
-
 
 
 // Listen
