@@ -2,14 +2,14 @@ language: node_js
 node_js:
   - "10"
 cache: yarn
-addons:
-  artifacts:
-    paths:
-    - $(git ls-files | tr "\n" ":")
-    - $(find node_modules | tr "\n" ":")
-    - $(find public | tr "\n" ":")
 env:
   - NODE_ENV=production
+  - TIMESTAMP=$(date +%Y%m%d%H%M%S)
 script:
   - yarn test
   - yarn build
+  - tar -zcf output-$TIMESTAMP.tar.gz .
+addons:
+  artifacts:
+    paths:
+    - output-$TIMESTAMP.tar.gz
