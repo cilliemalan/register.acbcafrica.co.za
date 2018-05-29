@@ -16,24 +16,13 @@ const config = require('./config');
 winston.configure({
     transports: [new (winston.transports.Console)({ level: config.loglevel, colorize: true })]
 });
-winston.info('starting...');
+winston.info('starting in %s environment...', config.environment);
 winston.info(`loglevel: ${config.loglevel}`);
-Object.keys(winston.levels)
-winston.silly('silly: 👍');
-winston.debug('debug: 👍');
-winston.verbose('verbose: 👍');
-winston.info('info: 👍');
-winston.warn('warn: 👍');
-winston.error('error: 👍');
-winston.info('port: %s', config.port);
-winston.info('github hook secret: %s', !!config.ghsecret);
-
+Object.keys(winston.levels).forEach(x=>winston[x](`👍`));
+winston.info('listen port: %s', config.port);
 
 // express app
 const app = express();
-
-
-// set up pipeline
 
 // API
 app.use('/api', api());
