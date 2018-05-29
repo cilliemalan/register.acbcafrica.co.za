@@ -64,3 +64,4 @@ client_secret.json
 
 /.vscode/
 /submissions_backup.json
+/artifacts/
