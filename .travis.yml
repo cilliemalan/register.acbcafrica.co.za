@@ -3,10 +3,11 @@ node_js:
   - "10"
 cache: yarn
 env:
-  - NODE_ENV=production TIMESTAMP=$(date +%Y%m%d%H%M%S)
+  - TIMESTAMP=$(date +%Y%m%d%H%M%S)
 script:
   - yarn test
-  - yarn build
+  - NODE_ENV=production yarn build
+  - NODE_ENV=production yarn
   - mkdir -p artifacts && tar --exclude=artifacts --exclude=.git -zvcf artifacts/output-$TIMESTAMP.tar.gz .
 addons:
   artifacts:
