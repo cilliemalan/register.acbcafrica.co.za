@@ -8,7 +8,7 @@ env:
 script:
   - yarn test
   - yarn build
-  - tar -zcf output-$TIMESTAMP.tar.gz .
+  - tar -zvcf output-$TIMESTAMP.tar.gz .
 addons:
   artifacts:
     paths:
