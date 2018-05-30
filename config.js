@@ -2,7 +2,6 @@ const fs = require('fs');
 
 const port = process.env.PORT || 3000;
 const root = process.env.URL || "http://localhost:3000/";
-const ghsecret = process.env.GITHUB_HOOK_SECRET;
 const loglevel = process.env.LOGLEVEL || 'verbose';
 
 const issuer = process.env.JWT_ISSUER || "https://acbcafrica.eu.auth0.com/";
@@ -28,7 +27,6 @@ const production = environment == 'production';
 module.exports = {
     port,
     root,
-    ghsecret,
     loglevel,
     issuer,
     audience,

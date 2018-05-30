@@ -8,7 +8,6 @@ const express = require('express');
 const winston = require('winston');
 
 // local requires
-const webhooks = require('./webhooks');
 const api = require('./api');
 const config = require('./config');
 
@@ -26,9 +25,6 @@ const app = express();
 
 // API
 app.use('/api', api());
-
-// webhooks
-app.use('/webhooks', webhooks(config.ghsecret));
 
 // webpack
 if (!config.production) {
