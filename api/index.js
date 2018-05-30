@@ -49,7 +49,6 @@ const verifySignature = (sig) => {
     return false;
 };
 
-
 module.exports = () => {
 
     const api = express.Router();
