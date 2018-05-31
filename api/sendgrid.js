@@ -14,6 +14,7 @@ module.exports = {
     sendTransactionalMail: (to, templateId, subject = '', from = defaultFromEmail, substitutions = {}) => {
         if (sendGridKey) {
             winston.info(`sending transactional mail to ${to} from ${from} subject ${subject || '(default)'} using template ${templateId}`);
+            winston.silly(`substiutions: %O`, substitutions);
             var promise = sgMail.send({ to, from, subject, templateId, substitutions });
             promise.then(() => winston.verbose(`transactional mail successfully sent to ${to} using template ${templateId}`))
                 .catch(e => winston.error(`failed to send transactional mail to ${to} using template ${templateId}: ${e}`));
