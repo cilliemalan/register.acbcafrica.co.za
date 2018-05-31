@@ -19,6 +19,14 @@ const recaptcha = config.recaptchaKey ? new reCAPTCHA({
 
 const encryptionKey = config.recaptchaSecret || 'n/a';
 
+const formatCost = (a) =>
+    a == 0 ? '(nothing)' :
+        `R ${a.toLocaleString('en-ZA', {
+            style: 'decimal',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        })}`;
+
 if (recaptcha) winston.info('recaptcha active');
 else winston.info('recaptcha disabled due to no key');
 
@@ -127,15 +135,22 @@ module.exports = () => {
                             await fsp.appendFile(path.resolve(__dirname, '..', 'submissions_backup.json'), `${JSON.stringify(formData)}\n`);
 
                             await addEntryToSheet(sheet, { date: new Date(), ...formData });
-                            
+
                             if (mailTempateId) {
                                 try {
+                                    const substitutions = {
+                                        title, firstname, lastname,
+                                        conference: forms[form].title,
+                                        total: formatCost(formData.total),
+                                        reference: `${form}-${lastname} ${firstname}`
+                                    };
+
                                     await sendTransactionalMail(
                                         email,
                                         mailTempateId,
                                         undefined,
                                         undefined,
-                                        { ...details, conference: forms[form].title });
+                                        substitutions);
                                 } catch (e) {
                                     winston.error(`error sending confirmation email: ${e}`);
                                 }
