@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const port = process.env.PORT || 3000;
 const root = process.env.URL || "http://localhost:3000/";
-const loglevel = process.env.LOGLEVEL || 'verbose';
+const loglevel = process.env.LOGLEVEL || 'silly';
 
 const issuer = process.env.JWT_ISSUER || "https://acbcafrica.eu.auth0.com/";
 const audience = process.env.JWT_AUDIENCE || 'https://acbcafrica.co.za/';
