@@ -18,6 +18,7 @@ export const OptionsDisplay = ({ options, selection }) => {
                 const formattedCost = formatCost(option.cost);
                 return <li key={key}>
                     <div className="title">{option.title}</div>
+                    { option.subtitle && <div className="subtitle">{option.subtitle}</div> }
                     <div className="date">{formattedDate}</div>
                     <div className="cost"><label>Cost:&nbsp;</label>{formattedCost}</div>
                 </li>;

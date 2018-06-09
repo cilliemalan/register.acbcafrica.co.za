@@ -167,6 +167,7 @@ export class OptionsEditor extends React.Component {
                     return <li key={key} onClick={this.clickedItem}>
                         <div className="details">
                             <div className="title">{option.title}</div>
+                            { option.subtitle && <div className="subtitle">{option.subtitle}</div> }
                             <div className="date">{formattedDate}</div>
                             {selectedvalue && suboptionkeys ? render_suboptions() : undefined}
                             {formattedCost && <div className="cost"><label>Cost:&nbsp;</label>{formattedCost}</div>}
