@@ -102,6 +102,7 @@
             },
             "motheringmeal": {
                 "title": "Meal Option",
+                "subtitle": "Mild Thai Green Chicken Curry with Vegetables & Rice",
                 "from": "2018-08-09",
                 "cost": 40
             }
@@ -126,6 +127,7 @@
             },
             "fatheringmeal": {
                 "title": "Meal Option",
+                "subtitle": "Mild Thai Green Chicken Curry with Vegetables & Rice",
                 "from": "2018-08-10",
                 "cost": 40
             }
