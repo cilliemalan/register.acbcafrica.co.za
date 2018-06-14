@@ -24,7 +24,7 @@ const validateConferenceOptions = (value = {}, _, { fillingForm: { options } }) 
 let RegistrationForm = ({ fillingForm, handleSubmit }) => {
 
     return <form onSubmit={handleSubmit}>
-        <PersonalDetails />
+        <PersonalDetails form={fillingForm} />
         <Field component={OptionsEditor} name="options" validate={validateConferenceOptions} options={fillingForm.options} />
         <div className="form-group submit">
             <button>Submit</button>
