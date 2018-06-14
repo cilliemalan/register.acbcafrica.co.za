@@ -16,7 +16,7 @@ const telephone = value =>
 
 const renderField = ({ input, label, type, required, meta: { touched, error, warning } }) =>
     <div className={"form-group " + (required && "required ") + (touched && error && "error ")}>
-        <label htmlFor="firstname">{label}</label>
+        <label htmlFor={input.id}>{label}</label>
         <input {...input} type={type} />
         <div className="error">
             {touched && error}
