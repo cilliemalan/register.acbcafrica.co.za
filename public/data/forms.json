@@ -8,6 +8,18 @@
         "to": "2018-10-20",
         "location": "Lynnwood Baptist Church",
         "address": "52 Jacobson Dr, Lynnwood Ridge, Pretoria, South Africa",
+        "childcare": {
+            "title": "Children's Programme",
+            "subtitle": "A fully prepared programme will be run for the children during both the day and evening sessions.",
+            "minAge": 4,
+            "maxAge": 13,
+            "days": [
+                {"date":"2018-10-17", "slots": ["18:30 - 20:30"]},
+                {"date":"2018-10-18", "slots": ["11:00 - 17:00", "18:30 - 20:30"]},
+                {"date":"2018-10-19", "slots": ["11:00 - 17:00", "18:30 - 20:30"]},
+                {"date":"2018-10-20", "slots": ["11:00 - 17:00"]}
+            ]
+        },
         "options": {
             "pastors": {
                 "title": "Pastor's Pre-conference",
@@ -63,6 +75,18 @@
         "to": "2018-10-27",
         "location": "Goodwood Baptist Church",
         "address": "37 Milton Rd, Goodwood Estate, Cape Town, South Africa",
+        "childcare": {
+            "title": "Children's Programme",
+            "subtitle": "A fully prepared programme will be run for the children during both the day and evening sessions.",
+            "minAge": 4,
+            "maxAge": 13,
+            "days": [
+                {"date":"2018-10-24", "slots": ["18:30 - 20:30"]},
+                {"date":"2018-10-25", "slots": ["11:00 - 17:00", "18:30 - 20:30"]},
+                {"date":"2018-10-26", "slots": ["11:00 - 17:00", "18:30 - 20:30"]},
+                {"date":"2018-10-27", "slots": ["11:00 - 17:00"]}
+            ]
+        },
         "options": {
             "yfgw": {
                 "title": "ACBC Africa Conference 2018",
