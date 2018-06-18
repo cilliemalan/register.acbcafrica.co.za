@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { ChildcareEditor } from './ChildcareEditor';
 
 const required = value =>
     value && /[a-zA-Z]{2,}/.test(value)
@@ -23,7 +24,7 @@ const renderField = ({ input, label, type, required, meta: { touched, error, war
         </div>
     </div>;
 
-const PersonalDetails = (props) =>
+const PersonalDetails = ({ form: { childcare } }) =>
     <div>
         <h2>Personal Information</h2>
         <p>Please the personal information for the registrant.</p>
@@ -35,6 +36,7 @@ const PersonalDetails = (props) =>
         <Field component={renderField} label="Email" type="email" id="email" required autoComplete="email" validate={email} name="email" />
         <Field component={renderField} label="Which country are you from?" type="text" id="country" required autoComplete="country-name" validate={required} name="country" />
         <Field component={renderField} label="Which church are you from?" type="text" id="church" name="church" />
+        <ChildcareEditor {...childcare} />
     </div>;
 
 export { PersonalDetails };
