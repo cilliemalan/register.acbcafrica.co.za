@@ -55,7 +55,10 @@ export class ChildcareEditor extends React.Component {
             .uniq()
             .orderBy(x => x)
             .value();
+        const dates = days.map(({ date }) => date);
         const dateDays = days.map(({ date }) => moment(date).format('ddd'));
+        const daysByDate = {};
+        days.forEach(day => daysByDate[day.date] = day.slots);
 
         const child = (child, ix) =>
             <div key={ix} className="child">
@@ -72,15 +75,15 @@ export class ChildcareEditor extends React.Component {
 
                 <div className="form-group child-slots">
                     <label>
-                        {dateDays.map((day, d_ix) => <span key={d_ix} className="child-day">{day}</span>)}
+                        {dates.map((date, d_ix) => <span key={d_ix} className="child-day">{moment(date).format('ddd')}</span>)}
                     </label>
                     <div className="child-slots-container">
                         {slots.map((slot, s_ix) => <div key={s_ix}>
                             <div className="child-slot">{slot}</div>
-                            {dateDays.map((day, d_ix) => {
+                            {dates.map((date, d_ix) => {
                                 const value = child.days && (child.days[d_ix] || [])[s_ix] || false;
                                 return <div className="child-day" key={d_ix}>
-                                    <input type="checkbox" onChange={this.inputUpdate} value={value} name={`children[${ix}].days[${d_ix}][${s_ix}]`} />
+                                    {daysByDate[date].indexOf(slot) != -1 ? <input type="checkbox" onChange={this.inputUpdate} value={value} name={`children[${ix}].days[${d_ix}][${s_ix}]`} /> : undefined}
                                 </div>;
                             })}
                         </div>)}
