@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Field, FieldArray, reduxForm, formValueSelector, actionCreators } from 'redux-form';
-import { ChildcareEditor } from './ChildcareEditor';
+import { Field, formValueSelector } from 'redux-form';
 import _ from 'lodash';
 import moment from 'moment';
 
@@ -59,7 +58,7 @@ const renderField = ({ id, input, label, type, required, meta: { touched, error,
         </div>
     </div>;
 
-const renderCheckbox = ({ id, input, label, type, required, meta: { touched, error, warning } }) =>
+const renderCheckbox = ({ id, input, label, type }) =>
     <div>
         <input type={type}
             className="css-checkbox"
