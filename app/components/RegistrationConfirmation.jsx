@@ -21,7 +21,7 @@ export const RegistrationConfirmation = ({ submission, forms, onCancel, onSubmit
         return <div>
             <h1>Confirm Registration</h1>
             <ConferenceDetails form={form} message="Please confirm your registration." />
-            <SubmissionDetails submission={submission} />
+            <SubmissionDetails submission={submission} form={form} />
             <OptionsDisplay options={options} selection={selection} />
             <div className="confirmation-buttons">
                 <button type="button" onClick={onCancel}>Back</button>
