@@ -132,6 +132,7 @@ module.exports = () => {
             } else {
                 const { form, details } = body;
                 const formData = forms[form];
+                const childcareData = formsChildcare[form];
                 if (!form || !details || (typeof form != "string") || (typeof details != "object")) {
                     res.status(400).end('An invalid request was received');
                 } else if (!formData) {
@@ -139,8 +140,10 @@ module.exports = () => {
                 } else {
                     const { title, firstname, lastname,
                         contactNumber, email, country,
-                        church, options } = details;
+                        church, options,
+                        childcare, children } = details;
                     const { sheet, mailTempateId } = formData;
+                    const hasChildcare = !!childcareData && childcare && !!children.length;
 
                     if (!title || !firstname || !lastname || !contactNumber || !email || !options) {
                         res.status(400).end('An invalid request was received');
@@ -151,11 +154,32 @@ module.exports = () => {
                             const formData = {
                                 title, firstname, lastname,
                                 contactNumber, email, country,
-                                church, ...options
+                                church, childcare, ...options
                             };
+
+                            const childcareRows = (hasChildcare ? children : []).map(({ name, age, days }) => {
+                                const dayColumns = _(childcareData.dateDays)
+                                    .flatMap((day, d_ix) => childcareData.slots
+                                        .map((slot, s_ix) => ({ day, slot, value: days[d_ix][s_ix] })))
+                                    .map(({ day, slot, value }) => [`${day} ${slot}`, value])
+                                    .fromPairs()
+                                    .value();
+
+                                return ({
+                                    date: new Date(),
+                                    name, age,
+                                    parent: `${firstname} ${lastname}`,
+                                    ...dayColumns
+                                });
+                            });
 
                             await fsp.appendFile(path.resolve(__dirname, '..', 'submissions_backup.json'), `${JSON.stringify(formData)}\n`);
 
+                            for (let i = 0; i < childcareRows.length; i++) {
+                                const childcareRow = childcareRows[i];
+                                await fsp.appendFile(path.resolve(__dirname, '..', 'submissions_backup_childcare.json'), `${JSON.stringify(childcareRow)}\n`);
+                                await addEntryToSheet(`${sheet} - Childcare`, childcareRow);
+                            }
                             await addEntryToSheet(sheet, { date: new Date(), ...formData });
 
                             if (mailTempateId) {
@@ -164,7 +188,8 @@ module.exports = () => {
                                         title, firstname, lastname,
                                         conference: forms[form].title,
                                         total: formatCost(formData.total),
-                                        reference: `${form}-${lastname} ${firstname}`
+                                        reference: `${form}-${lastname} ${firstname}`,
+                                        childcare
                                     };
 
                                     await sendTransactionalMail(
