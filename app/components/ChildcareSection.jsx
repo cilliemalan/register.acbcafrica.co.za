@@ -1,7 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Field, FieldArray, reduxForm, formValueSelector, actionCreators } from 'redux-form';
-import _ from 'lodash';
+import { Field, FieldArray } from 'redux-form';
 import moment from 'moment';
 
 const validateChildFunctions = {};
@@ -105,7 +103,7 @@ const renderChildren = ({ fields, meta: { error, submitFailed }, minAge, maxAge,
     if (fields.length == 0) {
         fields.push({});
     }
-    
+
     return <div className="children-list">
         {fields.map((member, index) =>
             <Field component={renderChild}
