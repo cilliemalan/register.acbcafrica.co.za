@@ -43,7 +43,7 @@ let PersonalDetails = ({ needsChildcare, fillingForm: { childcare } }) => {
     const minAge = childcare && childcare.minAge;
     const maxAge = childcare && childcare.maxAge;
 
-    const days = childcare.days || [];
+    const days = childcare && childcare.days || [];
     const slots = _(days)
         .flatMap(day => day.slots)
         .uniq()
