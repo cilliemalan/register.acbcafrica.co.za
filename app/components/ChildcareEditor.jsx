@@ -97,6 +97,27 @@ export class ChildcareEditor extends React.Component {
             </div>;
 
         const childcareOptions = () => <div>
+            <p>
+                The Children's programme is available at these times:
+            </p>
+            <table className="childcare-table" cellPadding="0" cellSpacing="0">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Times</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {dates.map(date => <tr key={date}>
+                        <td>{moment(date).format('ddd, DD MMM')}</td>
+                        <td>{daysByDate[date].join(', ')}</td>
+                    </tr>)}
+                </tbody>
+            </table>
+            <p>
+                Please enter the information for each of your children, indicating
+                the timeslots where he or she will attend the children's programme.
+            </p>
             {this.state.children.map(child)}
             <div>
                 <a href="javascript:void(0)" onClick={this.addClick}>add another</a>
@@ -105,13 +126,16 @@ export class ChildcareEditor extends React.Component {
 
 
         return <div>
-            <div className="form-group">
-                <label htmlFor="childcarecheck">Do you require childcare?</label>
+            <div>
+                <h2 htmlFor="childcarecheck">{title}</h2>
+                <p>{subtitle}</p>
                 <input type="checkbox"
+                    className="css-checkbox"
                     id="childcarecheck"
                     onChange={this.inputUpdate}
                     value={this.state.needschildcare}
                     name="needschildcare" />
+                <label className="css-label" for="childcarecheck">I Require Childcare</label>
                 <div className="error"></div>
             </div>
             {this.state.needschildcare ? childcareOptions() : undefined}
