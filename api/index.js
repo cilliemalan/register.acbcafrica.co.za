@@ -8,6 +8,8 @@ const cookieParser = require('cookie-parser');
 const fs = require('fs');
 const fsp = require('fs').promises;
 const path = require('path');
+const _ = require('lodash');
+const moment = require('moment');
 
 const config = require('../config');
 const { sendTransactionalMail } = require('./sendgrid');
@@ -18,6 +20,26 @@ const recaptcha = config.recaptchaKey ? new reCAPTCHA({
 }) : undefined;
 
 const encryptionKey = config.recaptchaSecret || 'n/a';
+
+
+// prepare childcare data for forms
+const formsChildcare = _(forms).toPairs()
+    .filter(([_, { childcare }]) => childcare)
+    .map(([id, { childcare }]) => {
+        const days = childcare && childcare.days || [];
+        const slots = _(days)
+            .flatMap(day => day.slots)
+            .uniq()
+            .orderBy(x => x)
+            .value();
+        const dates = days.map(({ date }) => date);
+        const dateDays = days.map(({ date }) => moment(date).format('ddd'));
+        const daysByDate = {};
+        days.forEach(day => daysByDate[day.date] = day.slots);
+
+        return [id, { slots, dates, dateDays, daysByDate, ...childcare }];
+    }).fromPairs()
+    .value();
 
 const formatCost = (a) =>
     a == 0 ? '(nothing)' :
