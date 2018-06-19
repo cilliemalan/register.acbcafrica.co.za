@@ -47,9 +47,11 @@ const renderChild = ({ id, input, label, type, dates, daysByDate, slots, onRemov
                 type == 'checkbox' ? checked : newValue,
                 value));
 
+    const canShowError = (touched || (value.name !== undefined && value.age !== undefined));
+
     return <div className="child-container">
         <div className="child">
-            <div className="form-group child-name">
+            <div className={"form-group child-name required " + (canShowError && error && "error ")}>
                 <label htmlFor={`${id}-name`}>Child Name</label>
                 <input type="text"
                     value={value.name || ''}
@@ -57,7 +59,7 @@ const renderChild = ({ id, input, label, type, dates, daysByDate, slots, onRemov
                     onFocus={onFocus}
                     id={`${id}-name`} />
             </div>
-            <div className="form-group child-age">
+            <div className={"form-group child-age required " + (canShowError && error && "error ")}>
                 <label htmlFor={`${id}-age`}>Age</label>
                 <input type="text"
                     value={value.age || ''}
@@ -65,7 +67,7 @@ const renderChild = ({ id, input, label, type, dates, daysByDate, slots, onRemov
                     onFocus={onFocus}
                     id={`${id}-age`} />
             </div>
-            <div className="form-group child-slots">
+            <div className={"form-group child-slots required " + (canShowError && error && "error ")}>
                 <label>
                     {dates.map((date, d_ix) => <span key={d_ix} className="child-day">{moment(date).format('ddd')}</span>)}
                 </label>
@@ -95,7 +97,7 @@ const renderChild = ({ id, input, label, type, dates, daysByDate, slots, onRemov
                 <a href="javascript:void(0)" onClick={onRemove}>🗑️&nbsp;Remove</a>
             </div>
         </div>
-        <div className="error">{(value.name !== undefined && value.age !== undefined) && error}</div>
+        <div className="error">{canShowError && error}</div>
     </div>
 };
 
