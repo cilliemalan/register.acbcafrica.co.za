@@ -66,9 +66,13 @@ ul.conference-items {
             @media (max-width: 480px) {
                 width: 35px;
                 label.css-label {
-                    width: 0;
+                    width: 30px;
                     color:rgba(0,0,0,0);
                     overflow:hidden;
+                    vertical-align: middle;
+                    height: 30px;
+                    padding: 0;
+                    line-height: 0;
                 }
             }
         }

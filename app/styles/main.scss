@@ -94,6 +94,15 @@ h1 + p, h2 + p, h3 + p {
     }
 }
 
+.only-big {
+    display: none;
+}
+
+@media (min-width: 650px) {
+    .only-big {
+        display: inline;
+    }
+}
 
 
 
