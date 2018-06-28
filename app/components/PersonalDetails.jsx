@@ -69,7 +69,7 @@ let PersonalDetails = ({ needsChildcare, fillingForm: { childcare } }) => {
             ? <div>
                 <h2 htmlFor="childcare">{childcareTitle}</h2>
                 <p>{childcareSubtitle}</p>
-                <Field component={renderCheckbox} label="I Require Childcare" type="checkbox" id="childcare" name="childcare" />
+                <Field component={renderCheckbox} label={<span><span className="only-big">I'm interested in the</span> Children's Bible Club</span>} type="checkbox" id="childcare" name="childcare" />
                 {needsChildcare
                     ? <ChildcareSection dates={dates}
                         daysByDate={daysByDate}

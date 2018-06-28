@@ -124,7 +124,7 @@ const renderChildren = ({ fields, meta: { error, submitFailed }, minAge, maxAge,
 
 export const ChildcareSection = ({ dates, daysByDate, minAge, maxAge, ...props }) => <div>
     <p>
-        The Childrens' programme is available to children from ages <strong>{minAge}</strong> to <strong>{maxAge}</strong> The Childrens' programme is available at these times:
+        The Children's Bible Club is available to children from ages <strong>{minAge}</strong> to <strong>{maxAge}</strong> The Childrens' programme is available at these times:
     </p>
     <table className="childcare-table" cellPadding="0" cellSpacing="0">
         <thead>
@@ -142,7 +142,7 @@ export const ChildcareSection = ({ dates, daysByDate, minAge, maxAge, ...props }
     </table>
     <p>
         Please enter the information for each of your children, indicating
-        the timeslots where he or she will attend the children's programme.
+        the timeslots where he or she will attend the Children's Bible Club.
     </p>
     <FieldArray name="children"
         component={renderChildren}
