@@ -29,6 +29,12 @@ class App extends React.Component {
 
         this.onFormSubmit = this.onFormSubmit.bind(this);
     }
+    
+    componentDidUpdate(prevProps) {
+      if (this.props.location !== prevProps.location) {
+        window.scrollTo(0, 0);
+      }
+    }
 
     componentDidMount() {
         const { dispatch } = this.props;
