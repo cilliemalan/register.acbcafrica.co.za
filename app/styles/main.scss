@@ -105,6 +105,15 @@ h1 + p, h2 + p, h3 + p {
 }
 
 
+.make-them-see {
+    font-size: 3em;
+    margin-bottom:40px;
+
+    @media (max-width: 550px) {
+        font-size: 2em;
+    }
+    
+}
 
 @import 'forms.scss';
 @import 'options.scss';

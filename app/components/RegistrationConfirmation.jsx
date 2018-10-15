@@ -19,7 +19,7 @@ export const RegistrationConfirmation = ({ submission, forms, onCancel, onSubmit
         return <Spinner />;
     } else {
         return <div>
-            <h1>Confirm Registration</h1>
+            <h1 className="make-them-see">You're almost done!</h1>
             <ConferenceDetails form={form} message="Please confirm your registration." />
             <SubmissionDetails submission={submission} form={form} />
             <OptionsDisplay options={options} selection={selection} />
