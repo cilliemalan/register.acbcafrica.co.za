@@ -14,7 +14,7 @@ const clientSecret = process.env.OAUTH_CLIENT_SECRET;
 const recaptchaKey = process.env.RECAPTCHA_KEY;
 const recaptchaSecret = process.env.RECAPTCH_SECRET;
 
-const gaTrackingId = process.env.GA_TRACKING_ID || 'UA-114404288-1';
+const gaTrackingId = process.env.GA_TRACKING_ID || 'UA-27297702-3';
 
 const googleSheet = process.env.GOOGLE_SHEET;
 
