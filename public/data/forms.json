@@ -1,110 +1,39 @@
-
 {
-    "yfgw-pretoria": {
-        "image": "/content/yfgw-pretoria-button.jpg",
-        "title": "Your Family God's Way Pretoria",
-        "sheet": "YFGW Pretoria",
-        "mailTempateId": "77a03cb1-3a50-4ffa-919f-896ef45429ae",
-        "from": "2018-10-17",
-        "to": "2018-10-20",
+    "2019-conference": {
+        "image": "/content/jim-newheiser.jpg",
+        "title": "2019 ACBC Africa Conference",
+        "sheet": "2019 Conference",
+        "mailTempateId": "d-8e120308de7040deb8fdad3b657f4530",
+        "from": "2019-08-07",
+        "to": "2019-08-10",
         "location": "Lynnwood Baptist Church",
         "address": "52 Jacobson Dr, Lynnwood Ridge, Pretoria, South Africa",
-        "childcare": {
-            "title": "Children's Bible Club",
-            "subtitle": "A fully prepared programme will be run for the children during both the day and evening sessions.",
-            "minAge": 4,
-            "maxAge": 13,
-            "days": [
-                {"date":"2018-10-17", "slots": ["18:30 - 20:30"]},
-                {"date":"2018-10-18", "slots": ["11:00 - 17:00", "18:30 - 20:30"]},
-                {"date":"2018-10-19", "slots": ["11:00 - 17:00", "18:30 - 20:30"]},
-                {"date":"2018-10-20", "slots": ["11:00 - 17:00"]}
-            ]
-        },
         "options": {
-            "pastors": {
-                "title": "Pastor's Pre-conference",
-                "from": "2018-10-16 08:30",
-                "to": "2018-10-16 12:00",
-                "cost": 0,
-                "required": true
-            },
-            "womens": {
-                "title": "Women's Pre-conference",
-                "from": "2018-10-17 08:30",
-                "to": "2018-10-17 12:00",
-                "cost": 0,
-                "required": true
-            },
-            "yfgw": {
-                "title": "ACBC Africa Conference 2018",
-                "subtitle": "Your Family God’s Way",
-                "from": "2018-10-17 19:00",
-                "to": "2018-10-20 17:00",
+            "conference": {
+                "title": "ACBC Africa Conference 2019",
+                "from": "2019-08-07",
+                "to": "2019-08-10",
                 "required": true,
                 "options": {
                     "fullconference": {
                         "title": "Full conference",
-                        "cost": 350
+                        "cost": 375
                     },
                     "saturdayonly": {
                         "title": "Saturday only",
-                        "cost": 100
+                        "cost": 125
                     }
                 }
             },
             "food1": {
                 "title": "Thursday Meal Option",
-                "subtitle": "Italian roasted chicken, roasted vegetables and rice",
                 "from": "2018-10-18",
-                "cost": 50
+                "cost": 60
             },
             "food2": {
                 "title": "Friday Meal Option",
-                "subtitle": "Roti with beef curry and chutney",
                 "from": "2018-10-19",
                 "cost": 60
-            }
-        }
-    },
-    "yfgw-capetown": {
-        "image": "/content/yfgw-capetown-button.jpg",
-        "title": "Your Family God's Way Cape Town",
-        "sheet": "YFGW Cape Town",
-        "mailTempateId": "77a03cb1-3a50-4ffa-919f-896ef45429ae",
-        "from": "2018-10-24",
-        "to": "2018-10-27",
-        "location": "Goodwood Baptist Church",
-        "address": "37 Milton Rd, Goodwood Estate, Cape Town, South Africa",
-        "childcare": {
-            "title": "Children's Bible Club",
-            "subtitle": "A fully prepared programme will be run for the children during both the day and evening sessions.",
-            "minAge": 4,
-            "maxAge": 13,
-            "days": [
-                {"date":"2018-10-24", "slots": ["18:30 - 20:30"]},
-                {"date":"2018-10-25", "slots": ["11:00 - 17:00", "18:30 - 20:30"]},
-                {"date":"2018-10-26", "slots": ["11:00 - 17:00", "18:30 - 20:30"]},
-                {"date":"2018-10-27", "slots": ["11:00 - 17:00"]}
-            ]
-        },
-        "options": {
-            "yfgw": {
-                "title": "ACBC Africa Conference 2018",
-                "subtitle": "Your Family God’s Way",
-                "from": "2018-10-24 19:00",
-                "to": "2018-10-27 17:00",
-                "required": true,
-                "options": {
-                    "fullconference": {
-                        "title": "Full conference",
-                        "cost": 350
-                    },
-                    "saturdayonly": {
-                        "title": "Saturday only",
-                        "cost": 100
-                    }
-                }
             }
         }
     }
