@@ -1,16 +1,16 @@
 {
     "2019-conference": {
-        "image": "/content/jim-newheiser.jpg",
-        "title": "2019 ACBC Africa Conference",
-        "sheet": "2019 Conference",
-        "mailTempateId": "d-8e120308de7040deb8fdad3b657f4530",
+        "image": "/content/jim-newheiser-pta.jpg",
+        "title": "2019 ACBC Africa Conference Pretoria",
+        "sheet": "2019 Conference Pretoria",
+        "mailTempateId": "d6512d04-7110-4934-a3b1-5b64f58ead6c",
         "from": "2019-08-07",
         "to": "2019-08-10",
         "location": "Lynnwood Baptist Church",
         "address": "52 Jacobson Dr, Lynnwood Ridge, Pretoria, South Africa",
         "options": {
             "conference": {
-                "title": "ACBC Africa Conference 2019",
+                "title": "ACBC Africa Conference 2019 Pretoria",
                 "from": "2019-08-07",
                 "to": "2019-08-10",
                 "required": true,
@@ -27,13 +27,41 @@
             },
             "food1": {
                 "title": "Thursday Meal Option",
-                "from": "2018-10-18",
+                "from": "2018-08-08",
                 "cost": 60
             },
             "food2": {
                 "title": "Friday Meal Option",
-                "from": "2018-10-19",
+                "from": "2018-08-09",
                 "cost": 60
+            }
+        }
+    },
+    "2019-conference-cpt": {
+        "image": "/content/jim-newheiser-cpt.jpg",
+        "title": "2019 ACBC Africa Conference Cape Town",
+        "sheet": "2019 Conference Cape Town",
+        "mailTempateId": "d6512d04-7110-4934-a3b1-5b64f58ead6c",
+        "from": "2019-08-14",
+        "to": "2019-08-17",
+        "location": "The Reformed Church of Hout Bay",
+        "address": "Corner of Victoria Road, Hout Bay Main Road, Hout Bay, Western Cape, South Africa",
+        "options": {
+            "conference": {
+                "title": "ACBC Africa Conference 2019 Cape Town",
+                "from": "2019-08-14",
+                "to": "2019-08-17",
+                "required": true,
+                "options": {
+                    "fullconference": {
+                        "title": "Full conference",
+                        "cost": 375
+                    },
+                    "saturdayonly": {
+                        "title": "Saturday only",
+                        "cost": 125
+                    }
+                }
             }
         }
     }
