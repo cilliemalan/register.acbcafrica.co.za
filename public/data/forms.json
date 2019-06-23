@@ -98,6 +98,16 @@
                         "cost": 125
                     }
                 }
+            },
+            "food1": {
+                "title": "Thursday Meal Option",
+                "from": "2018-08-15",
+                "cost": 0
+            },
+            "food2": {
+                "title": "Friday Meal Option",
+                "from": "2018-08-16",
+                "cost": 0
             }
         }
     }
