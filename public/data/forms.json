@@ -1,4 +1,40 @@
 {
+    "2019-pastors-preconference": {
+        "image": "/content/domestic-abuse.jpg",
+        "title": "Pastor's Pre-Conference: Domestic Abuse and the Church",
+        "sheet": "2019 Pastor's Pre-Conference",
+        "mailTempateId": "d6512d04-7110-4934-a3b1-5b64f58ead6c",
+        "from": "2019-08-06 8:30",
+        "to": "2019-08-06 12:00",
+        "location": "Lynnwood Baptist Church",
+        "address": "52 Jacobson Dr, Lynnwood Ridge, Pretoria, South Africa",
+        "options":{
+            "conference": {
+                "title": "Pastor's Pre-Conference",
+                "from": "2019-08-06 8:30",
+                "to": "2019-08-06 12:00",
+                "required": true
+            }
+        }
+    },
+    "2019-womens-preconference": {
+        "image": "/content/people-pleasing.jpg",
+        "title": "Women's Pre-Conference: Cracking Free from People Pleasing",
+        "sheet": "2019 Women's Pre-Conference",
+        "mailTempateId": "d6512d04-7110-4934-a3b1-5b64f58ead6c",
+        "from": "2019-08-07 08:30",
+        "to": "2019-08-07 12:00",
+        "location": "Lynnwood Baptist Church",
+        "address": "52 Jacobson Dr, Lynnwood Ridge, Pretoria, South Africa",
+        "options":{
+            "conference": {
+                "title": "Women's Pre-Conference",
+                "from": "2019-08-07 8:30",
+                "to": "2019-08-07 12:00",
+                "required": true
+            }
+        }
+    },
     "2019-conference": {
         "image": "/content/jim-newheiser-pta.jpg",
         "title": "2019 ACBC Africa Conference Pretoria",
