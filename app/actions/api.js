@@ -97,7 +97,7 @@ const validateToken = () => tokenValidated
         .then(r => r.text())
         .then(r => r == '👍');
 
-export const fetchForms = () => _fetch('/data/forms.json')
+export const fetchForms = () => _fetch(`/data/forms.json?${new Date().getTime()}`)
     .then(response => response.json())
     .then(forms => {
         Object.values(forms).forEach(form => {
