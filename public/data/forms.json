@@ -1,6 +1,6 @@
 {
     "2019-pastors-preconference": {
-        "image": "/content/domestic-abuse.jpg",
+        "image": "/content/2019-pastors.jpg",
         "title": "Pastor's Pre-Conference: Domestic Abuse and the Church",
         "sheet": "2019 Pastors Pre-Conference",
         "mailTempateId": "d6512d04-7110-4934-a3b1-5b64f58ead6c",
@@ -18,7 +18,7 @@
         }
     },
     "2019-womens-preconference": {
-        "image": "/content/people-pleasing.jpg",
+        "image": "/content/2019-womens.jpg",
         "title": "Women's Pre-Conference: Cracking Free from People Pleasing",
         "sheet": "2019 Womens Pre-Conference",
         "mailTempateId": "d6512d04-7110-4934-a3b1-5b64f58ead6c",
@@ -36,7 +36,7 @@
         }
     },
     "2019-conference": {
-        "image": "/content/jim-newheiser-pta.jpg",
+        "image": "/content/2019-pretoria.jpg",
         "title": "2019 ACBC Africa Conference Pretoria",
         "sheet": "2019 Conference Pretoria",
         "mailTempateId": "d6512d04-7110-4934-a3b1-5b64f58ead6c",
@@ -58,6 +58,10 @@
                     "saturdayonly": {
                         "title": "Saturday only",
                         "cost": 125
+                    },
+                    "students": {
+                        "title": "Students Discount",
+                        "cost": 100
                     }
                 }
             },
@@ -74,7 +78,7 @@
         }
     },
     "2019-conference-cpt": {
-        "image": "/content/jim-newheiser-cpt.jpg",
+        "image": "/content/2019-capetown.jpg",
         "title": "2019 ACBC Africa Conference Cape Town",
         "sheet": "2019 Conference Cape Town",
         "mailTempateId": "d6512d04-7110-4934-a3b1-5b64f58ead6c",
