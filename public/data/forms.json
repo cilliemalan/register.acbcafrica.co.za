@@ -53,15 +53,15 @@
                 "options": {
                     "fullconference": {
                         "title": "Full conference",
-                        "cost": 375
+                        "cost": 425
                     },
                     "saturdayonly": {
                         "title": "Saturday only",
-                        "cost": 125
+                        "cost": 175
                     },
                     "students": {
-                        "title": "Students Discount",
-                        "cost": 100
+                        "title": "Student Price full conference",
+                        "cost": 325
                     }
                 }
             },
@@ -95,11 +95,15 @@
                 "options": {
                     "fullconference": {
                         "title": "Full conference",
-                        "cost": 375
+                        "cost": 425
                     },
                     "saturdayonly": {
                         "title": "Saturday only",
-                        "cost": 125
+                        "cost": 175
+                    },
+                    "students": {
+                        "title": "Student Price full conference",
+                        "cost": 325
                     }
                 }
             },
