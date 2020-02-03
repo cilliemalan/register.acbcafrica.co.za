@@ -125,14 +125,14 @@
         "sheet": "2020 Conference Pretoria",
         "mailTempateId": "d6512d04-7110-4934-a3b1-5b64f58ead6c",
         "from": "2020-08-05",
-        "to": "2019-08-08",
+        "to": "2020-08-08",
         "location": "Lynnwood Baptist Church",
         "address": "52 Jacobson Dr, Lynnwood Ridge, Pretoria, South Africa",
         "options": {
             "conference": {
                 "title": "ACBC Africa Conference 2020 Pretoria",
                 "from": "2020-08-05",
-                "to": "2019-08-08",
+                "to": "2020-08-08",
                 "required": true,
                 "options": {
                     "fullconference": {
@@ -156,7 +156,7 @@
             },
             "food2": {
                 "title": "Friday Meal Option",
-                "from": "2018-08-07",
+                "from": "2020-08-07",
                 "cost": 0
             }
         }
@@ -167,14 +167,14 @@
         "sheet": "2020 Conference Cape Town",
         "mailTempateId": "d6512d04-7110-4934-a3b1-5b64f58ead6c",
         "from": "2020-08-12",
-        "to": "2019-08-15",
+        "to": "2020-08-15",
         "location": "Christ Church Tygerberg",
         "address": "22 Malmesbury Rd, Welgelegen 2, Cape Town, 7500",
         "options": {
             "conference": {
                 "title": "ACBC Africa Conference 2020 Cape Town",
                 "from": "2020-08-12",
-                "to": "2019-08-15",
+                "to": "2020-08-15",
                 "required": true,
                 "options": {
                     "fullconference": {
@@ -198,7 +198,7 @@
             },
             "food2": {
                 "title": "Friday Meal Option",
-                "from": "2018-08-14",
+                "from": "2020-08-14",
                 "cost": 0
             }
         }
