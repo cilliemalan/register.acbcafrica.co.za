@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchForms } from '../actions';
 import { Spinner } from '../components/Spinner';
+import moment from 'moment';
 const Fragment = React.Fragment;
 
 const mapStateToProps = (state) => ({
@@ -14,7 +15,13 @@ class Home extends React.Component {
 
     render() {
         const { forms, loading } = this.props;
-        const sortedForms = Object.keys(forms);
+
+        const isRelevant = (k) => {
+            const form = forms[k];
+            return (!form.to && !form.from) || moment(form.to || form.from).isAfter(moment().add(1, 'week'));
+        }
+
+        const sortedForms = Object.keys(forms).filter(isRelevant);
         const any = !!sortedForms.length;
         sortedForms.sort((a, b) => forms[a].from > forms[b].from);
 
