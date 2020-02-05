@@ -148,16 +148,6 @@
                         "cost": 350
                     }
                 }
-            },
-            "food1": {
-                "title": "Thursday Meal Option",
-                "from": "2020-08-06",
-                "cost": 0
-            },
-            "food2": {
-                "title": "Friday Meal Option",
-                "from": "2020-08-07",
-                "cost": 0
             }
         }
     },
@@ -190,16 +180,6 @@
                         "cost": 350
                     }
                 }
-            },
-            "food1": {
-                "title": "Thursday Meal Option",
-                "from": "2020-08-13",
-                "cost": 0
-            },
-            "food2": {
-                "title": "Friday Meal Option",
-                "from": "2020-08-14",
-                "cost": 0
             }
         }
     }
