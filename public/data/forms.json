@@ -182,5 +182,69 @@
                 }
             }
         }
+    },
+    "2021-conference-pta": {
+        "image": "/content/2021-pretoria.jpg",
+        "title": "2021 ACBC Africa Conference Pretoria",
+        "sheet": "2021 Conference Pretoria",
+        "mailTempateId": "d6512d04-7110-4934-a3b1-5b64f58ead6c",
+        "from": "2021-08-04",
+        "to": "2021-08-07",
+        "location": "Lynnwood Baptist Church",
+        "address": "52 Jacobson Dr, Lynnwood Ridge, Pretoria, South Africa",
+        "options": {
+            "conference": {
+                "title": "ACBC Africa Conference 2021 Pretoria",
+                "from": "2021-08-04",
+                "to": "2021-08-07",
+                "required": true,
+                "options": {
+                    "fullconference": {
+                        "title": "Full conference",
+                        "cost": 475
+                    },
+                    "saturdayonly": {
+                        "title": "Saturday only",
+                        "cost": 225
+                    },
+                    "students": {
+                        "title": "SMTI Student Price full conference",
+                        "cost": 375
+                    }
+                }
+            }
+        }
+    },
+    "2021-conference-dbn": {
+        "image": "/content/2021-durban.jpg",
+        "title": "2021 ACBC Africa Conference Durban",
+        "sheet": "2021 Conference Durban",
+        "mailTempateId": "d6512d04-7110-4934-a3b1-5b64f58ead6c",
+        "from": "2021-08-11",
+        "to": "2021-08-14",
+        "location": null,
+        "address": null,
+        "options": {
+            "conference": {
+                "title": "ACBC Africa Conference 2021 Durban",
+                "from": "2021-08-11",
+                "to": "2021-08-14",
+                "required": true,
+                "options": {
+                    "fullconference": {
+                        "title": "Full conference",
+                        "cost": 475
+                    },
+                    "saturdayonly": {
+                        "title": "Saturday only",
+                        "cost": 225
+                    },
+                    "students": {
+                        "title": "SMTI Student Price full conference",
+                        "cost": 375
+                    }
+                }
+            }
+        }
     }
 }
