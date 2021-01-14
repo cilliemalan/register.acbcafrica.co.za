@@ -188,6 +188,7 @@ module.exports = () => {
                                         title, firstname, lastname,
                                         conference: forms[form].title,
                                         total: formatCost(formData.total),
+                                        free: !formData.total,
                                         reference: `${form}-${lastname} ${firstname}`,
                                         childcare
                                     };
