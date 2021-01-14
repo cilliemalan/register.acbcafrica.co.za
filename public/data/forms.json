@@ -187,7 +187,7 @@
         "image": "/content/2021-pretoria.jpg",
         "title": "2021 ACBC Africa Conference Pretoria",
         "sheet": "2021 Conference Pretoria",
-        "mailTempateId": "d6512d04-7110-4934-a3b1-5b64f58ead6c",
+        "mailTempateId": "d-8e120308de7040deb8fdad3b657f4530",
         "from": "2021-08-04",
         "to": "2021-08-07",
         "location": "Lynnwood Baptist Church",
@@ -219,11 +219,11 @@
         "image": "/content/2021-durban.jpg",
         "title": "2021 ACBC Africa Conference Durban",
         "sheet": "2021 Conference Durban",
-        "mailTempateId": "d6512d04-7110-4934-a3b1-5b64f58ead6c",
+        "mailTempateId": "d-8e120308de7040deb8fdad3b657f4530",
         "from": "2021-08-11",
         "to": "2021-08-14",
-        "location": null,
-        "address": null,
+        "location": "Hillcrest Baptist Church",
+        "address": "37 Old Main Rd, Hilldene, Durban, 3652",
         "options": {
             "conference": {
                 "title": "ACBC Africa Conference 2021 Durban",
