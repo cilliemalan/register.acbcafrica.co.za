@@ -42,12 +42,12 @@ const formsChildcare = _(forms).toPairs()
     .value();
 
 const formatCost = (a) =>
-    a == 0 ? '(nothing)' :
-        `R ${a.toLocaleString('en-ZA', {
+    a == 0 ? '(nothing)'
+        : a.toLocaleString('en-ZA', {
             style: 'decimal',
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
-        })}`;
+        });
 
 if (recaptcha) winston.info('recaptcha active');
 else winston.info('recaptcha disabled due to no key');
