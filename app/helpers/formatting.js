@@ -13,13 +13,21 @@ export const formatSingleDate = (date) => {
 export const datesEqual = (a, b) => a.getTime() == b.getTime();
 
 export const formatDate = (from, to) => {
-    return to && !datesEqual(from, to) ? `${formatSingleDate(from)} — ${formatSingleDate(to)}`
-        : `${formatSingleDate(from)}`;
+    if (from || to) {
+        return to && !datesEqual(from, to) ? `${formatSingleDate(from)} — ${formatSingleDate(to)}`
+            : `${formatSingleDate(from)}`;
+    } else {
+        return '';
+    }
 };
 
 export const formatDateSentence = (from, to) => {
-    return to && !datesEqual(from, to) ? `from ${formatSingleDate(from)} to ${formatSingleDate(to)}`
-        : `on ${formatSingleDate(from)}`;
+    if (from || to) {
+        return to && !datesEqual(from, to) ? `from ${formatSingleDate(from)} to ${formatSingleDate(to)}`
+            : `on ${formatSingleDate(from)}`;
+    } else {
+        return '';
+    }
 };
 
 export const formatCost = (a) => {
