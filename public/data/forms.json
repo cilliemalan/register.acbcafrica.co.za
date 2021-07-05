@@ -183,65 +183,20 @@
             }
         }
     },
-    "2021-conference-pta": {
-        "image": "/content/2021-pretoria.jpg",
-        "title": "2021 ACBC Africa Conference Pretoria",
-        "sheet": "2021 Conference Pretoria",
+    "2021-conference-online": {
+        "image": "/content/2021-online.jpg",
+        "title": "2021 ACBC Africa Conference Online",
+        "sheet": "2021 Conference Online",
         "mailTempateId": "d-8e120308de7040deb8fdad3b657f4530",
-        "from": "2021-08-04",
-        "to": "2021-08-07",
-        "location": "Lynnwood Baptist Church",
-        "address": "52 Jacobson Dr, Lynnwood Ridge, Pretoria, South Africa",
+        "online": true,
         "options": {
             "conference": {
-                "title": "ACBC Africa Conference 2021 Pretoria",
-                "from": "2021-08-04",
-                "to": "2021-08-07",
+                "title": "ACBC Africa Conference 2021 Online",
                 "required": true,
                 "options": {
-                    "fullconference": {
-                        "title": "Full conference",
-                        "cost": 475
-                    },
-                    "saturdayonly": {
-                        "title": "Saturday only",
-                        "cost": 225
-                    },
-                    "students": {
-                        "title": "SMTI Student Price full conference",
-                        "cost": 375
-                    }
-                }
-            }
-        }
-    },
-    "2021-conference-dbn": {
-        "image": "/content/2021-durban.jpg",
-        "title": "2021 ACBC Africa Conference Durban",
-        "sheet": "2021 Conference Durban",
-        "mailTempateId": "d-8e120308de7040deb8fdad3b657f4530",
-        "from": "2021-08-11",
-        "to": "2021-08-14",
-        "location": "Hillcrest Baptist Church",
-        "address": "37 Old Main Rd, Hillcrest, Durban, 3610",
-        "options": {
-            "conference": {
-                "title": "ACBC Africa Conference 2021 Durban",
-                "from": "2021-08-11",
-                "to": "2021-08-14",
-                "required": true,
-                "options": {
-                    "fullconference": {
-                        "title": "Full conference",
-                        "cost": 475
-                    },
-                    "saturdayonly": {
-                        "title": "Saturday only",
-                        "cost": 225
-                    },
-                    "students": {
-                        "title": "SMTI Student Price full conference",
-                        "cost": 375
+                    "online": {
+                        "title": "Online conference",
+                        "cost": 200
                     }
                 }
             }
